@@ -2,12 +2,11 @@ import commands
 import os
 import shutil
 import tempfile
-from flask.ext.babelex import gettext
+#from flask.ext.babelex import gettext
 from transliterate import translit
 from app import app
 
 config = app.config
-
 
 def _cli_command(cmd):
     shell_cmd = "%s -rx '%s'" % (config['ASTERISK_EXECUTABLE'], cmd)
@@ -20,7 +19,7 @@ def _cli_command(cmd):
     if status != 0:
         raise Exception(output)
     return output
-    
+
 
 
 def confbridge_list():
@@ -83,12 +82,13 @@ def confbridge_list_participants(confno):
 
 
 def originate(confnum, number, name='', bridge_options=[], user_options=[]):
+    # TODO: replace to mkstemp()
     tempname = tempfile.mktemp()
     f = open(tempname, mode='w')
-    f.write(config['CALLOUT_TEMPLATE'] % {'number': number,
-                                              'name': translit(name, 'ru',
-                                                               reversed=True),
-                                              'confnum': confnum})
+    f.write(config['CALLOUT_TEMPLATE'] % {
+                                            'number': number,
+                                            'name': translit(name, 'ru', reversed=True),
+                                            'confnum': confnum})
     f.write('\n')
     # Now iterate over profile options
     for option in user_options:
@@ -174,7 +174,7 @@ def confbridge_lock(confno):
 
 def confbridge_unlock(confno):
     return _cli_command('confbridge unlock %s' % confno)
-    
+
 
 def confbridge_record_start(confno):
     return _cli_command('confbridge record start %s' % confno)

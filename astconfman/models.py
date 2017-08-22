@@ -1,7 +1,9 @@
+import random
+import string
 from os.path import dirname, join
 from datetime import datetime
+from flask import url_for
 from flask.ext.babelex import gettext, lazy_gettext
-from datetime import datetime
 from sqlalchemy.ext.hybrid import hybrid_property
 from flask.ext.sqlalchemy import before_models_committed
 import asterisk
@@ -9,11 +11,17 @@ from crontab import CronTab
 from app import app, db, sse_notify
 
 
+def get_random_string():
+    length = 32
+    collection = string.lowercase+string.uppercase+string.digits
+    res = ''.join(random.sample(collection, length))
+    return res
 
 
 class Contact(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.Unicode(128), index=True)
+    email = db.Column(db.String(255), unique=True)
     phone = db.Column(db.String(32))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', backref='contacts')
@@ -78,11 +86,13 @@ class Conference(db.Model):
                                                                 self.number)]
         gen = (p for p in self.participants if p.is_invited and p.phone \
                not in online_participants)
+
         for p in gen:
-                asterisk.originate(self.number, p.phone, name=p.name,
-            bridge_options=self.conference_profile.get_confbridge_options(),
-            user_options=p.profile.get_confbridge_options()
-            )
+                asterisk.originate(
+                    self.number, p.phone,jname=p.name,
+                    bridge_options=self.conference_profile.get_confbridge_options(),
+                    user_options=p.profile.get_confbridge_options()
+                    )
 
 
 class ConferenceLog(db.Model):
@@ -95,12 +105,13 @@ class ConferenceLog(db.Model):
     def __str__(self):
         return '%s: %s' % (self.added, self.message)
 
-
 class Participant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     phone = db.Column(db.String(32), index=True)
     name = db.Column(db.Unicode(128))
+    email = db.Column(db.String(255), unique=True)
     is_invited = db.Column(db.Boolean, default=True)
+    token = db.Column(db.String(32), default=get_random_string)
     conference_id = db.Column(db.Integer, db.ForeignKey('conference.id'))
     conference = db.relationship('Conference',
                                  backref=db.backref(

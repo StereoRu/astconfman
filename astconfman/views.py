@@ -2,6 +2,7 @@ import json
 import time
 from os.path import dirname, join
 from crontab import CronTab
+from string import Template
 from flask import request, render_template, Response, redirect, url_for
 from flask import Blueprint, flash, abort, jsonify
 from flask.ext.admin import  Admin, AdminIndexView, BaseView, expose
@@ -14,13 +15,14 @@ from flask.ext.admin.form import rules
 from flask.ext.babelex import lazy_gettext as _, gettext
 from flask.ext.security import current_user
 from flask.ext.security.utils import encrypt_password
+from flask.ext.mail import Message
 from jinja2 import Markup
 from wtforms.fields import PasswordField
 from wtforms.validators import Required, ValidationError
 from models import Contact, Conference, ConferenceLog, Participant
 from models import ConferenceProfile, ParticipantProfile, ConferenceSchedule
 from utils.validators import is_number, is_participant_uniq, is_crontab_valid
-from app import app, db, security, sse_notify, User, Role
+from app import app, db, security, mail, sse_notify, User, Role
 from forms import ContactImportForm, ConferenceForm
 from asterisk import *
 
@@ -92,18 +94,28 @@ def legend_formatter(view, context, model, name):
 
 
 class ContactAdmin(MyModelView, AuthBaseView):
-    column_list = ['phone', 'name', 'user']
-    form_columns = ['phone', 'name', 'user']
+    column_list = ['phone', 'name', 'email', 'user']
+    form_columns = ['phone', 'name', 'email', 'user']
     create_template = 'contact_create.html'
-    column_searchable_list = ['phone', 'name']
-    column_filters = ['user']
+    column_searchable_list = ['phone', 'name', 'email']
+    column_descriptions = {
+        'email': 'Required for send invite message with URL for join conference in WEB',
+    }
+
+#    column_filters = ['user']
     form_args = {
         'phone': dict(validators=[Required(), is_number])
     }
     column_labels = {
         'phone': _('Phone'),
         'name': _('Name'),
-        'user': _('User')
+        'user': _('User'),
+    }
+
+    form_widget_args = {
+        'user': {
+            'disabled': True
+        },
     }
 
     @action('conference', _('Add to Conference'))
@@ -144,8 +156,8 @@ class ContactAdmin(MyModelView, AuthBaseView):
 
 
 class ContactUser(UserModelView, ContactAdmin):
-    column_list = ['phone', 'name']
-    form_columns = ['phone', 'name']
+    column_list = ['phone', 'name', 'email']
+    form_columns = ['phone', 'name', 'email']
 
     @action('conference', _('Add to Conference'))
     def action_conference(self, ids):
@@ -157,13 +169,13 @@ class ContactUser(UserModelView, ContactAdmin):
 
 
 class ParticipantAdmin(MyModelView, AuthBaseView):
-    column_searchable_list = ('phone', 'name')
-    column_filters = ['conference', 'profile', 'user']
+    column_searchable_list = ('phone', 'name', 'email')
+    column_filters = ['conference', 'profile']
     column_formatters = {
         'legend': lambda v,c,m,n: legend_formatter(v,c,m,n)
     }
-    column_list = form_columns = ['phone', 'name', 'is_invited', 'conference',
-                                  'profile', 'user']
+    column_list = form_columns = ['phone', 'name', 'email', 'is_invited', 'conference',
+                                  'profile']
     form_args = {
         'phone': dict(validators=[Required(), is_number]),
         'conference': dict(validators=[Required()]),
@@ -175,10 +187,10 @@ class ParticipantAdmin(MyModelView, AuthBaseView):
         'conference': _('Conference'),
         'profile': _('Participant Profile'),
         'is_invited': _('Is invited on Invite All?'),
-        'user': _('User'),
     }
     column_descriptions = {
         'is_invited': _('When enabled this participant will be called on <i>Invite All</i> from <i>Manage Conference</i> menu.'),
+        'email': 'Required for send invite message with URL for join conference in WEB',
     }
 
     def is_accessible(self):
@@ -213,7 +225,7 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
     create_template = 'conference_create.html'
 
     column_list = ['number', 'name', 'is_public', 'is_locked',
-                   'participant_count', 'invited_participant_count', 'user']
+                   'participant_count', 'invited_participant_count', 'user', 'legend']
     column_labels = {
         'number': _('Conference Number'),
         'name': _('Conference Name'),
@@ -252,6 +264,10 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
         'public_participant_profile': dict(validators=[Required()]),
     }
 
+    def on_model_delete(self, model):
+        Participant.query.filter_by(conference_id=model.id).delete()
+        db.session.commit()
+
     def is_accessible(self):
         return super(AuthBaseView, self).is_accessible() and current_user.has_role('admin') or False
 
@@ -263,7 +279,6 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
             confbridge_list_participants(conf.number)
         self._template_args['confbridge'] = confbridge_get(conf.number)
         return super(ModelView, self).details_view()
-
 
     @expose('/contacts/', methods=['POST'])
     def add_contacts(self):
@@ -292,8 +307,8 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
                     flash(gettext(
                         '%(contact)s is already there.', contact=c))
                     continue
-                p = Participant(phone=c.phone, name=c.name, user=current_user,
-                                profile=profile, conference=conference)
+                p = Participant(phone=c.phone, name=c.name, email=c.email,
+                                user=current_user, profile=profile, conference=conference)
                 flash(gettext(
                     '%(contact)s added.', contact=c))
 
@@ -441,6 +456,38 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
         db.session.commit()
         return redirect(url_for('.details_view', id=conf_id))
 
+    @expose('/<int:conf_number>/send_invite_emails')
+    def send_invite_emails(self, conf_number):
+        conf = Conference.query.filter_by(number=conf_number).first()
+
+        online_participants = [
+            k['callerid'] for k in confbridge_list_participants(
+                                                                conf.number)]
+        gen = (p for p in conf.participants if p.is_invited and p.phone and p.email \
+               not in online_participants)
+        for p in gen:
+            data = {
+                'name': p.name,
+                'phone': p.phone,
+                'url': 'http://{}:{}{}'.format(
+                            app.config['LISTEN_URL'].decode('utf-8'),
+                            app.config['LISTEN_PORT'],
+                            url_for('conference_user.details_view',
+                                     id=conf.id,
+                                     token=p.token).decode('utf-8')
+                        )
+                }
+
+            subject = Template(app.config['INVITE_EMAIL_TEMPLATE_SUBJECT'].decode('utf-8'))
+            subject = subject.substitute(data)
+            body = Template(app.config['INVITE_EMAIL_TEMPLATE_BODY'].decode('utf-8'))
+            body = body.substitute(data)
+
+            msg = Message(subject=subject, body=body, recipients=[p.email])
+            mail.send(msg)
+
+        return redirect(url_for('.details_view', id=conf.id))
+
 
 class ConferenceUser(UserModelView, ConferenceAdmin):
     column_list = ['number', 'name', 'is_public', 'is_locked',
@@ -460,14 +507,20 @@ class ConferenceUser(UserModelView, ConferenceAdmin):
         ),
     ]
 
-    @expose('/details/')
-    def details_view(self):
-        conf = Conference.query.get_or_404(request.args.get('id', 0))
-        self._template_args['confbridge_participants'] = \
-            confbridge_list_participants(conf.number)
-        self._template_args['confbridge'] = confbridge_get(conf.number)
-        return super(ModelView, self).details_view()
-
+#    @expose('/details/')
+#    def details_view(self):
+#        conf = Conference.query.get_or_404(request.args.get('id', 0))
+#        self._template_args['confbridge_participants'] = \
+#            confbridge_list_participants(conf.number)
+#        self._template_args['confbridge'] = confbridge_get(conf.number)
+#        return super(ModelView, self).details_view()
+#    @expose('/details/')
+#    def details_view(self):
+#        conf = Conference.query.get_or_404(request.args.get('id', 0))
+#        self._template_args['confbridge_participants'] = \
+#            confbridge_list_participants(conf.number)
+#        self._template_args['confbridge'] = confbridge_get(conf.number)
+#        return super(ModelView, self).details_view()
 
 
 class ConferenceScheduleAdmin(MyModelView, AuthBaseView):
@@ -533,6 +586,7 @@ class ConferenceProfileAdmin(ModelView, AuthBaseView):
         'name', 'max_members', 'record_conference',
         'internal_sample_rate', 'mixing_interval', 'video_mode'
     ]
+    form_excluded_columns = ('user',)
     column_labels = {
         'name': _('Profile Name'),
     }
@@ -558,6 +612,9 @@ class ConferenceProfileAdmin(ModelView, AuthBaseView):
     form_args = {
         'name': {'validators': [Required()]},
         'mixing_interval': {'validators': [Required()]},
+    }
+    form_widget_args = {
+        'user': { 'disabled': True }
     }
 
     def is_accessible(self):
@@ -586,7 +643,7 @@ class ParticipantProfileAdmin(ModelView, AuthBaseView):
                 'startmuted',
                 'quiet',
                 'wait_marked',
-                'end_marked',            
+                'end_marked',
                 'music_on_hold_when_empty',
                 'music_on_hold_class',
             ),
@@ -666,8 +723,11 @@ The drop_silence option depends on this value to determine when the user's audio
 
 
 class UserAdmin(ModelView, AuthBaseView):
-    column_exclude_list = ('password',)
-    form_excluded_columns = ('password',)
+    column_exclude_list = ('password', 'confirmed_at')
+    form_excluded_columns = ('password', 'confirmed_at',
+                             'schedules', 'contacts',
+                             'conferences', 'participant_profiles',
+                             'participants', 'conference_profiles')
     column_auto_select_related = True
 
     def is_accessible(self):

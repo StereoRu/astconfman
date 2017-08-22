@@ -12,6 +12,7 @@ from flask.ext.migrate import Migrate
 from flask.ext.security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
 from flask.ext.sqlalchemy import SQLAlchemy, models_committed
+from flask.ext.mail import Mail
 
 
 app = Flask('AstConfMan', instance_relative_config=True)
@@ -35,6 +36,9 @@ except IOError:
 db = SQLAlchemy()
 db.init_app(app)
 
+mail = Mail()
+mail.init_app(app)
+
 migrate = Migrate(app, db)
 
 from flask_bootstrap import Bootstrap
@@ -44,7 +48,7 @@ babel = Babel(app)
 @babel.localeselector
 def get_locale():
     if request.args.get('lang'):
-        session['lang'] = request.args.get('lang')        
+        session['lang'] = request.args.get('lang')
     return session.get('lang', app.config.get('LANGUAGE'))
 
 

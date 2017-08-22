@@ -5,9 +5,34 @@
 <div class="form-group">
     <div class="col-md-2"></div>
     <div class="col-md-10">
-    {%- trans  -%}
-        You can manage participants in menu <b>Participants</b>.
+
+    <p>
+    {%- trans -%}
+      You can create participants in menu <b>Participants</b>.
     {%- endtrans -%}
+    </p>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+              <th>{%- trans  -%}Phone{%- endtrans -%}</th>
+              <th>{%- trans  -%}Name{%- endtrans -%}</th>
+              <th>{%- trans  -%}Profile{%- endtrans -%}</th>
+              <th>{%- trans  -%}Email{%- endtrans -%}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for participant in model.participants %}
+            <tr>
+              <td>{{ participant.phone }}</td>
+              <td>{{ participant.name or '' }}</td>
+              <td>{{ participant.profile.name }}</td>
+              <td>{{ participant.email or '' }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
     </div>    
   </div>
 {% endmacro %}

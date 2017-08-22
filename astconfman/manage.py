@@ -23,7 +23,8 @@ def create_admin_admin():
     user_datastore.create_role(name='admin', description='System administrator')
     user_datastore.create_role(name='user', description='Conference user')
     admin = user_datastore.create_user(username='admin',
-                               password=utils.encrypt_password('admin'))
+                                email='admin@admin.ru',
+                                password=utils.encrypt_password('admin'))
     user_datastore.add_role_to_user(admin, 'admin')
     db.session.commit()
 
@@ -37,18 +38,22 @@ def init():
     user_datastore.create_role(name='admin', description='System administrator')
     user_datastore.create_role(name='user', description='Conference user')
     admin = user_datastore.create_user(username='admin',
-                               password=utils.encrypt_password('admin'))
+                                email='admin@admin.ru',
+                                password=utils.encrypt_password('admin'))
     user = user_datastore.create_user(username='user',
-                               password=utils.encrypt_password('user'))
+                                email='user@user.ru',
+                                password=utils.encrypt_password('user'))
     user_datastore.add_role_to_user(admin, 'admin')
     user_datastore.add_role_to_user(user, 'user')
 
     contacts = [
-        ('1010', gettext('John Smith')),
-        ('1020', gettext('Sam Brown')),
+        ('1010', gettext('John Smith'), 'johnsmith@johnsmith.ru'),
+        ('1020', gettext('Sam Brown'), 'sambrown@sambrown.ru'),
+        ('3001', u'linphone', 'lin@linphone.ru'),
+        ('3011', u'xiaomi', 'mi@mi.ru'),
     ]
     for c in contacts:
-        rec = Contact(phone=c[0], name=c[1], user=admin)
+        rec = Contact(phone=c[0], name=c[1], user=admin, email=c[2])
         db.session.add(rec)
 
     guest_user_profile = ParticipantProfile(name=gettext('Guest'), startmuted=True)

@@ -123,6 +123,7 @@ def sse_notify(room, command, message=''):
 
 @app.route("/sse_publish")
 def sse_publish():
+    print('sse_publish.sse_notify: {}'.format(sse_notify))
     gevent.spawn(sse_notify, '1', 'unmute_request', 'max')
     return "OK"
 
@@ -139,7 +140,9 @@ def subscribe():
         except GeneratorExit: # Or maybe use flask signals
             sse_subscriptions.remove(q)
 
-    return Response(gen(), mimetype="text/event-stream")
+    res = gen()
+    print('sse_subscriptions.gen(): {}'.format(res))
+    return Response(res, mimetype="text/event-stream")
 
 
 
@@ -150,7 +153,6 @@ def favicon():
         'favicon.ico',
         mimetype='image/vnd.microsoft.icon')
 
-
 from views import asterisk
 app.register_blueprint(asterisk, url_prefix='/asterisk')
 
@@ -158,4 +160,4 @@ app.register_blueprint(asterisk, url_prefix='/asterisk')
 from models import Contact, Conference, Participant, ParticipantProfile
 from models import ConferenceProfile
 from views import ContactAdmin, ParticipantProfileAdmin, ParticipantAdmin
-from views import ConferenceProfileAdmin, ConferenceAdmin, RecordingAdmin
+from views import ConferenceProfileAdmin, ConferenceAdmin, ConferenceParticipant, RecordingAdmin

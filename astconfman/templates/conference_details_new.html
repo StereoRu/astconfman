@@ -1,0 +1,46 @@
+{% extends 'admin/model/details.html' %}
+ 
+{% block head %}
+{{ super() }}
+
+    <style type="text/css">
+        .customNoMargin {margin-left: 0;}
+    </style>
+
+    <script type="text/javascript" charset="utf-8">
+      // import jinja2 variables 
+      var modelId = "{{ model.id }}",
+
+          modelNumber = "{{ model.number }}",
+          unmuteUrl = "{{url_for('.unmute', conf_id=model.id, channel='')}}",
+          muteUrl = "{{url_for('.mute', conf_id=model.id, channel='')}}",
+          kickUrl = "{{url_for('.kick', conf_id=model.id , channel='')}}",
+
+          unmuteLabel = "{{ _('Unmute') }}",
+          muteLabel = "{{ _('Mute') }}",
+          kickLabel = "{{ _('Kick') }}",
+
+          confbridge = {{ confbridge | tojson }},
+          confbridge_participants = {{ confbridge_participants | tojson }},
+          current_participant = {{ current_participant | tojson }},
+          current_participant_profile = "{{ current_participant_profile }}";
+
+    </script>
+
+{% endblock %}
+
+{% block body %}
+{{ super() }}
+
+{% block details_search %}{% endblock %}
+{% block details_table %}{% endblock %}
+
+<br/>
+
+<div id="root" class="row"></div>
+
+<br/>
+
+<script type="text/javascript" charset="utf-8" src="{{url_for('static', filename='bundle.js.map')}}" ></script>
+
+{% endblock body %}

@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
-from flask import Flask
+import urllib
+from flask import Flask, url_for
 from flask.ext.babelex import gettext
 from flask.ext.migrate import MigrateCommand
 from flask.ext.security import utils
@@ -87,6 +88,17 @@ def init():
 
     db.session.commit()
 
+@manager.command
+def list_routes():
+    output = []
+    for rule in app.url_map.iter_rules():
+
+        methods = ','.join(rule.methods)
+        line = urllib.unquote("{:40s} {:30s} {}".format(rule.endpoint, methods, rule))
+        output.append(line)
+
+    for line in sorted(output):
+        print line
 
 @manager.command
 def start_conf(conf_num):

@@ -4,7 +4,7 @@ from os.path import dirname, join
 from crontab import CronTab
 from string import Template
 from flask import request, render_template, Response, redirect, url_for
-from flask import Blueprint, flash, abort, jsonify
+from flask import Blueprint, flash, abort, jsonify, g
 from flask.ext.admin import  Admin, AdminIndexView, BaseView, expose
 from flask.ext.admin.contrib.sqla.ajax import QueryAjaxModelLoader
 from flask_admin import helpers as admin_helpers
@@ -25,6 +25,7 @@ from utils.validators import is_number, is_participant_uniq, is_crontab_valid
 from app import app, db, security, mail, sse_notify, User, Role
 from forms import ContactImportForm, ConferenceForm
 from asterisk import *
+from token_auth import login_participant, participant_is_autentificated
 
 
 
@@ -41,12 +42,14 @@ class AuthBaseView(BaseView):
             else:
                 return redirect(url_for('security.login', next=request.url))
 
+#class TokenAuthBaseView(BaseView):
+#    def is_accessible(self):
+#        return True
 
 class MyModelView(ModelView):
     def on_model_change(self, form, model, is_created):
         if is_created:
             model.user = current_user
-
 
 class UserModelView(ModelView):
     def is_accessible(self):
@@ -212,7 +215,6 @@ class ParticipantUser(UserModelView, ParticipantAdmin):
     form_ajax_refs = {
         'conference': ConferenceQueryAjaxModelLoader('conference', db.session, Conference, fields=['name'], page_size=10)
     }
-
 
 class ConferenceAdmin(MyModelView, AuthBaseView):
     """
@@ -488,6 +490,37 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
 
         return redirect(url_for('.details_view', id=conf.id))
 
+class ConferenceParticipant(ConferenceAdmin, ModelView):
+    can_create = False
+    can_edit = False
+    can_delete = False
+    can_view_details = True
+    details_template = 'conference_details_new.html'
+
+    @login_participant
+    def is_accessible(self):
+        return g.get('current_participant', None) is not None or False
+
+    def is_visible(self):
+        return False
+
+    @expose('/details/')
+    def details_view(self):
+        conf = Conference.query.get_or_404(request.args.get('id', 0))
+        self._template_args['confbridge_participants'] = \
+            confbridge_list_participants(conf.number)
+
+        confbridge = confbridge_get(conf.number)
+        confbridge.update({ 'recorded': conf.conference_profile.record_conference or False })
+        confbridge.update({ 'number': conf.number })
+
+        self._template_args['confbridge'] = confbridge
+        self._template_args['current_participant'] = g.get('current_participant', None)
+        self._template_args['current_participant_profile'] = g.get('current_participant_profile', None)
+
+        print('self._template_args={}'.format(self._template_args))
+        return super(ModelView, self).details_view()
+
 
 class ConferenceUser(UserModelView, ConferenceAdmin):
     column_list = ['number', 'name', 'is_public', 'is_locked',
@@ -507,20 +540,13 @@ class ConferenceUser(UserModelView, ConferenceAdmin):
         ),
     ]
 
-#    @expose('/details/')
-#    def details_view(self):
-#        conf = Conference.query.get_or_404(request.args.get('id', 0))
-#        self._template_args['confbridge_participants'] = \
-#            confbridge_list_participants(conf.number)
-#        self._template_args['confbridge'] = confbridge_get(conf.number)
-#        return super(ModelView, self).details_view()
-#    @expose('/details/')
-#    def details_view(self):
-#        conf = Conference.query.get_or_404(request.args.get('id', 0))
-#        self._template_args['confbridge_participants'] = \
-#            confbridge_list_participants(conf.number)
-#        self._template_args['confbridge'] = confbridge_get(conf.number)
-#        return super(ModelView, self).details_view()
+    @expose('/details/')
+    def details_view(self):
+        conf = Conference.query.get_or_404(request.args.get('id', 0))
+        self._template_args['confbridge_participants'] = \
+            confbridge_list_participants(conf.number)
+        self._template_args['confbridge'] = confbridge_get(conf.number)
+        return super(ModelView, self).details_view()
 
 
 class ConferenceScheduleAdmin(MyModelView, AuthBaseView):
@@ -780,6 +806,16 @@ def security_context_processor():
 
 # This is a dict with views that will be added according to settings
 admin_views = {
+    'conferences_participant': ConferenceParticipant(
+        Conference,
+        db.session,
+        endpoint='conference_participant',
+        url='/participant/conference',
+        category=_('Conferences'),
+        name=_('Conferences_par'),
+        menu_icon_type='glyph',
+        menu_icon_value='glyphicon-bullhorn'
+        ),
     'conferences_admin': ConferenceAdmin(
         Conference,
         db.session,

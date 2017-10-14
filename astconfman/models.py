@@ -89,7 +89,7 @@ class Conference(db.Model):
 
         for p in gen:
                 asterisk.originate(
-                    self.number, p.phone,jname=p.name,
+                    self.number, p.phone,name=p.name,
                     bridge_options=self.conference_profile.get_confbridge_options(),
                     user_options=p.profile.get_confbridge_options()
                     )
@@ -109,7 +109,7 @@ class Participant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     phone = db.Column(db.String(32), index=True)
     name = db.Column(db.Unicode(128))
-    email = db.Column(db.String(255), unique=True)
+    email = db.Column(db.String(255))
     is_invited = db.Column(db.Boolean, default=True)
     token = db.Column(db.String(32), default=get_random_string)
     conference_id = db.Column(db.Integer, db.ForeignKey('conference.id'))

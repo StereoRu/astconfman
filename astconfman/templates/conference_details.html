@@ -45,6 +45,7 @@
             };
 
             var evtSrc = new EventSource("/sse_subscribe");
+//            # TODO: may be refactor on EventListener
             evtSrc.onmessage = function(e) {
                 var data = JSON.parse(e.data);
                 if (data.room != {{model.id}}) {
@@ -56,9 +57,11 @@
                 if (data.command == "log_message") {
                     var table = document.getElementById("logsTable");
                     var row = table.insertRow(0);
-                    row.innerHTML = "<td style='white-space:nowrap; padding:0;'>" + data.message + "</td>";
+
+                    row.innerHTML = "<td style='white-space:nowrap; padding:0;'> "+ data.message +"</td>";
                 }
                 if (data.command == "unmute_request") {
+//                  TODO: refactor on separate blink func and unmute_request func
                     callerid = data.message;
                     btn_class('btn-primary');
                     setTimeout(blink1, 600);
@@ -83,7 +86,7 @@
         <div class="row">
             <div class="container">
                 <div class="btn-group">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    <button class="btn btn-default dropdown-toggle"  type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         {{_('Manage Conference')}} {{ model }}
                         <span class="caret"></span>
                     {% if confbridge.locked %}  <span class='glyphicon glyphicon-lock'></span> {% endif %} </button>
@@ -214,6 +217,9 @@
         <div class='table-responsive'>
             <small><table id="logsTable" class="table">
                 {% for log in model.logs | sort(attribute='added', reverse=True) %}
+                  <script>
+                  
+                  </script>
                   <tr style="padding:0;">
                     <td style="white-space:nowrap; padding:0;">{% if log.added %}{{log.added.strftime('%Y-%m-%d %H:%M:%S')}}{% else %} {% endif %}</td>
                     <td style="white-space:nowrap; padding:0;">{{ log.message }}</td>

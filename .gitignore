@@ -3,3 +3,10 @@ astconfman/astconfman.db
 astconfman/astconfman.log
 .ropeproject
 env
+astconfman/static/*hot-update.json
+ubuntu-xenial-16.04-cloudimg-console.log
+node_modules/
+asterisk_etc/backup/
+.babelrc
+.eslintrc
+.npmrc

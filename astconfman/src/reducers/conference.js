@@ -1,11 +1,9 @@
 import { UPDATE_CONFERENCE } from '../constants/Page'
 
 const initialState = {
-  name: '100', 
-  number: '100', 
+  name: 'name not found', 
   users: 0,
   locked: false, 
-  recorded: false, 
   marked: false
 }
 
@@ -14,16 +12,16 @@ export default function updateConference(state = initialState, action) {
   switch (action.type) {
     case UPDATE_CONFERENCE:
       console.log('updateConference old state=' + state)
-      console.log('updateConference new state=' + new_state)
 
       var new_state = { ...state, 
-	      name: action.payload.name, 
-	      number: action.payload.number,
-	      users: action.payload.users,
-	      locked: action.payload.locked,
-	      recorded: action.payload.recorded,
-	      marked: action.payload.marked
+        name: action.payload.name, 
+        users: action.payload.users,
+        locked: action.payload.locked,
+        marked: action.payload.marked
       }
+
+      console.log('updateConference new state=' + new_state)
+
       return new_state
 
     default:

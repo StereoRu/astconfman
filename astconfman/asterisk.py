@@ -91,14 +91,14 @@ def confbridge_list_participants(confno):
                 'unmute_request': unmute_request
                 }
         )
-    participants = [
-        {'flags': 'A', 'callerid': '3001', 'channel': 'Local/3001@confman-dialout-00000000;1', 'unmute_request': False, 'is_marked': False, 'name': '', 'is_muted': False, 'is_admin': True},
-        {'flags': 'M', 'callerid': '3002', 'channel': 'Local/3002@confman-dialout-00000000;2', 'unmute_request': False, 'is_marked': False, 'name': '', 'is_muted': False, 'is_admin': True},
-        {'flags': 'm', 'callerid': '3003', 'channel': 'Local/3003@confman-dialout-00000000;3', 'unmute_request': False, 'is_marked': False, 'name': '', 'is_muted': False, 'is_admin': True},
-        {'flags': '', 'callerid': '3004', 'channel': 'Local/3004@confman-dialout-00000000;4', 'unmute_request': False, 'is_marked': False, 'name': '', 'is_muted': False, 'is_admin': True},
-        {'flags': 'AMm', 'callerid': '3005', 'channel': 'Local/3005@confman-dialout-00000000;5', 'unmute_request': False, 'is_marked': False, 'name': '', 'is_muted': False, 'is_admin': True},
-        {'flags': 'AM', 'callerid': '3006', 'channel': 'Local/3006@confman-dialout-00000000;6', 'unmute_request': False, 'is_marked': False, 'name': '', 'is_muted': False, 'is_admin': True}
-        ]
+#    participants = [
+#        {'flags': 'A', 'callerid': '3001', 'channel': 'Local/3001@confman-dialout-00000000;1', 'unmute_request': False, 'is_marked': False, 'name': '', 'is_muted': False, 'is_admin': True},
+#        {'flags': 'M', 'callerid': '3002', 'channel': 'Local/3002@confman-dialout-00000000;2', 'unmute_request': False, 'is_marked': False, 'name': '', 'is_muted': False, 'is_admin': True},
+#        {'flags': 'm', 'callerid': '3003', 'channel': 'Local/3003@confman-dialout-00000000;3', 'unmute_request': False, 'is_marked': False, 'name': '', 'is_muted': False, 'is_admin': True},
+#        {'flags': '', 'callerid': '3004', 'channel': 'Local/3004@confman-dialout-00000000;4', 'unmute_request': False, 'is_marked': False, 'name': '', 'is_muted': False, 'is_admin': True},
+#        {'flags': 'AMm', 'callerid': '3005', 'channel': 'Local/3005@confman-dialout-00000000;5', 'unmute_request': False, 'is_marked': False, 'name': '', 'is_muted': False, 'is_admin': True},
+#        {'flags': 'AM', 'callerid': '3006', 'channel': 'Local/3006@confman-dialout-00000000;6', 'unmute_request': False, 'is_marked': False, 'name': '', 'is_muted': False, 'is_admin': True}
+#        ]
     return participants
 
 

@@ -9,23 +9,74 @@
 
     <script type="text/javascript" charset="utf-8">
       // import jinja2 variables 
-      var modelId = "{{ model.id }}",
+//      var modelId = "{{ model.id }}",
+//
+//          modelNumber = "{{ model.number }}",
+//          unmuteUrl = "{{url_for('.unmute', conf_id=model.id, channel='')}}",
+//          muteUrl = "{{url_for('.mute', conf_id=model.id, channel='')}}",
+//          kickUrl = "{{url_for('.kick', conf_id=model.id , channel='')}}",
+//
+//          unmuteLabel = "{{ _('Unmute') }}",
+//          muteLabel = "{{ _('Mute') }}",
+//          kickLabel = "{{ _('Kick') }}",
+//
+//          confbridge = {{ confbridge | tojson }},
+//          confbridge_participants = {{ confbridge_participants | tojson }},
+//          current_participant = {{ current_participant | tojson }},
+//          current_participant_profile = "{{ current_participant_profile }}";
 
-          modelNumber = "{{ model.number }}",
-          unmuteUrl = "{{url_for('.unmute', conf_id=model.id, channel='')}}",
-          muteUrl = "{{url_for('.mute', conf_id=model.id, channel='')}}",
-          kickUrl = "{{url_for('.kick', conf_id=model.id , channel='')}}",
+        let confbridge = JSON.parse('{{ confbridge | tojson }}');
 
-          unmuteLabel = "{{ _('Unmute') }}",
-          muteLabel = "{{ _('Mute') }}",
-          kickLabel = "{{ _('Kick') }}",
+        window.__PRELOADED_STATE__ = '{ ' +
+          ' "modelId": "{{ model.id }}", ' +
+          ' "modelNumber": "{{ model.number }}", ' +
 
-          confbridge = {{ confbridge | tojson }},
-          confbridge_participants = {{ confbridge_participants | tojson }},
-          current_participant = {{ current_participant | tojson }},
-          current_participant_profile = "{{ current_participant_profile }}";
+          ' "urls": { ' +
+            ' "muteUrl": "{{url_for('.mute', conf_id=model.id, channel='')}}", ' +
+            ' "unmuteUrl": "{{url_for('.unmute', conf_id=model.id, channel='')}}", ' +
+            ' "kickUrl": "{{url_for('.kick', conf_id=model.id , channel='')}}", ' +
+            ' "record_startUrl": "{{ url_for('.record_start', conf_id=model.id) }}", ' +
+            ' "record_stopUrl": "{{ url_for('.record_stop', conf_id=model.id) }}", ' +
+            ' "lockUrl": "{{ url_for('.lock', conf_id=model.id) }}", ' +
+            ' "unlockUrl": "{{ url_for('.unlock', conf_id=model.id) }}", ' +
+            ' "invite_guestUrl": "{{ url_for('.invite_guest', conf_id=model.id) }}", ' +
+            ' "invite_participantUrl": "{{ url_for('.invite_participants', conf_id=model.id) }}" ' +
+          ' }, ' +
+
+          ' "labels": { ' +
+            ' "invite_all_participantsLabel": "{{ _('Invite All Participants') }}", ' +
+            ' "phone_numberLabel": "{{ _('Phone number') }}", ' +
+            ' "inviteLabel": "{{ _('Invite') }}", ' +
+            ' "mute_allLabel": "{{ _('Mute All') }}", ' +
+            ' "unmute_allLabel": "{{ _('Unmute All') }}", ' +
+            ' "unmuteLabel": "{{ _('Unmute') }}", ' +
+            ' "record_startLabel": "{{ _('Start Recording') }}", ' +
+            ' "record_stopUrl": "{{ _('Stop Recording') }}", ' +
+            ' "unlockLabel": "{{ _('Unlock') }}", ' +
+            ' "lockLabel": "{{ _('Lock') }}", ' +
+            ' "kick_allLabel": "{{ _('Kick All') }}", ' +
+            ' "muteLabel": "{{ _('Mute') }}", ' +
+            ' "kickLabel": "{{ _('Kick') }}" ' +
+          ' }, ' +
+
+          ' "confbridge": {{ confbridge | tojson }}, ' +
+          ' "confbridge_participants": {{ confbridge_participants | tojson }}, ' +
+          ' "current_participant": {{ current_participant | tojson }}, ' +
+          ' "current_participant_profile": "{{ current_participant_profile }}", ' +
+
+          ' "conference": { ' +
+            ' "name": ' + confbridge.name + ', ' +
+            ' "marked": ' + confbridge.marked + ', ' +
+            ' "locked": ' + confbridge.locked + ', ' +
+            ' "users": ' + confbridge.users + 
+          ' } ' +
+        '}';
 
     </script>
+
+    <!-- 
+      http://10.1.1.142:5000/participant/conference/details/?id=2&token=2znWILQsclwVmuUg6iZ5xOkHGd4jtTXB
+    -->
 
 {% endblock %}
 
@@ -37,10 +88,11 @@
 
 <br/>
 
-<div id="root" class="row"></div>
+  <div id="root" class="row">
+  </div>
 
 <br/>
 
-<script type="text/javascript" charset="utf-8" src="{{url_for('static', filename='bundle.js.map')}}" ></script>
+<script type="text/javascript" charset="utf-8" src="{{url_for('static', filename='bundle.js')}}" ></script>
 
 {% endblock body %}

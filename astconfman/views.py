@@ -280,6 +280,7 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
         self._template_args['confbridge_participants'] = \
             confbridge_list_participants(conf.number)
         self._template_args['confbridge'] = confbridge_get(conf.number)
+        print('self._template_args={}'.format(self._template_args))
         return super(ModelView, self).details_view()
 
     @expose('/contacts/', methods=['POST'])

@@ -1,10 +1,14 @@
 import { combineReducers } from 'redux'
 import conference from './conference'
-import conference_log from './conference_log'
-import participant from './participant'
+import log from './log'
+import participants from './participants'
+import urls from './urls'
+import labels from './labels'
 
 export default combineReducers({
   conference,
-  conference_log,
-  participant
+  log,
+  participants,
+  urls,
+  labels
 })

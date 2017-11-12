@@ -18,16 +18,16 @@ BRAND_LOGO = 'static/asterisk_logo.png'
 BRAND_LOGO_URL = 'http://'
 
 # ASTERISK_IPADDR - IP Address of Asterisk server. All other requests will be denied.
-#ASTERISK_IPADDR = '10.1.1.142'
-ASTERISK_IPADDR = '192.168.1.37'
+ASTERISK_IPADDR = '10.1.1.142'
+#ASTERISK_IPADDR = '192.168.1.37'
 
 # LISTEN_URL
-#LISTEN_URL = '10.1.1.142'
-LISTEN_URL = '192.168.1.37'
+LISTEN_URL = '10.1.1.142'
+#LISTEN_URL = '192.168.1.37'
 
 # LISTEN_ADDRESS - Interfaces to bind to. '0.0.0.0' for all interfaces.
-#LISTEN_ADDRESS = '10.1.1.142'
-LISTEN_ADDRESS = '192.168.1.37'
+LISTEN_ADDRESS = '10.1.1.142'
+#LISTEN_ADDRESS = '192.168.1.37'
 
 # LISTEN_PORT - Port to listen on.
 LISTEN_PORT = 5000
@@ -66,8 +66,8 @@ ASTERISK_MONITOR_DIR = '/var/spool/asterisk/monitor/'
 ASTERISK_EXECUTABLE = '/usr/sbin/asterisk'
 ASTERISK_SSH_ENABLED = False
 ASTERISK_SSH_PORT = '22'
-#ASTERISK_SSH_HOST = '10.1.1.142'
-ASTERISK_SSH_HOST = '192.168.1.37'
+ASTERISK_SSH_HOST = '10.1.1.142'
+#ASTERISK_SSH_HOST = '192.168.1.37'
 ASTERISK_SSH_USER = 'asterisk'
 ASTERISK_SSH_KEY = 'ssh-rsa AAAAB3NzaC1yc2EA...' # Put your key in instance config
 

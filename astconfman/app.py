@@ -112,7 +112,9 @@ class ServerSentEvent(object):
 
 @app.route("/sse_debug")
 def sse_debug():
-    return "Currently %d subscriptions" % len(sse_subscriptions)
+    all_subscriptions = '\n'.join(str(sse_subscriptions))
+    summary_subscriptions = 'Currently {} subscriptions'.format(len(sse_subscriptions))
+    return '{}\n\n{}'.format(all_subscriptions, summary_subscriptions)
 
 
 def sse_notify(room, command, message=''):
@@ -132,12 +134,17 @@ def subscribe():
     def gen():
         q = Queue()
         sse_subscriptions.append(q)
+        print('111')
         try:
+            print('222')
             while True:
+                print('assasa')
                 result = q.get()
+                print('loop result={}'.format(result))
                 ev = ServerSentEvent(str(result))
                 yield ev.encode()
         except GeneratorExit: # Or maybe use flask signals
+            print('333')
             sse_subscriptions.remove(q)
 
     res = gen()

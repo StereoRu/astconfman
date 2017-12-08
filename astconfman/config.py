@@ -9,9 +9,9 @@ LANGUAGE = 'en'
 SECRET_KEY = 'change_me_here_to_random_key'
 
 # BRAND_NAV - this defines the string on the right top navigation bar
-BRAND_NAV = u'Asterisk Conference Manager'
+BRAND_NAV = u'ROEK Conference Manager'
 # BRAND_FOOTER - put here your company info
-BRAND_FOOTER = _(u"""(C) 2015 Asterisk Guru | <a href="http://asteriskguru.ru/">www.asteriskguru.ru</a> | Professional Asterisk support & development services.""")
+BRAND_FOOTER = _(u"""ROEK Ryazan | <a href="http://roek.ru/">www.roek.ru</a>""")
 # BRAND_LOGO - replace logo.png or change here url to your own logo
 BRAND_LOGO = 'static/asterisk_logo.png'
 # URL to redirect when clicked on LOGO. Put here '#' if redirect is not required.

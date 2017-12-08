@@ -4,7 +4,7 @@ import {
   UPDATE_PARTICIPANT
 } from '../constants/Page'
 
-const initialState = {}
+const initialState = []
 
 export default function addParticipant(state = initialState, action) {
 

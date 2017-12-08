@@ -1,30 +1,35 @@
-import React, { PropTypes, Component } from 'react'
+import React, { PropTypes } from 'react'
+import Participant from '../components/Participant'
 
-export default class Page extends Component {
-  onYearBtnClick(e) {
-    this.props.getPhotos(+e.target.innerText)
-  }
-  render() {
-    const { year, photos, fetching } = this.props
-    return <div className='ib page'>
-      <p>
-        <button className='btn' onClick={::this.onYearBtnClick}>2016</button>{' '}
-        <button className='btn' onClick={::this.onYearBtnClick}>2015</button>{' '}
-        <button className='btn' onClick={::this.onYearBtnClick}>2014</button>
-      </p>
-      <h3>{year} год</h3>
-      {
-        fetching ?
-        <p>Загрузка...</p>
-        :
-        <p>У тебя {photos.length} фото.</p>
-      }
-    </div>
-  }
+const Participants = (props) => {
+
+//    const { name, users, marked, locked } = props.conference;
+
+    return (
+       <div className='row'>
+          <div className='container'>
+            <ul>
+
+            { props.participants.map( (item, index) => <Participant key={index} urls={props.urls} labels={props.labels} participant={item} participantAction={props.participantsActions}></Participant>  ) } 
+
+            </ul>
+          </div>
+       </div>
+    );
+};
+
+Participants.propTypes = {
+  participants: PropTypes.arrayOf(
+    PropTypes.shape({
+      callerid: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      is_admin: PropTypes.bool.isRequired,
+      is_marked: PropTypes.bool.isRequired,
+      is_muted: PropTypes.bool.isRequired,
+      channel: PropTypes.string.isRequired,
+      unmute_request: PropTypes.bool.isRequired
+    })
+  )
 }
 
-Page.propTypes = {
-  year: PropTypes.number.isRequired,
-  photos: PropTypes.array.isRequired,
-  getPhotos: PropTypes.func.isRequired
-}
+export default Participants;

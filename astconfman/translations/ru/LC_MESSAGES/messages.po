@@ -7,255 +7,250 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2016-02-12 23:28+0200\n"
+"POT-Creation-Date: 2017-11-18 15:32+0000\n"
 "PO-Revision-Date: 2016-02-12 23:28+0200\n"
 "Last-Translator: \n"
 "Language: ru\n"
 "Language-Team: ru <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.2.0\n"
-"X-Generator: Poedit 1.8.5\n"
+"Generated-By: Babel 2.4.0\n"
 
 #: config.py:14
 msgid ""
-"(C) 2015 Asterisk Guru | <a href=\"http://asteriskguru.ru/\">www."
-"asteriskguru.ru</a> | Professional Asterisk support & development services."
+"(C) 2015 Asterisk Guru | <a "
+"href=\"http://asteriskguru.ru/\">www.asteriskguru.ru</a> | Professional "
+"Asterisk support & development services."
 msgstr ""
-"(C) 2015 Asterisk Guru | <a href=\"http://asteriskguru.ru/\">www."
-"asteriskguru.ru</a> | Профессиональные услуги поддержки и разработки для "
-"Asterisk."
 
 #: forms.py:11
 msgid "File"
-msgstr "Файл"
+msgstr ""
 
 #: forms.py:20
 #, python-format
 msgid "CSV file is broken, line %(linenum)s"
-msgstr "CSV-файл поврежден, line %(linenum)s"
+msgstr ""
 
 #: forms.py:24
 #, python-format
 msgid "The first column does not contain phone number, line %(linenum)s"
-msgstr "Первый столбец не содержит номер телефона, line %(linenum)s"
+msgstr ""
 
 #: forms.py:36
 msgid "You must select a Public Participant Profile for a Public Conference."
-msgstr "Вы должны выбрать профиль участника для Публичной Конференции"
-
-#: manage.py:37
-msgid "John Smith"
-msgstr "Афиноген Пупкин"
-
-#: manage.py:38
-msgid "Sam Brown"
-msgstr "Космодром Байконуров"
-
-#: manage.py:44
-msgid "Guest"
-msgstr "Гость"
-
-#: manage.py:46
-msgid "Marker"
-msgstr "Помеченный пользвователь"
-
-#: manage.py:48
-msgid "Administrator"
-msgstr "Администратор"
+msgstr ""
 
 #: manage.py:51
+msgid "John Smith"
+msgstr ""
+
+#: manage.py:52
+msgid "Sam Brown"
+msgstr ""
+
+#: manage.py:60
+msgid "Guest"
+msgstr ""
+
+#: manage.py:62
+msgid "Marker"
+msgstr ""
+
+#: manage.py:64
+msgid "Administrator"
+msgstr ""
+
+#: manage.py:67
 msgid "Default"
-msgstr "По умолчанию"
+msgstr ""
 
-#: manage.py:55
+#: manage.py:71
 msgid "Test Conference"
-msgstr "Тестовая конференция"
+msgstr ""
 
-#: views.py:68
+#: views.py:74
 msgid "Admin"
-msgstr "Администратор"
-
-#: views.py:70
-msgid "Marked"
-msgstr "Помеченный пользователь"
-
-#: views.py:72 views.py:74
-msgid "PIN is set"
-msgstr "ПИН установлен"
+msgstr ""
 
 #: views.py:76
+msgid "Marked"
+msgstr ""
+
+#: views.py:78 views.py:80
+msgid "PIN is set"
+msgstr ""
+
+#: views.py:82
 msgid "Wait for marked user to join"
-msgstr "Ожидать присоединения к конференции Помеченного Пользователя"
+msgstr ""
 
-#: views.py:79
+#: views.py:85
 msgid "End when marked user leaves"
-msgstr "Завершить как только Помеченный Пользователь вышел"
+msgstr ""
 
-#: views.py:84
+#: views.py:90
 msgid "Guests (not from participant list) can join"
-msgstr "Гости (номера, которых нет в списке участников) могут присоединиться"
+msgstr ""
 
-#: views.py:87
+#: views.py:93
 msgid "Only for participants specified"
-msgstr "Только для участников"
+msgstr ""
 
-#: views.py:103 views.py:172
+#: templates/conference_edit.html:18 views.py:113 views.py:188
 msgid "Phone"
-msgstr "Телефон"
+msgstr ""
 
-#: views.py:104 views.py:173
+#: templates/conference_edit.html:19 views.py:114 views.py:189
 msgid "Name"
-msgstr "Имя"
+msgstr ""
 
-#: views.py:105 views.py:177
+#: views.py:115
 msgid "User"
-msgstr "Пользователь"
+msgstr ""
 
-#: views.py:108 views.py:149
+#: views.py:124 views.py:165
 msgid "Add to Conference"
-msgstr "Добавить в конференцию"
+msgstr ""
 
-#: views.py:134
+#: views.py:150
 #, python-format
 msgid "Imported %(num)s contacts."
-msgstr "Импортировано %(num)s контактов"
+msgstr ""
 
-#: views.py:174 views.py:477 views.py:826
+#: views.py:190 views.py:558 views.py:924
 msgid "Conference"
-msgstr "Конференция"
+msgstr ""
 
-#: views.py:175
+#: views.py:191
 msgid "Participant Profile"
-msgstr "Профиль Участника"
+msgstr ""
 
-#: views.py:176
+#: views.py:192
 msgid "Is invited on Invite All?"
-msgstr "Включен в Пригласить Всех"
+msgstr ""
 
-#: views.py:180
+#: views.py:195
 msgid ""
 "When enabled this participant will be called on <i>Invite All</i> from "
 "<i>Manage Conference</i> menu."
 msgstr ""
-"Если включено, этот участник будет вызван при выборе <i>Пригласить Всех "
-"Участников</i> в меню <i>Управления Конфренецией</i>."
 
-#: views.py:217
+#: views.py:232
 msgid "Conference Number"
-msgstr "Номер Конференции"
+msgstr ""
 
-#: views.py:218
+#: views.py:233
 msgid "Conference Name"
-msgstr "Название Конференции"
+msgstr ""
 
-#: views.py:219 views.py:239 views.py:458 views.py:767 views.py:768
-#: views.py:777 views.py:778 views.py:788 views.py:798
+#: views.py:234 views.py:254 views.py:540 views.py:865 views.py:866
+#: views.py:875 views.py:876 views.py:886 views.py:896
 msgid "Participants"
-msgstr "Участники"
+msgstr ""
 
-#: views.py:220
+#: views.py:235
 msgid "Invited Participants"
-msgstr "Приглашаемые участники"
+msgstr ""
 
-#: views.py:221
+#: views.py:236
 msgid "Participants Online"
-msgstr "Участники онлайн"
+msgstr ""
 
-#: views.py:222
+#: views.py:237
 msgid "Locked"
-msgstr "Заблокирована"
+msgstr ""
 
-#: views.py:223
+#: views.py:238
 msgid "Public"
-msgstr "Публичная"
+msgstr ""
 
-#: views.py:224
+#: views.py:239
 msgid "Conference Profile"
-msgstr "Профиль Конференции"
+msgstr ""
 
-#: views.py:225
+#: views.py:240
 msgid "Public Participant Profile"
-msgstr "Профиль Публичного Участника"
+msgstr ""
 
-#: views.py:231 views.py:450
+#: views.py:246 views.py:532
 msgid "Basic Settings"
-msgstr "Основные настройки"
+msgstr ""
 
-#: views.py:235 views.py:454
+#: views.py:250 views.py:536
 msgid "Open Access"
-msgstr "Открытый доступ"
+msgstr ""
 
-#: views.py:291
+#: views.py:310
 #, python-format
 msgid "%(contact)s is already there."
-msgstr "%(contact)s уже там."
+msgstr ""
 
-#: views.py:296
+#: views.py:315
 #, python-format
 msgid "%(contact)s added."
-msgstr "%(contact)s добавлен."
+msgstr ""
 
-#: views.py:313
+#: views.py:332
 #, python-format
 msgid "Number %(phone)s is called for conference."
-msgstr "Номер %(phone)s вызван в конференцию."
+msgstr ""
 
-#: views.py:323
+#: views.py:342
 msgid "All the participants where invited to the conference"
-msgstr "Все участники были приглашены в конференцию"
-
-#: views.py:336
-#, python-format
-msgid "Channel %(channel)s is kicked."
-msgstr "Канал %(channel)s выброшен из конференции."
-
-#: views.py:341
-msgid "All participants have been kicked from the conference."
-msgstr "Все участники были отключены от конференции."
+msgstr ""
 
 #: views.py:355
 #, python-format
-msgid "Participant %(channel)s muted."
-msgstr "Участник %(channel)s - микрофон выключен."
+msgid "Channel %(channel)s is kicked."
+msgstr ""
 
-#: views.py:362
-msgid "Conference muted."
-msgstr "В конференции приглушен звук."
+#: views.py:360
+msgid "All participants have been kicked from the conference."
+msgstr ""
 
-#: views.py:376
+#: views.py:374
 #, python-format
-msgid "Participant %(channel)s unmuted."
-msgstr "Участник %(channel)s - микрофон включен."
+msgid "Participant %(channel)s muted."
+msgstr ""
 
-#: views.py:383
-msgid "Conference unmuted."
-msgstr "В конференции включен звук."
+#: views.py:381
+msgid "Conference muted."
+msgstr ""
 
 #: views.py:395
+#, python-format
+msgid "Participant %(channel)s unmuted."
+msgstr ""
+
+#: views.py:402
+msgid "Conference unmuted."
+msgstr ""
+
+#: views.py:414
 msgid "The conference recording has been started."
-msgstr "Запись конференции начата."
+msgstr ""
 
-#: views.py:405
+#: views.py:424
 msgid "The conference recording has been stopped."
-msgstr "Запись конференции закончена."
+msgstr ""
 
-#: views.py:415
+#: views.py:434
 msgid "The conference has been locked."
-msgstr "Конференция заблокирована."
+msgstr ""
 
-#: views.py:427
+#: views.py:446
 msgid "The conference has been unlocked."
-msgstr "Конференция разблокирована"
+msgstr ""
 
-#: views.py:476
+#: views.py:557
 msgid "Entry"
-msgstr "Значение"
+msgstr ""
 
-#: views.py:480
+#: views.py:561
 msgid ""
 "Format: Minute Hour Day-of-Month Month Day-of-Week. Examples: <br/>\n"
 "30 10 * * 1,2,3,4,5 - Every workday at 10:30 a.m. <br/>\n"
@@ -263,50 +258,35 @@ msgid ""
 "See Linux Crontab: 15 Awesome Cron Job Examples - <br/>\n"
 "http://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/\n"
 msgstr ""
-"Формат: Минута Час Число-месяца Месяц День-недели. Примеры: <br/>\n"
-"30 10 * * 1,2,3,4,5 - Каждый рабочий день в 10:30 утра.<br/>\n"
-"0 10 1 * * - Каждый первый день месяца в 10:00 утра. <br/>\n"
-"Смотрите статью Linux Crontab: 15 Крутых Примеров Крон Задач - <br/>\n"
-"http://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/\n"
 
-#: views.py:506
+#: views.py:587
 msgid "Crontab has been installed successfully."
-msgstr "Crontab успешно установлен."
+msgstr ""
 
-#: views.py:536 views.py:617
+#: views.py:618 views.py:702
 msgid "Profile Name"
-msgstr "Название Профиля"
+msgstr ""
 
-#: views.py:539
+#: views.py:621
 msgid ""
 "Limits the number of participants for a single conference to a specific "
-"number. By default, conferences have no participant limit. After the limit "
-"is reached, the conference will be locked until someone leaves. Admin-"
-"level users are exempt from this limit and will still be able to join "
-"otherwise-locked, because of limit, conferences."
+"number. By default, conferences have no participant limit. After the "
+"limit is reached, the conference will be locked until someone leaves. "
+"Admin-level users are exempt from this limit and will still be able to "
+"join otherwise-locked, because of limit, conferences."
 msgstr ""
-"Ограничить количества участников в конкретной конференц-комнате. По "
-"умолчанию, конференции не имеют лимита на участников. После достижения "
-"лимит, конференция будет заблокирована на вход пользователей, пока кто-то "
-"не выйдет из нее. Пользователи с профилем Админитратора не попадают опд "
-"действие лимита и всегда могут попасть в нужную конференц-комнату."
 
-#: views.py:540
+#: views.py:622
 msgid ""
-"Records the conference call starting when the first user enters the room, "
-"and ending when the last user exits the room. The default recorded "
-"filename is 'confbridge-<name of conference bridge>-<start time>.wav' and "
-"the default format is 8kHz signed linear. By default, this option is "
-"disabled. This file will be located in the configured monitoring directory "
-"as set in conf"
+"Records the conference call starting when the first user enters the room,"
+" and ending when the last user exits the room. The default recorded "
+"filename is 'confbridge-<name of conference bridge>-<start time>.wav' and"
+" the default format is 8kHz signed linear. By default, this option is "
+"disabled. This file will be located in the configured monitoring "
+"directory as set in conf"
 msgstr ""
-"Запись конференции начинается при входе первого пользователя в конференц-"
-"комнату и заканчивается когда выйдет последний. Имя файла записи по "
-"умолчанию \"<name of conference bridge>-<start time>.wav\", 8кГц. По "
-"умолчанию опция записи отключена. Файл записи будет находится в папки "
-"записей, которая указана в конфигурационном файле asterisk.conf"
 
-#: views.py:541
+#: views.py:623
 msgid ""
 "Sets the internal native sample rate at which to mix the conference. The "
 "\"auto\" option allows Asterisk to adjust the sample rate to the best "
@@ -315,208 +295,154 @@ msgid ""
 "not match an internal sampling rate supported by Asterisk, the nearest "
 "sampling rate will be used instead."
 msgstr ""
-"Установить чистоту дискритезации, на которой микшировать конференцию. "
-"Опция   \"авто\" позволяет Asterisk устанавливает нужную частоту "
-"дискретизации для достижения максимального качества записи. Числовые "
-"значения устанавливают частоту дискретизации равную их значению. Если "
-"выбранное числовое значение не совпадает с имеющейся по умолчанию в "
-"Asterisk частотой дискретизации - выбирается ближайшее имеющееся значение."
 
-#: views.py:542
+#: views.py:624
 msgid ""
 "Sets, in milliseconds, the internal mixing interval. By default, the "
 "mixing interval of a bridge is 20ms. This setting reflects how \"tight\" "
 "or \"loose\" the mixing will be for the conference. Lower intervals "
-"provide a \"tighter\" sound with less delay in the bridge and consume more "
-"system resources. Higher intervals provide a \"looser\" sound with more "
-"delay in the bridge and consume less resources"
+"provide a \"tighter\" sound with less delay in the bridge and consume "
+"more system resources. Higher intervals provide a \"looser\" sound with "
+"more delay in the bridge and consume less resources"
 msgstr ""
-"Установить интервал микширования (в милисекундах). По умолчанию интервал "
-"микширования - 20мс. Данный параметр устанавливает насколько  \"жестко \" "
-"или  \"свободно \" будет микшироваться запись конфренции. Нижние значения "
-"обеспечивают более  \"жесткий \" звук и потребляют большее количество "
-"системных ресурсов, более высокие, соответственно, наоборот."
 
-#: views.py:543
+#: views.py:625
 msgid ""
-"Configured video (as opposed to audio) distribution method for conference "
-"participants. Participants must use the same video codec. Confbridge does "
-"not provide MCU functionality. It does not transcode, scale, transrate, or "
-"otherwise manipulate the video. Options are \"none,\" where no video "
-"source is set by default and a video source may be later set via AMI or "
-"DTMF actions; \"follow_talker,\" where video distrubtion follows whomever "
-"is talking and providing video; \"last_marked,\" where the last marked "
-"user with video capabilities to join the conference will be the single "
-"video source distributed to all other participants - when the current "
-"video source leaves, the marked user previous to the last-joined will be "
-"used as the video source; and \"first-marked,\" where the first marked "
-"user with video capabilities to join the conference will be the single "
-"video source distributed to all other participants - when the current "
-"video source leaves, the marked user that joined next will be used as the "
-"video source. Use of video in conjunction with the jitterbuffer results in "
-"the audio being slightly out of sync with the video - because the "
-"jitterbuffer only operates on the audio stream, not the video stream. "
-"Jitterbuffer should be disabled when video is used."
+"Configured video (as opposed to audio) distribution method for conference"
+" participants. Participants must use the same video codec. Confbridge "
+"does not provide MCU functionality. It does not transcode, scale, "
+"transrate, or otherwise manipulate the video. Options are \"none,\" where"
+" no video source is set by default and a video source may be later set "
+"via AMI or DTMF actions; \"follow_talker,\" where video distrubtion "
+"follows whomever is talking and providing video; \"last_marked,\" where "
+"the last marked user with video capabilities to join the conference will "
+"be the single video source distributed to all other participants - when "
+"the current video source leaves, the marked user previous to the last-"
+"joined will be used as the video source; and \"first-marked,\" where the "
+"first marked user with video capabilities to join the conference will be "
+"the single video source distributed to all other participants - when the "
+"current video source leaves, the marked user that joined next will be "
+"used as the video source. Use of video in conjunction with the "
+"jitterbuffer results in the audio being slightly out of sync with the "
+"video - because the jitterbuffer only operates on the audio stream, not "
+"the video stream. Jitterbuffer should be disabled when video is used."
 msgstr ""
-"Настроить видео- (отдельно от аудио-) профиль для участников конференции. "
-"Участники конференции должны использовать такой же кодек. Confbridge не "
-"обладает функционалом полноценного MCU. Он не транскодирует, не "
-"масштабирует, не изменяет битрейт видео-потока. Варианты:\"none\" - видео "
-"не включено по умолчанию. Но может быть включено позже используя DTMF-"
-"команды или AMI-интерфейс Asterisk.\"follow_talker\" - показывать "
-"говорящего,\"last_marked\" - показывать последнего Помеченного "
-"пользователя, после того как данный пользоователь вышел из конференции, "
-"источником видео будет предыдущий помеченный пользователь.\"first-marked\" "
-"- показывать первого Помеченного пользователя, как только этот "
-"пользователь вышел, источником видео будет следующий зашедший в "
-"конференцию Помеченый пользователь. Для использования аудио- и видео-"
-"потоков в конференции параметр Asterisk Jitterbuffer должен быть выключен, "
-"чтобы не было рассинхронизации картинки и звука."
 
-#: views.py:592
+#: views.py:677
 msgid "Basic"
-msgstr "Основные"
+msgstr ""
 
-#: views.py:601
+#: views.py:686
 msgid "Announcements"
-msgstr "Объявления"
+msgstr ""
 
-#: views.py:613
+#: views.py:698
 msgid "Voice Processing"
-msgstr "Обработка голоса"
+msgstr ""
 
-#: views.py:618
+#: views.py:703
 msgid "Legend"
-msgstr "Легенда"
+msgstr ""
 
-#: views.py:632
+#: views.py:717
 msgid "Sets if the user is an Admin or not. By default, no."
-msgstr "Установить пользователю профиль Администратор. По умолчанию - нет."
+msgstr ""
 
-#: views.py:633
+#: views.py:718
 msgid "Sets if the user is Marked or not. By default, no."
 msgstr ""
-"Установить пользователю профиль Помеченный пользователь. По умолчанию - "
-"нет."
 
-#: views.py:634 views.py:636
+#: views.py:719 views.py:721
 msgid "Sets if the user should start out muted. By default, no."
 msgstr ""
-"Установить пользователю заход в конференцию с выключенным микрофоном. По "
-"умолчанию - нет."
 
-#: views.py:635
+#: views.py:720
 msgid ""
-"Sets if the user must enter a PIN before joining the conference. The user "
-"will be prompted for the PIN."
+"Sets if the user must enter a PIN before joining the conference. The user"
+" will be prompted for the PIN."
 msgstr ""
-"Установить пользователю принудительный ввод ПИН-кода перед заходом в "
-"конференц-комнату. (При входе пользователю будет проиграно сообщение с "
-"просьюой ввести ПИН)."
 
-#: views.py:637
+#: views.py:722
 msgid ""
 "When set, enter/leave prompts and user introductions are not played. By "
 "default, no."
 msgstr ""
-"Если установлено, то сообщения о входе/выходе пользователя в конференц-"
-"комнату не проигрываются. По умолчанию - нет."
 
-#: views.py:638
+#: views.py:723
 msgid ""
-"Sets if the user must wait for another marked user to enter before joining "
-"the conference. By default, no."
+"Sets if the user must wait for another marked user to enter before "
+"joining the conference. By default, no."
 msgstr ""
-"Устанавливает, должен ли пользователь ожидать входа Помеченного "
-"пользователя перед присоединением пользователя к конференции. По умолчанию "
-"- нет."
 
-#: views.py:639
+#: views.py:724
 msgid ""
 "If enabled, every user with this option in their profile will be removed "
 "from the conference when the last marked user exists the conference."
 msgstr ""
-"Если опция включена, каждый пользователь с этой опцией в своем профиле, "
-"будет удален из конференции, когда в конференции остался один Помеченный "
-"пользователь пользователь."
 
-#: views.py:640
+#: views.py:725
 msgid ""
-"Whether or not DTMF received from users should pass through the conference "
-"to other users. By default, no."
-msgstr "Разрешить DTMF от пользователей в конференции. По умолчанию - нет."
+"Whether or not DTMF received from users should pass through the "
+"conference to other users. By default, no."
+msgstr ""
 
-#: views.py:641
+#: views.py:726
 msgid ""
-"Sets whether music on hold should be played when only one person is in the "
-"conference or when the user is waiting on a marked user to enter the "
+"Sets whether music on hold should be played when only one person is in "
+"the conference or when the user is waiting on a marked user to enter the "
 "conference. By default, off."
 msgstr ""
-"Устанавливает должна ли проигрываться музыка на удержании если в конференц-"
-"комнате единственный пользователь или когда участники ожидают вход в "
-"конференцию Помеченного пользователя. По умолчанию - выключено."
 
-#: views.py:642
+#: views.py:727
 msgid "Sets the music on hold class to use for music on hold."
-msgstr "Устанавливает класс музыки на удержании для конференции."
+msgstr ""
 
-#: views.py:643
+#: views.py:728
 msgid ""
 "Sets if the number of users in the conference should be announced to the "
 "caller. By default, no."
 msgstr ""
-"Устанавливает нужно ли проигрывать текущее количество участников "
-"конференции пользователю при входе в конференц-комнату. По умолчанию - нет."
 
-#: views.py:644
+#: views.py:729
 msgid ""
-"Choices: yes, no, integer. Sets if the number of users should be announced "
-"to all other users in the conference when someone joins. When set to a "
-"number, the announcement will only occur once the user count is above the "
-"specified number"
-msgstr "Выбор: yes, no, число. "
-
-#: views.py:645
-msgid ""
-"Sets if the only user announcement should be played when someone enters an "
-"empty conference. By default, yes."
+"Choices: yes, no, integer. Sets if the number of users should be "
+"announced to all other users in the conference when someone joins. When "
+"set to a number, the announcement will only occur once the user count is "
+"above the specified number"
 msgstr ""
-"Устанавливает должно ли проигрываться сообщение о заходе пользователя в "
-"конференцию. По умолчанию - да."
 
-#: views.py:646
+#: views.py:730
+msgid ""
+"Sets if the only user announcement should be played when someone enters "
+"an empty conference. By default, yes."
+msgstr ""
+
+#: views.py:731
 msgid ""
 "If set, the sound file specified by filename will be played to the user, "
 "and only the user, upon joining the conference bridge."
 msgstr ""
-"Если установлено, звуковой файл с определенным именем будет проигран "
-"пользователю при присоединении к конференции"
 
-#: views.py:647
+#: views.py:732
 msgid ""
 "When enabled, this option prompts the user for their name when entering "
-"the conference. After the name is recorded, it will be played as the user "
-"enters and exists the conference. By default, no."
+"the conference. After the name is recorded, it will be played as the user"
+" enters and exists the conference. By default, no."
 msgstr ""
-"Когда эта опция включена, у пользователя запрашивается его имя при входе в "
-"конференцию. После этого записывается то, что сказал пользовательи "
-"проигрывается при его входе в конференцию. По умолчанию - нет."
 
-#: views.py:648
+#: views.py:733
 msgid ""
 "Drops what Asterisk detects as silence from entering into the bridge. "
-"Enabling this option will drastically improve performance and help remove "
-"the buildup of background noise from the conference. This option is highly "
-"recommended for large conferences, due to its performance improvements."
+"Enabling this option will drastically improve performance and help remove"
+" the buildup of background noise from the conference. This option is "
+"highly recommended for large conferences, due to its performance "
+"improvements."
 msgstr ""
-"Включение этой опции резко повышает производительность и поможет удалить "
-"наращивание фонового шума от конференции. Эта опция рекомендуется для "
-"больших конференций ввиду улучшения производительности."
 
-#: views.py:649
+#: views.py:734
 msgid ""
-"The time, in milliseconds, by default 160, of sound above what the DSP has "
-"established as base-line silence for a user, before that user is "
+"The time, in milliseconds, by default 160, of sound above what the DSP "
+"has established as base-line silence for a user, before that user is "
 "considered to be talking. This value affects several options:\n"
 "Audio is only mixed out of a user's incoming audio stream if talking is "
 "detected. If this value is set too loose, the user will hear themselves "
@@ -526,268 +452,1082 @@ msgid ""
 "talking has begun, which causes AMI events to fire. If this value is set "
 "too tight, AMI events may be falsely triggered by variants in the "
 "background noise of the caller.\n"
-"The drop_silence option depends on this value to determine when the user's "
-"audio should be mixed into the bridge after periods of silence. If this "
-"value is too loose, the beginning of a user's speech will get cut off as "
-"they transition from silence to talking."
+"The drop_silence option depends on this value to determine when the "
+"user's audio should be mixed into the bridge after periods of silence. If"
+" this value is too loose, the beginning of a user's speech will get cut "
+"off as they transition from silence to talking."
 msgstr ""
-"Время в миллисекундах (160 по умолчанию), которое согласно DSP "
-"предшествует началу разговора пользователя. Это значание влияет на "
-"некоторые операции: Аудио микшируется только из поступающего звукового "
-"потока пользователя, если речь обнаружена.  Если значение слишком низкое - "
-"пользователи будут слышать себя каждый раз, когда они начинают говорить. "
-"Также это значение влияет на правильное создание соответсвующего AMI-"
-"событий. Если значение слишком большое - то начало разговора пользователя "
-"может быть не услышано."
 
-#: views.py:653
+#: views.py:738
 msgid ""
 "The time, in milliseconds, by default 2500, of sound falling within what "
 "the DSP has established as the baseline silence, before a user is "
-"considered to be silent. The best way to approach this option is to set it "
-"slightly above the maximum amount of milliseconds of silence a user may "
-"generate during natural speech. This value affects several operations:\n"
+"considered to be silent. The best way to approach this option is to set "
+"it slightly above the maximum amount of milliseconds of silence a user "
+"may generate during natural speech. This value affects several "
+"operations:\n"
 "When talker detection AMI events are enabled, this value determines when "
 "the user has stopped talking after a period of talking. If this value is "
 "set too low, AMI events indicating that the user has stopped talking may "
 "get faslely sent out when the user briefly pauses during mid sentence.\n"
-"The drop_silence option depends on this value to determine when the user's "
-"audio should begin to be dropped from the bridge, after the user stops "
-"talking. If this value is set too low, the user's audio stream may sound "
-"choppy to other participants."
+"The drop_silence option depends on this value to determine when the "
+"user's audio should begin to be dropped from the bridge, after the user "
+"stops talking. If this value is set too low, the user's audio stream may "
+"sound choppy to other participants."
 msgstr ""
-"Продолжительность тишины, которая считается DSP базовой для того, чтобы  "
-"считать, что от пользователя не приходит никакого аудио-потока, по "
-"умолчанию 2500 милисекунд. Best practice - установить это значение чуть "
-"выше значения по умолчанию, нежели значение, которое может быть достигнуто "
-"в естественной речи пользователя. Это значание влияет на некоторые "
-"события: Когда AMI-событие детектирования говорящего включено, это "
-"занчание определяет, когда пользователь закончил говорить. Если значение "
-"слишком низкое, то может быть ложное AMI-событие. Опция drop_silence "
-"зависит от данной опции. Если значание слишком низкое речь пользователя "
-"для других участников конференции может слышиться прерывистой"
 
-#: views.py:656
+#: views.py:741
 msgid ""
 "Sets whether or not notifications of when a user begins and ends talking "
 "should be sent out as events over AMI. By default, no."
 msgstr ""
-"Устанавливает отправку AMI-событий когда пользователь начал или закончил "
-"говорить. По умолчанию - нет."
 
-#: views.py:657
+#: views.py:742
 msgid ""
 "Whether or not a noise reduction filter should be applied to the audio "
-"before mixing. By default, off. This requires codec_speex to be built and "
-"installed. Do not confuse this option with drop_silence. denoise is useful "
-"if there is a lot of background noise for a user, as it attempts to remove "
-"the noise while still preserving the speech. This option does not remove "
-"silence from being mixed into the conference and does come at the cost of "
-"a slight performance hit."
+"before mixing. By default, off. This requires codec_speex to be built and"
+" installed. Do not confuse this option with drop_silence. denoise is "
+"useful if there is a lot of background noise for a user, as it attempts "
+"to remove the noise while still preserving the speech. This option does "
+"not remove silence from being mixed into the conference and does come at "
+"the cost of a slight performance hit."
 msgstr ""
-"Устанавливает должно ли быть включено шумоподавление перед микшированием "
-"аудиопотока. По умолчанию - выключено. Для использования данной опции "
-"codec_speex должен быть скомпилирован и установлен. Не путайте эту опцию с "
-"drop_silence, удаление шумов полезно, если есть много фонового шума, так "
-"как включение этой опции позвоялет удалить шум, сохраняя речь. Эта опция "
-"не удаляет тишину из микширования в конференции и в конечном итоге "
-"приводит к небольшому падению производительности."
 
-#: views.py:658
+#: views.py:743
 msgid ""
 "Whether or not to place a jitter buffer on the caller's audio stream "
 "before any audio mixing is performed. This option is highly recommended, "
 "but will add a slight delay to the audio and will incur a slight "
 "performance penalty. This option makes use of the JITTERBUFFER dialplan "
 "function's default adaptive jitter buffer. For a more fine-tuned jitter "
-"buffer, disable this option and use the JITTERBUFFER dialplan function on "
-"the calling channel, before it enters the ConfBridge application."
+"buffer, disable this option and use the JITTERBUFFER dialplan function on"
+" the calling channel, before it enters the ConfBridge application."
 msgstr ""
-"Указывать или не указывать значение джиттер-буффера на голосовом потоке "
-"звонящего до того как будут совершены какие-либо преобразования. "
-"Использование опции рекомендуется, однако добавляет небольшую задержку в "
-"передаче голоса и слегка снижает производительность системы. Эта опция "
-"позволяет использовать адаптивный jitter buffer по умолчанию в функции "
-"диалплана JITTERBUFFER . Для более точной настройки jitter-buffer "
-"требуется отключение опции и применение функции диалплана JITTERBUFFER на "
-"вызываемом канале до того как вызов попадет в приложение ConfBridge."
 
-#: views.py:678
+#: views.py:766
 msgid "New Password"
-msgstr "Новый Пароль"
+msgstr ""
 
-#: views.py:727 views.py:728 views.py:737 views.py:738 views.py:747
-#: views.py:757
+#: views.py:815 views.py:825 views.py:826 views.py:835 views.py:836
+#: views.py:845 views.py:855
 msgid "Conferences"
-msgstr "Конференции"
-
-#: views.py:748 views.py:758
-msgid "Plan"
-msgstr "План"
-
-#: views.py:787 views.py:797
-msgid "Contacts"
-msgstr "Контакты"
-
-#: views.py:806
-msgid "Recordings"
-msgstr "Записи"
-
-#: views.py:813 views.py:823
-msgid "Profiles"
-msgstr "Профили"
+msgstr ""
 
 #: views.py:816
+msgid "Conferences_par"
+msgstr ""
+
+#: views.py:846 views.py:856
+msgid "Plan"
+msgstr ""
+
+#: views.py:885 views.py:895
+msgid "Contacts"
+msgstr ""
+
+#: views.py:904
+msgid "Recordings"
+msgstr ""
+
+#: views.py:911 views.py:921
+msgid "Profiles"
+msgstr ""
+
+#: views.py:914
 msgid "Participant"
-msgstr "Участник"
+msgstr ""
 
-#: views.py:831 views.py:834 views.py:839
+#: views.py:929 views.py:932 views.py:937
 msgid "Users"
-msgstr "Пользователи"
+msgstr ""
 
-#: views.py:842
+#: views.py:940
 msgid "Roles"
-msgstr "Роли"
+msgstr ""
 
-#: views.py:897
+#: views.py:995
 #, python-format
 msgid "Attempt to enter non-public conference from %(phone)s."
-msgstr "Попытка войти в не-публичную конференцию с номера %(phone)s."
+msgstr ""
 
-#: views.py:939
+#: views.py:1037
 #, python-format
 msgid "Could not invite number %(num)s: %(status)s"
-msgstr "Невозможно вызвать номер  %(num)s: %(status)s"
+msgstr ""
 
-#: views.py:949
+#: views.py:1047
 #, python-format
 msgid "Number %(num)s has entered the conference."
-msgstr "Номер %(num)s вошел в конференцию."
+msgstr ""
 
-#: views.py:959
+#: views.py:1057
 #, python-format
 msgid "Number %(num)s has left the conference."
-msgstr "Номер %(num)s покинул конференцию."
+msgstr ""
 
-#: views.py:970
+#: views.py:1068
 #, python-format
 msgid "Unmute request from number %(num)s."
-msgstr "Запрос на включение микрофона от номера %(num)s."
+msgstr ""
 
 #: templates/action_conference.html:47
 msgid "Submit"
-msgstr "Подтвердить"
+msgstr ""
 
-#: templates/conference_create.html:7
+#: templates/conference_create.html:9 templates/conference_edit.html:10
 msgid "You can create participants in menu <b>Participants</b>."
-msgstr "Создайте Участников конференции в меню <b>Участники</b>."
+msgstr ""
 
-#: templates/conference_details.html:84
+#: templates/conference_details.html:90
 msgid "Manage Conference"
-msgstr "Управление конференцией"
+msgstr ""
 
-#: templates/conference_details.html:88
+#: templates/conference_details.html:94
+#: templates/conference_details_new.html:49
 msgid "Invite All Participants"
-msgstr "Пригласить всех участников"
+msgstr ""
 
-#: templates/conference_details.html:92
+#: templates/conference_details.html:98
+#: templates/conference_details_new.html:50
 msgid "Phone number"
-msgstr "Номер телефона"
-
-#: templates/conference_details.html:95
-msgid "Invite"
-msgstr "Пригласить"
-
-#: templates/conference_details.html:99
-msgid "Mute All"
-msgstr "Выключить все микрофоны"
-
-#: templates/conference_details.html:100
-msgid "Unmute All"
-msgstr "Включить все микрофоны"
+msgstr ""
 
 #: templates/conference_details.html:101
-msgid "Start Recording"
-msgstr "Начать запись"
+#: templates/conference_details_new.html:51
+msgid "Invite"
+msgstr ""
 
-#: templates/conference_details.html:102
-msgid "Stop Recording"
-msgstr "Остановить запись"
-
-#: templates/conference_details.html:104
-msgid "Unlock"
-msgstr "Разблокировать"
+#: templates/conference_details.html:105
+#: templates/conference_details_new.html:52
+msgid "Mute All"
+msgstr ""
 
 #: templates/conference_details.html:106
-msgid "Lock"
-msgstr "Заблокировать"
+#: templates/conference_details_new.html:53
+msgid "Unmute All"
+msgstr ""
+
+#: templates/conference_details.html:107
+#: templates/conference_details_new.html:55
+msgid "Start Recording"
+msgstr ""
 
 #: templates/conference_details.html:108
+#: templates/conference_details_new.html:56
+msgid "Stop Recording"
+msgstr ""
+
+#: templates/conference_details.html:110
+#: templates/conference_details_new.html:57
+msgid "Unlock"
+msgstr ""
+
+#: templates/conference_details.html:112
+#: templates/conference_details_new.html:58
+msgid "Lock"
+msgstr ""
+
+#: templates/conference_details.html:114
+#: templates/conference_details_new.html:59
 msgid "Kick All"
-msgstr "Отключить всех"
+msgstr ""
 
-#: templates/conference_details.html:130
+#: templates/conference_details.html:136
+#: templates/conference_details_new.html:19
+#: templates/conference_details_new.html:54
 msgid "Unmute"
-msgstr "Включить микрофон"
+msgstr ""
 
-#: templates/conference_details.html:134
+#: templates/conference_details.html:140
+#: templates/conference_details_new.html:20
+#: templates/conference_details_new.html:60
 msgid "Mute"
-msgstr "Выключить микрофон"
+msgstr ""
 
-#: templates/conference_details.html:152
+#: templates/conference_details.html:158
+#: templates/conference_details_new.html:21
+#: templates/conference_details_new.html:61
 msgid "Kick"
-msgstr "Отключить"
+msgstr ""
 
-#: templates/conference_details.html:210
+#: templates/conference_details.html:216
 msgid "Conference Log"
-msgstr "Лог конференции"
+msgstr ""
 
-#: templates/conference_details.html:210
+#: templates/conference_details.html:216
 msgid "Clear Log"
-msgstr "Очистить лог"
+msgstr ""
 
-#: templates/conference_edit.html:8
-msgid "You can manage participants in menu <b>Participants</b>."
-msgstr "Управляйте списками Участников конференции в меню <b>Участники</b>."
+#: templates/conference_details_new.html:62
+msgid "Ask a word"
+msgstr ""
+
+#: templates/conference_details_new.html:63
+msgid "Send invite emails"
+msgstr ""
+
+#: templates/conference_edit.html:20
+msgid "Profile"
+msgstr ""
+
+#: templates/conference_edit.html:21
+msgid "Email"
+msgstr ""
 
 #: templates/conference_schedule_list.html:5
 msgid "Install the Schedule"
-msgstr "Установить расписание"
+msgstr ""
 
 #: templates/contact_create.html:5
 msgid "You can also"
-msgstr "Вы можете также"
+msgstr ""
 
 #: templates/contact_create.html:5
 msgid "Import Contacts"
-msgstr "Импортировать контакты"
+msgstr ""
 
 #: templates/contact_import.html:5
 msgid "Import Contacts from a CSV file (phone, name):"
-msgstr "Импортировать контакты из CSV-файла (телефон, имя):"
+msgstr ""
 
 #: templates/my_master.html:13
 msgid "Logout"
-msgstr "Выйти"
+msgstr ""
 
 #: templates/my_master.html:17
 msgid "Login"
-msgstr "Войти"
+msgstr ""
 
 #: templates/my_master.html:22
 msgid "Language"
-msgstr "Язык"
+msgstr ""
 
 #: utils/validators.py:10
 msgid "Must be a number!"
-msgstr "Тип данных - число!"
+msgstr ""
 
 #: utils/validators.py:19
 #, python-format
 msgid "Participant with phone number %(num)s already there."
-msgstr "Участник с номером %(num)s уже добавлен."
+msgstr ""
 
 #: utils/validators.py:34
 #, python-format
 msgid "%(job)s is not a correct crontab entry."
-msgstr "%(job)s не является корректной записью планироващика."
+msgstr ""
+
+#~ msgid ""
+#~ "(C) 2015 Asterisk Guru | <a "
+#~ "href=\"http://asteriskguru.ru/\">www.asteriskguru.ru</a> | "
+#~ "Professional Asterisk support & development"
+#~ " services."
+#~ msgstr ""
+#~ "(C) 2015 Asterisk Guru | <a "
+#~ "href=\"http://asteriskguru.ru/\">www.asteriskguru.ru</a> | "
+#~ "Профессиональные услуги поддержки и разработки"
+#~ " для Asterisk."
+
+#~ msgid "File"
+#~ msgstr "Файл"
+
+#~ msgid "CSV file is broken, line %(linenum)s"
+#~ msgstr "CSV-файл поврежден, line %(linenum)s"
+
+#~ msgid "The first column does not contain phone number, line %(linenum)s"
+#~ msgstr "Первый столбец не содержит номер телефона, line %(linenum)s"
+
+#~ msgid "You must select a Public Participant Profile for a Public Conference."
+#~ msgstr "Вы должны выбрать профиль участника для Публичной Конференции"
+
+#~ msgid "John Smith"
+#~ msgstr "Афиноген Пупкин"
+
+#~ msgid "Sam Brown"
+#~ msgstr "Космодром Байконуров"
+
+#~ msgid "Guest"
+#~ msgstr "Гость"
+
+#~ msgid "Marker"
+#~ msgstr "Помеченный пользвователь"
+
+#~ msgid "Administrator"
+#~ msgstr "Администратор"
+
+#~ msgid "Default"
+#~ msgstr "По умолчанию"
+
+#~ msgid "Test Conference"
+#~ msgstr "Тестовая конференция"
+
+#~ msgid "Admin"
+#~ msgstr "Администратор"
+
+#~ msgid "Marked"
+#~ msgstr "Помеченный пользователь"
+
+#~ msgid "PIN is set"
+#~ msgstr "ПИН установлен"
+
+#~ msgid "Wait for marked user to join"
+#~ msgstr "Ожидать присоединения к конференции Помеченного Пользователя"
+
+#~ msgid "End when marked user leaves"
+#~ msgstr "Завершить как только Помеченный Пользователь вышел"
+
+#~ msgid "Guests (not from participant list) can join"
+#~ msgstr "Гости (номера, которых нет в списке участников) могут присоединиться"
+
+#~ msgid "Only for participants specified"
+#~ msgstr "Только для участников"
+
+#~ msgid "Phone"
+#~ msgstr "Телефон"
+
+#~ msgid "Name"
+#~ msgstr "Имя"
+
+#~ msgid "User"
+#~ msgstr "Пользователь"
+
+#~ msgid "Add to Conference"
+#~ msgstr "Добавить в конференцию"
+
+#~ msgid "Imported %(num)s contacts."
+#~ msgstr "Импортировано %(num)s контактов"
+
+#~ msgid "Conference"
+#~ msgstr "Конференция"
+
+#~ msgid "Participant Profile"
+#~ msgstr "Профиль Участника"
+
+#~ msgid "Is invited on Invite All?"
+#~ msgstr "Включен в Пригласить Всех"
+
+#~ msgid ""
+#~ "When enabled this participant will be"
+#~ " called on <i>Invite All</i> from "
+#~ "<i>Manage Conference</i> menu."
+#~ msgstr ""
+#~ "Если включено, этот участник будет "
+#~ "вызван при выборе <i>Пригласить Всех "
+#~ "Участников</i> в меню <i>Управления "
+#~ "Конфренецией</i>."
+
+#~ msgid "Conference Number"
+#~ msgstr "Номер Конференции"
+
+#~ msgid "Conference Name"
+#~ msgstr "Название Конференции"
+
+#~ msgid "Participants"
+#~ msgstr "Участники"
+
+#~ msgid "Invited Participants"
+#~ msgstr "Приглашаемые участники"
+
+#~ msgid "Participants Online"
+#~ msgstr "Участники онлайн"
+
+#~ msgid "Locked"
+#~ msgstr "Заблокирована"
+
+#~ msgid "Public"
+#~ msgstr "Публичная"
+
+#~ msgid "Conference Profile"
+#~ msgstr "Профиль Конференции"
+
+#~ msgid "Public Participant Profile"
+#~ msgstr "Профиль Публичного Участника"
+
+#~ msgid "Basic Settings"
+#~ msgstr "Основные настройки"
+
+#~ msgid "Open Access"
+#~ msgstr "Открытый доступ"
+
+#~ msgid "%(contact)s is already there."
+#~ msgstr "%(contact)s уже там."
+
+#~ msgid "%(contact)s added."
+#~ msgstr "%(contact)s добавлен."
+
+#~ msgid "Number %(phone)s is called for conference."
+#~ msgstr "Номер %(phone)s вызван в конференцию."
+
+#~ msgid "All the participants where invited to the conference"
+#~ msgstr "Все участники были приглашены в конференцию"
+
+#~ msgid "Channel %(channel)s is kicked."
+#~ msgstr "Канал %(channel)s выброшен из конференции."
+
+#~ msgid "All participants have been kicked from the conference."
+#~ msgstr "Все участники были отключены от конференции."
+
+#~ msgid "Participant %(channel)s muted."
+#~ msgstr "Участник %(channel)s - микрофон выключен."
+
+#~ msgid "Conference muted."
+#~ msgstr "В конференции приглушен звук."
+
+#~ msgid "Participant %(channel)s unmuted."
+#~ msgstr "Участник %(channel)s - микрофон включен."
+
+#~ msgid "Conference unmuted."
+#~ msgstr "В конференции включен звук."
+
+#~ msgid "The conference recording has been started."
+#~ msgstr "Запись конференции начата."
+
+#~ msgid "The conference recording has been stopped."
+#~ msgstr "Запись конференции закончена."
+
+#~ msgid "The conference has been locked."
+#~ msgstr "Конференция заблокирована."
+
+#~ msgid "The conference has been unlocked."
+#~ msgstr "Конференция разблокирована"
+
+#~ msgid "Entry"
+#~ msgstr "Значение"
+
+#~ msgid ""
+#~ "Format: Minute Hour Day-of-Month Month Day-of-Week. Examples: <br/>\n"
+#~ "30 10 * * 1,2,3,4,5 - Every workday at 10:30 a.m. <br/>\n"
+#~ "0 10 1 * * - Every 1-st day of every month at 10:00 a.m. <br/>\n"
+#~ "See Linux Crontab: 15 Awesome Cron Job Examples - <br/>\n"
+#~ "http://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/\n"
+#~ msgstr ""
+#~ "Формат: Минута Час Число-месяца Месяц День-недели. Примеры: <br/>\n"
+#~ "30 10 * * 1,2,3,4,5 - Каждый рабочий день в 10:30 утра.<br/>\n"
+#~ "0 10 1 * * - Каждый первый день месяца в 10:00 утра. <br/>\n"
+#~ "Смотрите статью Linux Crontab: 15 Крутых Примеров Крон Задач - <br/>\n"
+#~ "http://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/\n"
+
+#~ msgid "Crontab has been installed successfully."
+#~ msgstr "Crontab успешно установлен."
+
+#~ msgid "Profile Name"
+#~ msgstr "Название Профиля"
+
+#~ msgid ""
+#~ "Limits the number of participants for"
+#~ " a single conference to a specific"
+#~ " number. By default, conferences have "
+#~ "no participant limit. After the limit"
+#~ " is reached, the conference will be"
+#~ " locked until someone leaves. Admin-"
+#~ "level users are exempt from this "
+#~ "limit and will still be able to"
+#~ " join otherwise-locked, because of "
+#~ "limit, conferences."
+#~ msgstr ""
+#~ "Ограничить количества участников в конкретной"
+#~ " конференц-комнате. По умолчанию, конференции "
+#~ "не имеют лимита на участников. После "
+#~ "достижения лимит, конференция будет "
+#~ "заблокирована на вход пользователей, пока "
+#~ "кто-то не выйдет из нее. Пользователи"
+#~ " с профилем Админитратора не попадают "
+#~ "опд действие лимита и всегда могут "
+#~ "попасть в нужную конференц-комнату."
+
+#~ msgid ""
+#~ "Records the conference call starting "
+#~ "when the first user enters the "
+#~ "room, and ending when the last "
+#~ "user exits the room. The default "
+#~ "recorded filename is 'confbridge-<name of "
+#~ "conference bridge>-<start time>.wav' and the"
+#~ " default format is 8kHz signed "
+#~ "linear. By default, this option is "
+#~ "disabled. This file will be located "
+#~ "in the configured monitoring directory "
+#~ "as set in conf"
+#~ msgstr ""
+#~ "Запись конференции начинается при входе "
+#~ "первого пользователя в конференц-комнату и "
+#~ "заканчивается когда выйдет последний. Имя "
+#~ "файла записи по умолчанию \"<name of "
+#~ "conference bridge>-<start time>.wav\", 8кГц. "
+#~ "По умолчанию опция записи отключена. "
+#~ "Файл записи будет находится в папки "
+#~ "записей, которая указана в конфигурационном"
+#~ " файле asterisk.conf"
+
+#~ msgid ""
+#~ "Sets the internal native sample rate "
+#~ "at which to mix the conference. "
+#~ "The \"auto\" option allows Asterisk to"
+#~ " adjust the sample rate to the "
+#~ "best quality / performance based on "
+#~ "the participant makeup. Numbered values "
+#~ "lock the rate to the specified "
+#~ "numerical rate. If a defined number "
+#~ "does not match an internal sampling "
+#~ "rate supported by Asterisk, the nearest"
+#~ " sampling rate will be used instead."
+#~ msgstr ""
+#~ "Установить чистоту дискритезации, на которой"
+#~ " микшировать конференцию. Опция   \"авто\" "
+#~ "позволяет Asterisk устанавливает нужную "
+#~ "частоту дискретизации для достижения "
+#~ "максимального качества записи. Числовые "
+#~ "значения устанавливают частоту дискретизации "
+#~ "равную их значению. Если выбранное "
+#~ "числовое значение не совпадает с "
+#~ "имеющейся по умолчанию в Asterisk "
+#~ "частотой дискретизации - выбирается ближайшее"
+#~ " имеющееся значение."
+
+#~ msgid ""
+#~ "Sets, in milliseconds, the internal "
+#~ "mixing interval. By default, the mixing"
+#~ " interval of a bridge is 20ms. "
+#~ "This setting reflects how \"tight\" or"
+#~ " \"loose\" the mixing will be for "
+#~ "the conference. Lower intervals provide "
+#~ "a \"tighter\" sound with less delay "
+#~ "in the bridge and consume more "
+#~ "system resources. Higher intervals provide "
+#~ "a \"looser\" sound with more delay "
+#~ "in the bridge and consume less "
+#~ "resources"
+#~ msgstr ""
+#~ "Установить интервал микширования (в "
+#~ "милисекундах). По умолчанию интервал "
+#~ "микширования - 20мс. Данный параметр "
+#~ "устанавливает насколько  \"жестко \" или  "
+#~ "\"свободно \" будет микшироваться запись "
+#~ "конфренции. Нижние значения обеспечивают более"
+#~ "  \"жесткий \" звук и потребляют "
+#~ "большее количество системных ресурсов, более"
+#~ " высокие, соответственно, наоборот."
+
+#~ msgid ""
+#~ "Configured video (as opposed to audio)"
+#~ " distribution method for conference "
+#~ "participants. Participants must use the "
+#~ "same video codec. Confbridge does not"
+#~ " provide MCU functionality. It does "
+#~ "not transcode, scale, transrate, or "
+#~ "otherwise manipulate the video. Options "
+#~ "are \"none,\" where no video source "
+#~ "is set by default and a video "
+#~ "source may be later set via AMI"
+#~ " or DTMF actions; \"follow_talker,\" where"
+#~ " video distrubtion follows whomever is "
+#~ "talking and providing video; \"last_marked,\""
+#~ " where the last marked user with "
+#~ "video capabilities to join the "
+#~ "conference will be the single video "
+#~ "source distributed to all other "
+#~ "participants - when the current video"
+#~ " source leaves, the marked user "
+#~ "previous to the last-joined will "
+#~ "be used as the video source; and"
+#~ " \"first-marked,\" where the first "
+#~ "marked user with video capabilities to"
+#~ " join the conference will be the "
+#~ "single video source distributed to all"
+#~ " other participants - when the "
+#~ "current video source leaves, the marked"
+#~ " user that joined next will be "
+#~ "used as the video source. Use of"
+#~ " video in conjunction with the "
+#~ "jitterbuffer results in the audio being"
+#~ " slightly out of sync with the "
+#~ "video - because the jitterbuffer only"
+#~ " operates on the audio stream, not"
+#~ " the video stream. Jitterbuffer should "
+#~ "be disabled when video is used."
+#~ msgstr ""
+#~ "Настроить видео- (отдельно от аудио-) "
+#~ "профиль для участников конференции. Участники"
+#~ " конференции должны использовать такой же"
+#~ " кодек. Confbridge не обладает функционалом"
+#~ " полноценного MCU. Он не транскодирует, "
+#~ "не масштабирует, не изменяет битрейт "
+#~ "видео-потока. Варианты:\"none\" - видео не "
+#~ "включено по умолчанию. Но может быть "
+#~ "включено позже используя DTMF-команды или "
+#~ "AMI-интерфейс Asterisk.\"follow_talker\" - "
+#~ "показывать говорящего,\"last_marked\" - показывать"
+#~ " последнего Помеченного пользователя, после "
+#~ "того как данный пользоователь вышел из"
+#~ " конференции, источником видео будет "
+#~ "предыдущий помеченный пользователь.\"first-marked\""
+#~ " - показывать первого Помеченного "
+#~ "пользователя, как только этот пользователь "
+#~ "вышел, источником видео будет следующий "
+#~ "зашедший в конференцию Помеченый пользователь."
+#~ " Для использования аудио- и видео-потоков"
+#~ " в конференции параметр Asterisk "
+#~ "Jitterbuffer должен быть выключен, чтобы "
+#~ "не было рассинхронизации картинки и "
+#~ "звука."
+
+#~ msgid "Basic"
+#~ msgstr "Основные"
+
+#~ msgid "Announcements"
+#~ msgstr "Объявления"
+
+#~ msgid "Voice Processing"
+#~ msgstr "Обработка голоса"
+
+#~ msgid "Legend"
+#~ msgstr "Легенда"
+
+#~ msgid "Sets if the user is an Admin or not. By default, no."
+#~ msgstr "Установить пользователю профиль Администратор. По умолчанию - нет."
+
+#~ msgid "Sets if the user is Marked or not. By default, no."
+#~ msgstr ""
+#~ "Установить пользователю профиль Помеченный "
+#~ "пользователь. По умолчанию - нет."
+
+#~ msgid "Sets if the user should start out muted. By default, no."
+#~ msgstr ""
+#~ "Установить пользователю заход в конференцию"
+#~ " с выключенным микрофоном. По умолчанию "
+#~ "- нет."
+
+#~ msgid ""
+#~ "Sets if the user must enter a "
+#~ "PIN before joining the conference. The"
+#~ " user will be prompted for the "
+#~ "PIN."
+#~ msgstr ""
+#~ "Установить пользователю принудительный ввод "
+#~ "ПИН-кода перед заходом в конференц-комнату."
+#~ " (При входе пользователю будет проиграно"
+#~ " сообщение с просьюой ввести ПИН)."
+
+#~ msgid ""
+#~ "When set, enter/leave prompts and user"
+#~ " introductions are not played. By "
+#~ "default, no."
+#~ msgstr ""
+#~ "Если установлено, то сообщения о "
+#~ "входе/выходе пользователя в конференц-комнату "
+#~ "не проигрываются. По умолчанию - нет."
+
+#~ msgid ""
+#~ "Sets if the user must wait for "
+#~ "another marked user to enter before "
+#~ "joining the conference. By default, no."
+#~ msgstr ""
+#~ "Устанавливает, должен ли пользователь ожидать"
+#~ " входа Помеченного пользователя перед "
+#~ "присоединением пользователя к конференции. По"
+#~ " умолчанию - нет."
+
+#~ msgid ""
+#~ "If enabled, every user with this "
+#~ "option in their profile will be "
+#~ "removed from the conference when the "
+#~ "last marked user exists the conference."
+#~ msgstr ""
+#~ "Если опция включена, каждый пользователь "
+#~ "с этой опцией в своем профиле, "
+#~ "будет удален из конференции, когда в "
+#~ "конференции остался один Помеченный "
+#~ "пользователь пользователь."
+
+#~ msgid ""
+#~ "Whether or not DTMF received from "
+#~ "users should pass through the conference"
+#~ " to other users. By default, no."
+#~ msgstr "Разрешить DTMF от пользователей в конференции. По умолчанию - нет."
+
+#~ msgid ""
+#~ "Sets whether music on hold should "
+#~ "be played when only one person is"
+#~ " in the conference or when the "
+#~ "user is waiting on a marked user"
+#~ " to enter the conference. By default,"
+#~ " off."
+#~ msgstr ""
+#~ "Устанавливает должна ли проигрываться музыка"
+#~ " на удержании если в конференц-комнате "
+#~ "единственный пользователь или когда участники"
+#~ " ожидают вход в конференцию Помеченного "
+#~ "пользователя. По умолчанию - выключено."
+
+#~ msgid "Sets the music on hold class to use for music on hold."
+#~ msgstr "Устанавливает класс музыки на удержании для конференции."
+
+#~ msgid ""
+#~ "Sets if the number of users in "
+#~ "the conference should be announced to"
+#~ " the caller. By default, no."
+#~ msgstr ""
+#~ "Устанавливает нужно ли проигрывать текущее "
+#~ "количество участников конференции пользователю "
+#~ "при входе в конференц-комнату. По "
+#~ "умолчанию - нет."
+
+#~ msgid ""
+#~ "Choices: yes, no, integer. Sets if "
+#~ "the number of users should be "
+#~ "announced to all other users in "
+#~ "the conference when someone joins. When"
+#~ " set to a number, the announcement"
+#~ " will only occur once the user "
+#~ "count is above the specified number"
+#~ msgstr "Выбор: yes, no, число. "
+
+#~ msgid ""
+#~ "Sets if the only user announcement "
+#~ "should be played when someone enters "
+#~ "an empty conference. By default, yes."
+#~ msgstr ""
+#~ "Устанавливает должно ли проигрываться "
+#~ "сообщение о заходе пользователя в "
+#~ "конференцию. По умолчанию - да."
+
+#~ msgid ""
+#~ "If set, the sound file specified "
+#~ "by filename will be played to the"
+#~ " user, and only the user, upon "
+#~ "joining the conference bridge."
+#~ msgstr ""
+#~ "Если установлено, звуковой файл с "
+#~ "определенным именем будет проигран "
+#~ "пользователю при присоединении к конференции"
+
+#~ msgid ""
+#~ "When enabled, this option prompts the"
+#~ " user for their name when entering"
+#~ " the conference. After the name is"
+#~ " recorded, it will be played as "
+#~ "the user enters and exists the "
+#~ "conference. By default, no."
+#~ msgstr ""
+#~ "Когда эта опция включена, у пользователя"
+#~ " запрашивается его имя при входе в"
+#~ " конференцию. После этого записывается то,"
+#~ " что сказал пользовательи проигрывается при"
+#~ " его входе в конференцию. По "
+#~ "умолчанию - нет."
+
+#~ msgid ""
+#~ "Drops what Asterisk detects as silence"
+#~ " from entering into the bridge. "
+#~ "Enabling this option will drastically "
+#~ "improve performance and help remove the"
+#~ " buildup of background noise from the"
+#~ " conference. This option is highly "
+#~ "recommended for large conferences, due "
+#~ "to its performance improvements."
+#~ msgstr ""
+#~ "Включение этой опции резко повышает "
+#~ "производительность и поможет удалить "
+#~ "наращивание фонового шума от конференции. "
+#~ "Эта опция рекомендуется для больших "
+#~ "конференций ввиду улучшения производительности."
+
+#~ msgid ""
+#~ "The time, in milliseconds, by default"
+#~ " 160, of sound above what the "
+#~ "DSP has established as base-line "
+#~ "silence for a user, before that "
+#~ "user is considered to be talking. "
+#~ "This value affects several options:\n"
+#~ "Audio is only mixed out of a "
+#~ "user's incoming audio stream if talking"
+#~ " is detected. If this value is "
+#~ "set too loose, the user will hear"
+#~ " themselves briefly each time they "
+#~ "begin talking until the DSP has "
+#~ "time to establish that they are in"
+#~ " fact talking.\n"
+#~ "When talker detection AMI events are "
+#~ "enabled, this value determines when "
+#~ "talking has begun, which causes AMI "
+#~ "events to fire. If this value is"
+#~ " set too tight, AMI events may "
+#~ "be falsely triggered by variants in "
+#~ "the background noise of the caller.\n"
+#~ ""
+#~ "The drop_silence option depends on this"
+#~ " value to determine when the user's"
+#~ " audio should be mixed into the "
+#~ "bridge after periods of silence. If "
+#~ "this value is too loose, the "
+#~ "beginning of a user's speech will "
+#~ "get cut off as they transition "
+#~ "from silence to talking."
+#~ msgstr ""
+#~ "Время в миллисекундах (160 по "
+#~ "умолчанию), которое согласно DSP предшествует"
+#~ " началу разговора пользователя. Это "
+#~ "значание влияет на некоторые операции: "
+#~ "Аудио микшируется только из поступающего "
+#~ "звукового потока пользователя, если речь "
+#~ "обнаружена.  Если значение слишком низкое "
+#~ "- пользователи будут слышать себя каждый"
+#~ " раз, когда они начинают говорить. "
+#~ "Также это значение влияет на правильное"
+#~ " создание соответсвующего AMI-событий. Если "
+#~ "значение слишком большое - то начало "
+#~ "разговора пользователя может быть не "
+#~ "услышано."
+
+#~ msgid ""
+#~ "The time, in milliseconds, by default"
+#~ " 2500, of sound falling within what"
+#~ " the DSP has established as the "
+#~ "baseline silence, before a user is "
+#~ "considered to be silent. The best "
+#~ "way to approach this option is to"
+#~ " set it slightly above the maximum"
+#~ " amount of milliseconds of silence a"
+#~ " user may generate during natural "
+#~ "speech. This value affects several "
+#~ "operations:\n"
+#~ "When talker detection AMI events are "
+#~ "enabled, this value determines when the"
+#~ " user has stopped talking after a "
+#~ "period of talking. If this value "
+#~ "is set too low, AMI events "
+#~ "indicating that the user has stopped "
+#~ "talking may get faslely sent out "
+#~ "when the user briefly pauses during "
+#~ "mid sentence.\n"
+#~ "The drop_silence option depends on this"
+#~ " value to determine when the user's"
+#~ " audio should begin to be dropped "
+#~ "from the bridge, after the user "
+#~ "stops talking. If this value is "
+#~ "set too low, the user's audio "
+#~ "stream may sound choppy to other "
+#~ "participants."
+#~ msgstr ""
+#~ "Продолжительность тишины, которая считается "
+#~ "DSP базовой для того, чтобы  считать,"
+#~ " что от пользователя не приходит "
+#~ "никакого аудио-потока, по умолчанию 2500 "
+#~ "милисекунд. Best practice - установить "
+#~ "это значение чуть выше значения по "
+#~ "умолчанию, нежели значение, которое может "
+#~ "быть достигнуто в естественной речи "
+#~ "пользователя. Это значание влияет на "
+#~ "некоторые события: Когда AMI-событие "
+#~ "детектирования говорящего включено, это "
+#~ "занчание определяет, когда пользователь "
+#~ "закончил говорить. Если значение слишком "
+#~ "низкое, то может быть ложное "
+#~ "AMI-событие. Опция drop_silence зависит от "
+#~ "данной опции. Если значание слишком "
+#~ "низкое речь пользователя для других "
+#~ "участников конференции может слышиться "
+#~ "прерывистой"
+
+#~ msgid ""
+#~ "Sets whether or not notifications of "
+#~ "when a user begins and ends "
+#~ "talking should be sent out as "
+#~ "events over AMI. By default, no."
+#~ msgstr ""
+#~ "Устанавливает отправку AMI-событий когда "
+#~ "пользователь начал или закончил говорить. "
+#~ "По умолчанию - нет."
+
+#~ msgid ""
+#~ "Whether or not a noise reduction "
+#~ "filter should be applied to the "
+#~ "audio before mixing. By default, off."
+#~ " This requires codec_speex to be "
+#~ "built and installed. Do not confuse "
+#~ "this option with drop_silence. denoise "
+#~ "is useful if there is a lot "
+#~ "of background noise for a user, as"
+#~ " it attempts to remove the noise "
+#~ "while still preserving the speech. This"
+#~ " option does not remove silence from"
+#~ " being mixed into the conference and"
+#~ " does come at the cost of a "
+#~ "slight performance hit."
+#~ msgstr ""
+#~ "Устанавливает должно ли быть включено "
+#~ "шумоподавление перед микшированием аудиопотока. "
+#~ "По умолчанию - выключено. Для "
+#~ "использования данной опции codec_speex должен"
+#~ " быть скомпилирован и установлен. Не "
+#~ "путайте эту опцию с drop_silence, "
+#~ "удаление шумов полезно, если есть много"
+#~ " фонового шума, так как включение "
+#~ "этой опции позвоялет удалить шум, "
+#~ "сохраняя речь. Эта опция не удаляет "
+#~ "тишину из микширования в конференции и"
+#~ " в конечном итоге приводит к "
+#~ "небольшому падению производительности."
+
+#~ msgid ""
+#~ "Whether or not to place a jitter"
+#~ " buffer on the caller's audio stream"
+#~ " before any audio mixing is "
+#~ "performed. This option is highly "
+#~ "recommended, but will add a slight "
+#~ "delay to the audio and will incur"
+#~ " a slight performance penalty. This "
+#~ "option makes use of the JITTERBUFFER "
+#~ "dialplan function's default adaptive jitter"
+#~ " buffer. For a more fine-tuned "
+#~ "jitter buffer, disable this option and"
+#~ " use the JITTERBUFFER dialplan function "
+#~ "on the calling channel, before it "
+#~ "enters the ConfBridge application."
+#~ msgstr ""
+#~ "Указывать или не указывать значение "
+#~ "джиттер-буффера на голосовом потоке звонящего"
+#~ " до того как будут совершены "
+#~ "какие-либо преобразования. Использование опции "
+#~ "рекомендуется, однако добавляет небольшую "
+#~ "задержку в передаче голоса и слегка "
+#~ "снижает производительность системы. Эта опция"
+#~ " позволяет использовать адаптивный jitter "
+#~ "buffer по умолчанию в функции диалплана"
+#~ " JITTERBUFFER . Для более точной "
+#~ "настройки jitter-buffer требуется отключение"
+#~ " опции и применение функции диалплана "
+#~ "JITTERBUFFER на вызываемом канале до "
+#~ "того как вызов попадет в приложение "
+#~ "ConfBridge."
+
+#~ msgid "New Password"
+#~ msgstr "Новый Пароль"
+
+#~ msgid "Conferences"
+#~ msgstr "Конференции"
+
+#~ msgid "Plan"
+#~ msgstr "План"
+
+#~ msgid "Contacts"
+#~ msgstr "Контакты"
+
+#~ msgid "Recordings"
+#~ msgstr "Записи"
+
+#~ msgid "Profiles"
+#~ msgstr "Профили"
+
+#~ msgid "Participant"
+#~ msgstr "Участник"
+
+#~ msgid "Users"
+#~ msgstr "Пользователи"
+
+#~ msgid "Roles"
+#~ msgstr "Роли"
+
+#~ msgid "Attempt to enter non-public conference from %(phone)s."
+#~ msgstr "Попытка войти в не-публичную конференцию с номера %(phone)s."
+
+#~ msgid "Could not invite number %(num)s: %(status)s"
+#~ msgstr "Невозможно вызвать номер  %(num)s: %(status)s"
+
+#~ msgid "Number %(num)s has entered the conference."
+#~ msgstr "Номер %(num)s вошел в конференцию."
+
+#~ msgid "Number %(num)s has left the conference."
+#~ msgstr "Номер %(num)s покинул конференцию."
+
+#~ msgid "Unmute request from number %(num)s."
+#~ msgstr "Запрос на включение микрофона от номера %(num)s."
+
+#~ msgid "Submit"
+#~ msgstr "Подтвердить"
+
+#~ msgid "You can create participants in menu <b>Participants</b>."
+#~ msgstr "Создайте Участников конференции в меню <b>Участники</b>."
+
+#~ msgid "Manage Conference"
+#~ msgstr "Управление конференцией"
+
+#~ msgid "Invite All Participants"
+#~ msgstr "Пригласить всех участников"
+
+#~ msgid "Phone number"
+#~ msgstr "Номер телефона"
+
+#~ msgid "Invite"
+#~ msgstr "Пригласить"
+
+#~ msgid "Mute All"
+#~ msgstr "Выключить все микрофоны"
+
+#~ msgid "Unmute All"
+#~ msgstr "Включить все микрофоны"
+
+#~ msgid "Start Recording"
+#~ msgstr "Начать запись"
+
+#~ msgid "Stop Recording"
+#~ msgstr "Остановить запись"
+
+#~ msgid "Unlock"
+#~ msgstr "Разблокировать"
+
+#~ msgid "Lock"
+#~ msgstr "Заблокировать"
+
+#~ msgid "Kick All"
+#~ msgstr "Отключить всех"
+
+#~ msgid "Unmute"
+#~ msgstr "Включить микрофон"
+
+#~ msgid "Mute"
+#~ msgstr "Выключить микрофон"
+
+#~ msgid "Kick"
+#~ msgstr "Отключить"
+
+#~ msgid "Conference Log"
+#~ msgstr "Лог конференции"
+
+#~ msgid "Clear Log"
+#~ msgstr "Очистить лог"
+
+#~ msgid "You can manage participants in menu <b>Participants</b>."
+#~ msgstr "Управляйте списками Участников конференции в меню <b>Участники</b>."
+
+#~ msgid "Install the Schedule"
+#~ msgstr "Установить расписание"
+
+#~ msgid "You can also"
+#~ msgstr "Вы можете также"
+
+#~ msgid "Import Contacts"
+#~ msgstr "Импортировать контакты"
+
+#~ msgid "Import Contacts from a CSV file (phone, name):"
+#~ msgstr "Импортировать контакты из CSV-файла (телефон, имя):"
+
+#~ msgid "Logout"
+#~ msgstr "Выйти"
+
+#~ msgid "Login"
+#~ msgstr "Войти"
+
+#~ msgid "Language"
+#~ msgstr "Язык"
+
+#~ msgid "Must be a number!"
+#~ msgstr "Тип данных - число!"
+
+#~ msgid "Participant with phone number %(num)s already there."
+#~ msgstr "Участник с номером %(num)s уже добавлен."
+
+#~ msgid "%(job)s is not a correct crontab entry."
+#~ msgstr "%(job)s не является корректной записью планироващика."
+
+#~ msgid "send_invite_emails"
+#~ msgstr "Отправить emails с приглажениями в конференцию для всех участников"
+

@@ -2,7 +2,7 @@ import { ADD_LOG } from '../constants/Page'
 
 const initialState = []
 
-export default function page(state = initialState, action) {
+export default function addLog(state = initialState, action) {
 
   switch (action.type) {
     case ADD_LOG:

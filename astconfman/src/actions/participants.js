@@ -7,20 +7,20 @@ import {
 export function addParticipant(payload) {
       return {
         type: ADD_PARTICIPANT,
-        payload: data
+        payload: payload
       };
 }
 
 export function deleteParticipant(payload) {
       return {
         type: DELETE_PARTICIPANT,
-        payload: data
+        payload: payload
       };
 }
 
 export function updateParticipant(payload) {
       return {
         type: UPDATE_PARTICIPANT,
-        payload: data
+        payload: payload
       };
 }

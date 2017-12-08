@@ -4,6 +4,6 @@ export function addLog(payload) {
 
       return {
         type: ADD_LOG,
-        payload: data
+        payload: payload
       };
 }

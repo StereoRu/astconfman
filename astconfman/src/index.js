@@ -4,10 +4,12 @@ import { Provider } from 'react-redux'
 import App from './containers/App'
 import configureStore from './store/configureStore'
 
+
+//console.log('preloadedState_json=', window.__PRELOADED_STATE__);
 const preloadedState = JSON.parse(window.__PRELOADED_STATE__);
 delete window.__PRELOADED_STATE__;
 
-//console.log('preloadedState=', preloadedState);
+console.log('preloadedState=', preloadedState);
 const store = configureStore(preloadedState);
 
 render(
@@ -17,4 +19,4 @@ render(
     </div>
   </Provider>,
   document.getElementById('root')
-)
+);

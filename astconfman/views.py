@@ -515,9 +515,14 @@ class ConferenceParticipant(ConferenceAdmin, ModelView):
         confbridge.update({ 'recorded': conf.conference_profile.record_conference or False })
         confbridge.update({ 'number': conf.number })
 
+        logs = [ {'data': i.added, 'message': i.message} for i in conf.logs]
+        logs.sort(key=lambda i: i['data'])
+        logs = [ {'data': i['data'].strftime('%H:%M:%S %d:%m:%Y'), 'message': i['message']} for i in logs]
+
         self._template_args['confbridge'] = confbridge
         self._template_args['current_participant'] = g.get('current_participant', None)
         self._template_args['current_participant_profile'] = g.get('current_participant_profile', None)
+        self._template_args['logs'] = logs
 
         print('self._template_args={}'.format(self._template_args))
         return super(ModelView, self).details_view()

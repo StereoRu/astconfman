@@ -21,15 +21,39 @@
 //          kickLabel = "{{ _('Kick') }}",
 //
 //          confbridge = {{ confbridge | tojson }},
-//          confbridge_participants = {{ confbridge_participants | tojson }},
-//          current_participant = {{ current_participant | tojson }},
 //          current_participant_profile = "{{ current_participant_profile }}";
 
-        let confbridge = JSON.parse('{{ confbridge | tojson }}');
+          let confbridge = JSON.parse('{{ confbridge | tojson }}');
+          let current_participant = JSON.parse('{{ current_participant | tojson }}');
+          let confbridge_participants = {{ confbridge_participants | tojson }};
+
+          let current_participant_obj = {
+            id: current_participant.id,
+            name: current_participant.name,
+            phone: current_participant.phone,
+            email: current_participant.email
+          };
+
+          let confbridge_participants_list=[];
+          confbridge_participants.forEach( (item) => {
+            confbridge_participants_list.push({
+              callerid: item.callerid,
+              name: item.name,
+              is_admin: item.is_admin,
+              is_marked: item.is_marked,
+              is_muted: item.is_muted,
+              channel: item.channel,
+              unmute_request: item.unmute_request
+            });
+          } );
 
         window.__PRELOADED_STATE__ = '{ ' +
-          ' "modelId": "{{ model.id }}", ' +
-          ' "modelNumber": "{{ model.number }}", ' +
+//          ' "modelId": "{{ model.id }}", ' +
+//          ' "modelNumber": "{{ model.number }}", ' +
+//          ' "confbridge": {{ confbridge | tojson }}, ' +
+//          ' "confbridge_participants": {{ confbridge_participants | tojson }}, ' +
+//          ' "current_participant_profile": "{{ current_participant_profile }}", ' +
+
 
           ' "urls": { ' +
             ' "muteUrl": "{{url_for('.mute', conf_id=model.id, channel='')}}", ' +
@@ -40,6 +64,9 @@
             ' "lockUrl": "{{ url_for('.lock', conf_id=model.id) }}", ' +
             ' "unlockUrl": "{{ url_for('.unlock', conf_id=model.id) }}", ' +
             ' "invite_guestUrl": "{{ url_for('.invite_guest', conf_id=model.id) }}", ' +
+            ' "ask_wordUrl": "{{ url_for('.invite_guest', conf_id=model.id) }}", ' +
+            ' "send_invite_emailsUrl": "{{ url_for('.send_invite_emails', conf_number=model.number) }}", ' +
+            ' "clearLogUrl": "{{url_for('.clear_log', conf_id=model.id)}}", ' +
             ' "invite_participantUrl": "{{ url_for('.invite_participants', conf_id=model.id) }}" ' +
           ' }, ' +
 
@@ -51,18 +78,24 @@
             ' "unmute_allLabel": "{{ _('Unmute All') }}", ' +
             ' "unmuteLabel": "{{ _('Unmute') }}", ' +
             ' "record_startLabel": "{{ _('Start Recording') }}", ' +
-            ' "record_stopUrl": "{{ _('Stop Recording') }}", ' +
+            ' "record_stopLabel": "{{ _('Stop Recording') }}", ' +
             ' "unlockLabel": "{{ _('Unlock') }}", ' +
             ' "lockLabel": "{{ _('Lock') }}", ' +
             ' "kick_allLabel": "{{ _('Kick All') }}", ' +
             ' "muteLabel": "{{ _('Mute') }}", ' +
-            ' "kickLabel": "{{ _('Kick') }}" ' +
+            ' "kickLabel": "{{ _('Kick') }}", ' +
+            ' "ask_wordLabel": "{{ _('Ask a word') }}", ' +
+            ' "send_invite_emailsLabel": "{{ _('Send invite emails') }}", ' +
+            ' "conferenceLogLabel": "{{_('Conference Log')}}", ' +
+            ' "clearLogLabel": "{{ _('Clear Log') }}", ' +
+            ' "youNumberLabel": "{{ model.number }}" ' +
           ' }, ' +
 
-          ' "confbridge": {{ confbridge | tojson }}, ' +
-          ' "confbridge_participants": {{ confbridge_participants | tojson }}, ' +
-          ' "current_participant": {{ current_participant | tojson }}, ' +
-          ' "current_participant_profile": "{{ current_participant_profile }}", ' +
+          ' "current_participant": ' + JSON.stringify(current_participant_obj) + ', ' +
+
+          ' "participants": ' + JSON.stringify(confbridge_participants_list) + ', ' +
+
+          ' "logs": ' + JSON.stringify({{ logs | tojson }}) + ', ' +
 
           ' "conference": { ' +
             ' "name": ' + confbridge.name + ', ' +

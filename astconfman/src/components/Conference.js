@@ -33,19 +33,13 @@ const Conference = (props) => {
     };
 
     return (
-/*        <div className='conference'> 
-          Conference
-          { is_locked }
-          {marked}
-        </div>
-*/
       <div className='btn-group'>
         <button className='btn btn-default dropdown-toggle' type='button' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
 
-        { name } users { users }  
+         Conference { name }. Users count { users }  
           <span className='caret'></span>
-          { is_locked_icon }
-          { is_marked_icon }
+          { is_locked_icon() }
+          { is_marked_icon() }
         </button>
 
         <ul className='dropdown-menu' aria-labelledby='dropdownMenu'>
@@ -64,8 +58,9 @@ const Conference = (props) => {
             <li><a href={ props.urls.unmuteUrl }><span className='glyphicon glyphicon-volume-up'></span> { props.labels.unmute_allLabel }</a></li>
             <li><a href={ props.urls.record_startUrl }><span className='glyphicon glyphicon-record'></span> { props.labels.record_startLabel }</a></li>
             <li><a href={ props.urls.record_stopUrl }><span className='glyphicon glyphicon-stop'></span> { props.labels.record_stopLabel }</a></li>
-            { is_locked_button }
+            { is_locked_button() }
             <li><a href={ props.urls.kickUrl }><span className='glyphicon glyphicon-off'></span> { props.labels.kick_allLabel }</a></li>
+            <li><a href={ props.urls.send_invite_emailsUrl }><span className='glyphicon glyphicon-envelope'></span> { props.labels.send_invite_emailsLabel }</a></li>
         </ul>
       </div>
       )
@@ -73,7 +68,7 @@ const Conference = (props) => {
 
 Conference.propTypes = {
   conference: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    name: PropTypes.number.isRequired,
     users: PropTypes.number.isRequired,
     marked: PropTypes.bool.isRequired,
     locked: PropTypes.bool.isRequired

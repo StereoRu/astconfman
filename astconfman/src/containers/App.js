@@ -49,7 +49,7 @@ const App = (props) => {
       
         <div className='col-md-4'>
           <div className='row'>
-              <Current_participant current_participant={current_participant} urls={urls} labels={labels} current_participantActions={current_participantActions} />
+              <Current_participant current_participant={current_participant} urls={urls} labels={labels} current_participantActions={current_participantActions} participantsActions={participantsActions} />
           </div>
 
           <Logs logs={logs} urls={urls} labels={labels} logActions={logActions} />

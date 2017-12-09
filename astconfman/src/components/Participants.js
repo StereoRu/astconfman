@@ -4,13 +4,13 @@ import Participant from '../components/Participant'
 const Participants = (props) => {
 
 //    const { name, users, marked, locked } = props.conference;
-
+    
     return (
        <div className='row'>
           <div className='container'>
             <ul>
 
-            { props.participants.map( (item, index) => <Participant key={index} urls={props.urls} labels={props.labels} participant={item} participantAction={props.participantsActions}></Participant>  ) } 
+            { props.participants.map( (item, index) => <Participant key={index} urls={props.urls} labels={props.labels} participant={item} participantActions={props.participantsActions}></Participant>  ) } 
 
             </ul>
           </div>

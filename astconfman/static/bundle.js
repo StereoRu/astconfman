@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "a6c83c370e5565f8c7df"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "cc872f6bb7f98e755d19"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -14671,9 +14671,15 @@
 	
 	var Current_participant = function Current_participant(props) {
 	
+	  var sendUnmuteRequest = function sendUnmuteRequest() {
+	    props.participantsActions.updateParticipant({
+	      callerid: props.current_participant.phone,
+	      unmute_request: true });
+	  };
+	
 	  return _react2.default.createElement(
 	    'button',
-	    { className: 'btn btn-info', type: 'button' },
+	    { className: 'btn btn-info', type: 'button', onClick: sendUnmuteRequest },
 	    'You number is ',
 	    props.current_participant.phone,
 	    '. Press for ask the word.'
@@ -14803,8 +14809,10 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(2);
 	
@@ -14812,94 +14820,171 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Participant = function Participant(props) {
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	    var buttonsAndSpans = function buttonsAndSpans() {
-	        if (props.participant.is_muted) {
-	            var mutedBtn = _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                    'a',
-	                    { href: props.urls.unmuteUrl + props.participant.channel },
-	                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-volume-up' }),
-	                    ' ',
-	                    props.labels.unmuteLabel
-	                )
-	            );
-	            var mutedSpan = _react2.default.createElement('span', { className: 'glyphicon glyphicon-volume-off' });
-	        }
-	        if (!props.participant.is_muted) {
-	            var unmutedBtn = _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                    'a',
-	                    { href: props.urls.muteUrl + props.participant.channel },
-	                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-volume-off' }),
-	                    ' ',
-	                    props.labels.muteLabel
-	                )
-	            );
-	        }
-	        if (props.participant.is_admin) {
-	            var adminSpan = _react2.default.createElement('span', { className: 'glyphicon glyphicon-text-color' });
-	        }
-	        if (props.participant.is_marked) {
-	            var markedSpan = _react2.default.createElement('span', { className: 'glyphicon glyphicon-king' });
-	        }
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	        return { 'mutedBtn': mutedBtn, 'mutedSpan': mutedSpan, 'unmutedBtn': unmutedBtn, 'adminSpan': adminSpan, 'markedSpan': markedSpan };
-	    };
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	    var _buttonsAndSpans = buttonsAndSpans();
+	var Participant = function (_React$Component) {
+	  _inherits(Participant, _React$Component);
 	
-	    return _react2.default.createElement(
+	  function Participant(props) {
+	    _classCallCheck(this, Participant);
+	
+	    var _this = _possibleConstructorReturn(this, (Participant.__proto__ || Object.getPrototypeOf(Participant)).call(this, props));
+	
+	    console.log('participant. props=', props);
+	    _this.state = { btn_classes: 'btn dropdown-toggle' };
+	    return _this;
+	  }
+	
+	  _createClass(Participant, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      console.log('componentWillUpdate()');
+	      this.check_unmute();
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps() {
+	      console.log('componentWillReceiveProps()');
+	      this.check_unmute();
+	    }
+	  }, {
+	    key: 'check_unmute',
+	    value: function check_unmute() {
+	      var _this2 = this;
+	
+	      if (this.props.participant.unmute_request) {
+	        this.setState({ btn_classes: 'btn-default ' + this.state.btn_classes });
+	        console.log('check_unmute() BLINK. btn_classes=', this.state.btn_classes);
+	
+	        var timeout = setInterval(function () {
+	          _this2.btn_blink();
+	        }, 700);
+	
+	        setTimeout(function () {
+	          clearInterval(timeout);
+	          var btn_classes_arr = _this2.state.btn_classes.split(' ');
+	          btn_classes_arr[0] = 'btn-default';
+	          _this2.setState({ btn_classes: btn_classes_arr.join(' ') });
+	
+	          _this2.props.participantActions.updateParticipant({
+	            callerid: _this2.props.participant.callerid,
+	            unmute_request: !_this2.props.participant.unmute_request
+	          });
+	        }, 5000);
+	      } else {
+	        this.setState({ btn_classes: 'btn-default ' + this.state.btn_classes });
+	        console.log('check_unmute() NOT blink. btn_classes=', this.state.btn_classes);
+	      }
+	    }
+	  }, {
+	    key: 'btn_blink',
+	    value: function btn_blink() {
+	      var btn_classes_arr = this.state.btn_classes.split(' ');
+	      if (btn_classes_arr[0] == 'btn-default') {
+	        btn_classes_arr[0] = 'btn-info';
+	      } else {
+	        btn_classes_arr[0] = 'btn-default';
+	      }
+	
+	      this.setState({ btn_classes: btn_classes_arr.join(' ') });
+	    }
+	  }, {
+	    key: 'buttonsAndSpans',
+	    value: function buttonsAndSpans() {
+	      if (this.props.participant.is_muted) {
+	        var mutedBtn = _react2.default.createElement(
+	          'li',
+	          null,
+	          _react2.default.createElement(
+	            'a',
+	            { href: this.props.urls.unmuteUrl + this.props.participant.channel },
+	            _react2.default.createElement('span', { className: 'glyphicon glyphicon-volume-up' }),
+	            ' ',
+	            this.props.labels.unmuteLabel
+	          )
+	        );
+	        var mutedSpan = _react2.default.createElement('span', { className: 'glyphicon glyphicon-volume-off' });
+	      }
+	      if (!this.props.participant.is_muted) {
+	        var unmutedBtn = _react2.default.createElement(
+	          'li',
+	          null,
+	          _react2.default.createElement(
+	            'a',
+	            { href: this.props.urls.muteUrl + this.props.participant.channel },
+	            _react2.default.createElement('span', { className: 'glyphicon glyphicon-volume-off' }),
+	            ' ',
+	            this.props.labels.muteLabel
+	          )
+	        );
+	      }
+	      if (this.props.participant.is_admin) {
+	        var adminSpan = _react2.default.createElement('span', { className: 'glyphicon glyphicon-text-color' });
+	      }
+	      if (this.props.participant.is_marked) {
+	        var markedSpan = _react2.default.createElement('span', { className: 'glyphicon glyphicon-king' });
+	      }
+	
+	      return { 'mutedBtn': mutedBtn, 'mutedSpan': mutedSpan, 'unmutedBtn': unmutedBtn, 'adminSpan': adminSpan, 'markedSpan': markedSpan };
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
 	        'div',
 	        { className: 'btn-group' },
 	        _react2.default.createElement(
-	            'button',
-	            { id: 'participant-' + props.participant.callerid, className: 'btn btn-default dropdown-toggle', type: 'button', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'true' },
-	            _buttonsAndSpans.mutedSpan,
-	            _buttonsAndSpans.adminSpan,
-	            _buttonsAndSpans.markedSpan,
-	            ' ' + props.participant.callerid + ' ',
-	            _react2.default.createElement('span', { className: 'caret' })
+	          'button',
+	          { id: 'participant-' + this.props.participant.callerid, className: this.state.btn_classes, type: 'button', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'true' },
+	          this.buttonsAndSpans().mutedSpan,
+	          this.buttonsAndSpans().adminSpan,
+	          this.buttonsAndSpans().markedSpan,
+	          ' ' + this.props.participant.callerid + ' ',
+	          _react2.default.createElement('span', { className: 'caret' })
 	        ),
 	        _react2.default.createElement(
-	            'ul',
-	            { className: 'dropdown-menu', 'aria-labelledby': 'dropdownMenu1' },
+	          'ul',
+	          { className: 'dropdown-menu', 'aria-labelledby': 'dropdownMenu1' },
+	          _react2.default.createElement(
+	            'li',
+	            null,
 	            _react2.default.createElement(
-	                'li',
-	                null,
-	                _react2.default.createElement(
-	                    'a',
-	                    { href: props.urls.kickUrl + props.participant.channel },
-	                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-remove' }),
-	                    ' ',
-	                    props.labels.kickLabel,
-	                    ' '
-	                )
-	            ),
-	            _buttonsAndSpans.mutedBtn,
-	            _buttonsAndSpans.unmutedBtn
+	              'a',
+	              { href: this.props.urls.kickUrl + this.props.participant.channel },
+	              _react2.default.createElement('span', { className: 'glyphicon glyphicon-remove' }),
+	              ' ',
+	              this.props.labels.kickLabel,
+	              ' '
+	            )
+	          ),
+	          this.buttonsAndSpans().mutedBtn,
+	          this.buttonsAndSpans().unmutedBtn
 	        )
-	    );
-	};
+	      );
+	    }
+	  }]);
 	
-	Participant.propTypes = {
-	    participant: _react.PropTypes.shape({
-	        callerid: _react.PropTypes.string.isRequired,
-	        name: _react.PropTypes.string.isRequired,
-	        is_admin: _react.PropTypes.bool.isRequired,
-	        is_marked: _react.PropTypes.bool.isRequired,
-	        is_muted: _react.PropTypes.bool.isRequired,
-	        channel: _react.PropTypes.string.isRequired,
-	        unmute_request: _react.PropTypes.bool.isRequired
-	    })
-	};
+	  return Participant;
+	}(_react2.default.Component);
 	
 	exports.default = Participant;
+	
+	
+	Participant.propTypes = {
+	  participant: _react.PropTypes.shape({
+	    callerid: _react.PropTypes.string.isRequired,
+	    name: _react.PropTypes.string.isRequired,
+	    is_admin: _react.PropTypes.bool.isRequired,
+	    is_marked: _react.PropTypes.bool.isRequired,
+	    is_muted: _react.PropTypes.bool.isRequired,
+	    channel: _react.PropTypes.string.isRequired,
+	    unmute_request: _react.PropTypes.bool.isRequired
+	  })
+	};
 	
 	/* REACT HOT LOADER */ }).call(this); } finally { if (true) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = __webpack_require__(10); if (makeExportsHot(module, __webpack_require__(2))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot apply hot update to " + "Participant.js" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)(module)))
@@ -14940,7 +15025,7 @@
 	        'ul',
 	        null,
 	        props.participants.map(function (item, index) {
-	          return _react2.default.createElement(_Participant2.default, { key: index, urls: props.urls, labels: props.labels, participant: item, participantAction: props.participantsActions });
+	          return _react2.default.createElement(_Participant2.default, { key: index, urls: props.urls, labels: props.labels, participant: item, participantActions: props.participantsActions });
 	        })
 	      )
 	    )
@@ -15057,7 +15142,7 @@
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'row' },
-	        _react2.default.createElement(_Current_participant2.default, { current_participant: current_participant, urls: urls, labels: labels, current_participantActions: current_participantActions })
+	        _react2.default.createElement(_Current_participant2.default, { current_participant: current_participant, urls: urls, labels: labels, current_participantActions: current_participantActions, participantsActions: participantsActions })
 	      ),
 	      _react2.default.createElement(_Logs2.default, { logs: logs, urls: urls, labels: labels, logActions: logActions })
 	    )
@@ -15332,12 +15417,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
 	exports.default = addParticipant;
 	
 	var _Page = __webpack_require__(16);
+	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
 	var initialState = [];
 	
@@ -15348,11 +15432,12 @@
 	
 	  switch (action.type) {
 	    case _Page.ADD_PARTICIPANT:
+	      console.log('add participants. action=', action);
 	
-	      var append_participants = {};
+	      var append_participants = [];
 	      action.payload.forEach(function (item) {
 	
-	        append_participants[item.callerid] = {
+	        append_participants.push({
 	          callerid: item.callerid,
 	          name: item.name,
 	          channel: item.channel,
@@ -15360,17 +15445,34 @@
 	          is_marked: item.is_marked,
 	          is_muted: item.is_muted,
 	          unmute_request: item.unmute_request
-	        };
+	        });
 	      });
 	
-	      return _extends({}, state, { append_participants: append_participants });
+	      return [].concat(_toConsumableArray(state), [append_participants]);
 	
 	    case _Page.DELETE_PARTICIPANT:
-	      delete state[action.payload.callerid];
-	      return _extends({}, state);
+	      console.log('delete participants. action=', action);
+	      state.forEach(function (item, index) {
+	        if (item.callerid == action.payload.callerid) {
+	          state.splice(index, 1);
+	        }
+	      });
+	      return [].concat(_toConsumableArray(state));
 	
 	    case _Page.UPDATE_PARTICIPANT:
-	      return Object.assign(state, action.payload);
+	      console.log('update participants. action=', action);
+	      var updateble_participant = {};
+	      state.forEach(function (item, index) {
+	        if (item.callerid == action.payload.callerid) {
+	          updateble_participant = Object.assign(item, action.payload);
+	          state.splice(index, 1);
+	        }
+	      });
+	
+	      if (updateble_participant != {}) {
+	        return [].concat(_toConsumableArray(state), [updateble_participant]);
+	      }
+	      return [].concat(_toConsumableArray(state));
 	
 	    default:
 	      return state;

@@ -355,12 +355,13 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
             msg = gettext('Channel %(channel)s is kicked.', channel=channel)
             flash(msg)
             conf.log(msg)
+            sse_notify(conf.id, 'deleteAllParticipants', {})
         else:
             confbridge_kick_all(conf.number)
             msg = gettext('All participants have been kicked from the conference.')
             conf.log(msg)
             flash(msg)
-        sse_notify(conf.id, 'update_participants')
+            sse_notify(conf.id, 'deleteParticipant', {'channel': 'all'})
         time.sleep(1)
         return redirect(url_for('.details_view', id=conf.id))
 
@@ -381,7 +382,7 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
             msg = gettext('Conference muted.')
             flash(msg)
             conf.log(msg)
-        sse_notify(conf.id, 'update_participants')
+            sse_notify(conf.id, 'updateParticipantByChannel', {'channel': channel, 'is_muted': True})
         time.sleep(1)
         return redirect(url_for('.details_view', id=conf_id))
 
@@ -395,6 +396,7 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
             msg = gettext('Participant %(channel)s unmuted.', channel=channel)
             flash(msg)
             conf.log(msg)
+            sse_notify(conf.id, 'updateParticipantByChannel', {'channel': channel, 'is_muted': False})
         else:
             # Mute all
             for p in confbridge_list_participants(conf.number):
@@ -402,7 +404,6 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
             msg = gettext('Conference unmuted.')
             flash(msg)
             conf.log(msg)
-        sse_notify(conf.id, 'update_participants')
         time.sleep(1)
         return redirect(url_for('.details_view', id=conf_id))
 
@@ -515,9 +516,9 @@ class ConferenceParticipant(ConferenceAdmin, ModelView):
         confbridge.update({ 'recorded': conf.conference_profile.record_conference or False })
         confbridge.update({ 'number': conf.number })
 
-        logs = [ {'data': i.added, 'message': i.message} for i in conf.logs]
-        logs.sort(key=lambda i: i['data'])
-        logs = [ {'data': i['data'].strftime('%H:%M:%S %d:%m:%Y'), 'message': i['message']} for i in logs]
+        logs = [ {'date': i.added, 'message': i.message} for i in conf.logs]
+        logs.sort(key=lambda i: i['date'])
+        logs = [ {'date': i['date'].strftime('%H:%M:%S %d:%m:%Y'), 'message': i['message']} for i in logs]
 
         self._template_args['confbridge'] = confbridge
         self._template_args['current_participant'] = g.get('current_participant', None)
@@ -1052,7 +1053,7 @@ def enter_conference(conf_number, callerid):
     message = gettext('Number %(num)s has entered the conference.', num=callerid)
     conference = Conference.query.filter_by(number=conf_number).first_or_404()
     conference.log(message)
-    sse_notify(conference.id, 'update_participants')
+    sse_notify(conference.id, 'addParticipant', {'callerid': callerid})
     return 'OK'
 
 @asterisk.route('/leave_conference/<int:conf_number>/<callerid>')
@@ -1062,7 +1063,7 @@ def leave_conference(conf_number, callerid):
     message = gettext('Number %(num)s has left the conference.', num=callerid)
     conference = Conference.query.filter_by(number=conf_number).first_or_404()
     conference.log(message)
-    sse_notify(conference.id, 'update_participants')
+    sse_notify(conference.id, 'deleteParticipantByCallerId', {'callerid': callerid})
     return 'OK'
 
 
@@ -1073,7 +1074,7 @@ def unmute_request(conf_number, callerid):
     message = gettext('Unmute request from number %(num)s.', num=callerid)
     conference = Conference.query.filter_by(number=conf_number).first_or_404()
     conference.log(message)
-    sse_notify(conference.id, 'unmute_request', callerid)
+    sse_notify(conference.id, 'updateParticipant', { 'callerid': callerid, 'unmute_request': True })
     return 'OK'
 
 

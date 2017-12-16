@@ -6,19 +6,9 @@ export default function addLog(state = initialState, action) {
 
   switch (action.type) {
     case ADD_LOG:
-
-      let append_log = [];
-      action.payload.forEach((item) => {
-
-        append_log.push({
-          date: item.date, 
-          message: item.message
-        });
-
-      });
-      
-      state.concat( append_log );
-      return { ...state }
+//      console.log('ADD_LOG reduser ', action)
+      state = action.payload.concat( state );
+      return [ ...state ]
 
     default:
       return state;

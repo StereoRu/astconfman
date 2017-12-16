@@ -1,35 +1,47 @@
-import React, { PropTypes } from 'react'
+//import React, { PropTypes } from 'react'
+import React from 'react'
 import Participant from '../components/Participant'
 
-const Participants = (props) => {
+export default class Participants extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-//    const { name, users, marked, locked } = props.conference;
-    
+  componentDidMount() { }
+
+  render() {
     return (
        <div className='row'>
-          <div className='container'>
-            <ul>
+          <ul>
 
-            { props.participants.map( (item, index) => <Participant key={index} urls={props.urls} labels={props.labels} participant={item} participantActions={props.participantsActions}></Participant>  ) } 
+          { 
+            Object.keys(this.props.participants).map( (key, index) => {
+                return <Participant 
+                    key={index} 
+                    urls={this.props.urls} 
+                    labels={this.props.labels} 
+                    participant={this.props.participants[key]} 
+                    participantActions={this.props.participantsActions} />
+            } )
+          } 
 
-            </ul>
-          </div>
+          </ul>
        </div>
     );
-};
-
-Participants.propTypes = {
-  participants: PropTypes.arrayOf(
-    PropTypes.shape({
-      callerid: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      is_admin: PropTypes.bool.isRequired,
-      is_marked: PropTypes.bool.isRequired,
-      is_muted: PropTypes.bool.isRequired,
-      channel: PropTypes.string.isRequired,
-      unmute_request: PropTypes.bool.isRequired
-    })
-  )
+  }
 }
 
-export default Participants;
+//Participants.propTypes = {
+//  participants: PropTypes.shape(
+//    PropTypes.shape({
+//      callerid: PropTypes.string.isRequired,
+//      name: PropTypes.string.isRequired,
+//      is_admin: PropTypes.bool.isRequired,
+//      is_marked: PropTypes.bool.isRequired,
+//      is_muted: PropTypes.bool.isRequired,
+//      channel: PropTypes.string.isRequired,
+//      unmute_request: PropTypes.bool.isRequired
+//    })
+//  )
+//}
+

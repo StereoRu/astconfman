@@ -3,9 +3,11 @@ import React, { PropTypes } from 'react'
 const Current_participant = (props) => {
 
   let sendUnmuteRequest = () => {
-    props.participantsActions.updateParticipant({ 
+//    console.log('send unmute_request for callerid=', props.current_participant.phone)
+    props.participantsActions.updateParticipantByCallerid({ 
                 callerid: props.current_participant.phone,
                 unmute_request: true })
+//    props.flashActions.updateFlash({severity: 'info', test: 'test text'})
   }
 
   return (

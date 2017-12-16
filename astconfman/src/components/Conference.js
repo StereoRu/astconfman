@@ -1,70 +1,74 @@
 import React, { PropTypes } from 'react'
 
-const Conference = (props) => {
+export default class Conference extends React.Component {
+    constructor(props) {
+      super(props);
+    }
 
-    const { name, users, marked, locked } = props.conference;
 
-    let is_locked_icon = () => {
-      if (locked) {
+    is_locked_icon() {
+      if (this.props.conference.locked) {
         return ( <span className='glyphicon glyphicon-lock'></span> );
       } else {
         return null;
       }
-    };
+    }
 
-    let is_marked_icon = () => {
-      if (marked) {
+    is_marked_icon() {
+      if (this.props.conference.marked) {
        return ( <span className='glyphicon glyphicon-king'></span> );
       } else {
         return null;
       }
-    };
+    }
 
-    let is_locked_button = () => {
-      if (locked) {
+    is_locked_button() {
+      if (this.props.conference.locked) {
         return ( 
-          <li><a href={ props.urls.unlockUrl }><span className='glyphicon glyphicon-lock'></span> { props.labels.unlockLabel }</a></li>
+          <li><a href={ this.props.urls.unlockUrl }><span className='glyphicon glyphicon-lock'></span> { this.props.labels.unlockLabel }</a></li>
             );
       } else {
         return (
-          <li><a href={ props.urls.lockUrl }><span className='glyphicon glyphicon-lock'></span> { props.labels.lockLabel }</a></li>
+          <li><a href={ this.props.urls.lockUrl }><span className='glyphicon glyphicon-lock'></span> { this.props.labels.lockLabel }</a></li>
             );
       }
-    };
+    }
 
-    return (
-      <div className='btn-group'>
-        <button className='btn btn-default dropdown-toggle' type='button' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
+    render() {
+      return (
+        <div className='btn-group'>
+          <button className='btn btn-default dropdown-toggle' type='button' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
 
-         Conference { name }. Users count { users }  
-          <span className='caret'></span>
-          { is_locked_icon() }
-          { is_marked_icon() }
-        </button>
+          Conference { this.props.conference.name }. Users count { this.props.conference.users }  
+            <span className='caret'></span>
+            { this.is_locked_icon() }
+            { this.is_marked_icon() }
+          </button>
 
-        <ul className='dropdown-menu' aria-labelledby='dropdownMenu'>
-            <li><a href={ props.urls.invite_participantUrl }><span className='glyphicon glyphicon-phone-alt'></span> { props.labels.invite_all_participantsLabel }</a></li>
-            <li>
-                <form className='form' action='{ props.urls.invite_guestUrl }' method='GET'>
-                    <div className='form-group'>
-                        <input type='text' className='form-control' id='phone' name='phone' placeholder={ props.labels.phone_numberLabel }></input>
-                    </div>
-                    <div className='input-group-addon'>
-                    <button type='submit' className='btn btn-default'><span className='glyphicon glyphicon-phone-alt'></span> { props.labels.inviteLabel }</button>
-                    </div>
-                </form>
-            </li>
-            <li><a href={ props.urls.muteUrl }><span className='glyphicon glyphicon-volume-off'></span> { props.labels.mute_allLabel }</a></li>
-            <li><a href={ props.urls.unmuteUrl }><span className='glyphicon glyphicon-volume-up'></span> { props.labels.unmute_allLabel }</a></li>
-            <li><a href={ props.urls.record_startUrl }><span className='glyphicon glyphicon-record'></span> { props.labels.record_startLabel }</a></li>
-            <li><a href={ props.urls.record_stopUrl }><span className='glyphicon glyphicon-stop'></span> { props.labels.record_stopLabel }</a></li>
-            { is_locked_button() }
-            <li><a href={ props.urls.kickUrl }><span className='glyphicon glyphicon-off'></span> { props.labels.kick_allLabel }</a></li>
-            <li><a href={ props.urls.send_invite_emailsUrl }><span className='glyphicon glyphicon-envelope'></span> { props.labels.send_invite_emailsLabel }</a></li>
-        </ul>
-      </div>
-      )
-};
+          <ul className='dropdown-menu' aria-labelledby='dropdownMenu'>
+              <li><a href={ this.props.urls.invite_participantUrl }><span className='glyphicon glyphicon-phone-alt'></span> { this.props.labels.invite_all_participantsLabel }</a></li>
+              <li>
+                  <form className='form' action='{ this.props.urls.invite_guestUrl }' method='GET'>
+                      <div className='form-group'>
+                          <input type='text' className='form-control' id='phone' name='phone' placeholder={ this.props.labels.phone_numberLabel }></input>
+                      </div>
+                      <div className='input-group-addon'>
+                      <button type='submit' className='btn btn-default'><span className='glyphicon glyphicon-phone-alt'></span> { this.props.labels.inviteLabel }</button>
+                      </div>
+                  </form>
+              </li>
+              <li><a href={ this.props.urls.muteUrl }><span className='glyphicon glyphicon-volume-off'></span> { this.props.labels.mute_allLabel }</a></li>
+              <li><a href={ this.props.urls.unmuteUrl }><span className='glyphicon glyphicon-volume-up'></span> { this.props.labels.unmute_allLabel }</a></li>
+              <li><a href={ this.props.urls.record_startUrl }><span className='glyphicon glyphicon-record'></span> { this.props.labels.record_startLabel }</a></li>
+              <li><a href={ this.props.urls.record_stopUrl }><span className='glyphicon glyphicon-stop'></span> { this.props.labels.record_stopLabel }</a></li>
+              { this.is_locked_button() }
+              <li><a href={ this.props.urls.kickUrl }><span className='glyphicon glyphicon-off'></span> { this.props.labels.kick_allLabel }</a></li>
+              <li><a href={ this.props.urls.send_invite_emailsUrl }><span className='glyphicon glyphicon-envelope'></span> { this.props.labels.send_invite_emailsLabel }</a></li>
+          </ul>
+        </div>
+        )
+      }
+}
 
 Conference.propTypes = {
   conference: PropTypes.shape({
@@ -86,4 +90,3 @@ Conference.propTypes = {
   })
 };
 
-export default Conference;

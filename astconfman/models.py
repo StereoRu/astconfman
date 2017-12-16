@@ -77,8 +77,7 @@ class Conference(db.Model):
         post = ConferenceLog(conference=self, message=message)
         db.session.add(post)
         db.session.commit()
-        sse_notify(self.id, 'log_message', message)
-
+        sse_notify(self.id, 'addLog', [{ 'date': datetime.now().strftime('%H:%M:%S %d:%m:%Y'), 'message': message}] )
 
     def invite_participants(self):
         online_participants = [

@@ -3,23 +3,27 @@ import React, { PropTypes } from 'react'
 export default class Participant extends React.Component {
   constructor(props) {
     super(props);
-    console.log('participant. props=', props)
+//    console.log('participant. props=', this.props.participant)
     this.state = { btn_classes: 'btn dropdown-toggle' };
+
+    this.style_participant_button = {
+      margin: '5px'
+    };
   }
 
   componentWillMount() { 
-    console.log('componentWillUpdate()')
+//    console.log('componentWillUpdate()')
     this.check_unmute()
   }
   componentWillReceiveProps() {
-    console.log('componentWillReceiveProps()')
+//    console.log('componentWillReceiveProps()')
     this.check_unmute()
   }
 
   check_unmute() {
-    if (this.props.participant.unmute_request) {
-      this.setState({ btn_classes: 'btn-default ' + this.state.btn_classes })
-      console.log('check_unmute() BLINK. btn_classes=', this.state.btn_classes)
+    this.setState({ btn_classes: 'btn-default ' + this.state.btn_classes })
+    if (this.props.participant.unmute_request === true) {
+//      console.log('check_unmute() BLINK. unmute_request=', this.props.participant.unmute_request, 'callerid=', this.props.participant.callerid)
 
       let timeout = setInterval( () => {
         this.btn_blink();
@@ -31,17 +35,14 @@ export default class Participant extends React.Component {
         btn_classes_arr[0] = 'btn-default'
         this.setState({ btn_classes: btn_classes_arr.join(' ') })
 
-        this.props.participantActions.updateParticipant({
+//        console.log('participant.check_unmute fire updateParticipantByCallerid callerid=', this.props.participant.callerid, 'unmute_request=', !this.props.participant.unmute_request)
+        this.props.participantActions.updateParticipantByCallerid({
                       callerid: this.props.participant.callerid, 
                       unmute_request: !this.props.participant.unmute_request
                      })
       }, 5000);
 
-    } else {
-      this.setState({ btn_classes: 'btn-default ' + this.state.btn_classes })
-      console.log('check_unmute() NOT blink. btn_classes=', this.state.btn_classes)
-    }
-
+    } 
   }
 
   btn_blink() {
@@ -75,8 +76,8 @@ export default class Participant extends React.Component {
     
   render() {
     return (
-      <div className='btn-group'>
-          <button id={'participant-' + this.props.participant.callerid} className={this.state.btn_classes} type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
+      <div className='btn-group' style={this.style_participant_button}>
+          <button className={this.state.btn_classes} type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
           {this.buttonsAndSpans().mutedSpan}
           {this.buttonsAndSpans().adminSpan}
           {this.buttonsAndSpans().markedSpan}

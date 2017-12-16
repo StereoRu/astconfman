@@ -1,46 +1,62 @@
 import React, { PropTypes } from 'react'
 
-const Logs = (props) => {
+export default class Logs extends React.Component {
+    constructor(props) {
+      super(props);
+//      console.log('props.Logs=', this.props)
 
-    const style_td_logs = {
-      whiteSpace: 'nowrap',
-      padding: 0
-    };
-    const style_tr_logs = {
-      padding: 0
-    };
+      this.style_td_logs = {
+        whiteSpace: 'nowrap',
+        padding: '0px 3px 0px 3px'
+      };
+      this.style_tr_logs = {
+        padding: 0
+      };
+    }
 
-    let get_logs = props.logs.map( (item, index) => {
+  componentDidMount() {
+//    const logActions = this.props.logActions
+//    this.props.eventListener.addEventListener('addLog', function(e) {
+//      console.log( 'SSE. Receive event addLog ', e );
+//      logActions.addLog(JSON.parse(e.data))
+//    });
+  }
+
+
+  get_logs() { 
+    return this.props.logs.map( (item, index) => {
         return (
-          <tr key={index} style={style_tr_logs}>
-            <td style={style_td_logs}>{ item.data }</td>
-            <td style={style_td_logs}>{ item.message }</td>
+          <tr key={index} style={this.style_tr_logs}>
+            <td style={this.style_td_logs}>{ item.date }</td>
+            <td style={this.style_td_logs}>  { item.message }</td>
           </tr>
         );
       }
     );
+  }
 
+  render() {
     return (
         <div className='row'>
-          <h3> {props.labels.conferenceLogLabel} <small><button><a href='{props.url.clearLogUrl}'>{props.labels.clearLogLabel}</a></button></small></h3>
+          <h3> {this.props.labels.conferenceLogLabel} <small><button><a href='{this.props.url.clearLogUrl}'>{this.props.labels.clearLogLabel}</a></button></small></h3>
           <div className='table-responsive'>
               <small><table id='logsTable' className='table'>
               <tbody>
-                {get_logs}
+                {this.get_logs()}
               </tbody>
               </table></small>
           </div>
         </div>
       );
-};
+  }
+}
 
 Logs.propTypes = {
   logs: PropTypes.arrayOf(
     PropTypes.shape({
-      data: PropTypes.string.isRequired,
+      date: PropTypes.string.isRequired,
       message: PropTypes.string.isRequired
     })
   )
 };
 
-export default Logs;

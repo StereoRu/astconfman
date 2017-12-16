@@ -34,9 +34,9 @@
             email: current_participant.email
           };
 
-          let confbridge_participants_list=[];
+          let confbridge_participants_list={};
           confbridge_participants.forEach( (item) => {
-            confbridge_participants_list.push({
+            let participant = {
               callerid: item.callerid,
               name: item.name,
               is_admin: item.is_admin,
@@ -44,7 +44,8 @@
               is_muted: item.is_muted,
               channel: item.channel,
               unmute_request: item.unmute_request
-            });
+            };
+            confbridge_participants_list[item.callerid] = participant;
           } );
 
         window.__PRELOADED_STATE__ = '{ ' +
@@ -99,6 +100,7 @@
 
           ' "conference": { ' +
             ' "name": ' + confbridge.name + ', ' +
+            ' "id": "{{ model.id }}", ' +
             ' "marked": ' + confbridge.marked + ', ' +
             ' "locked": ' + confbridge.locked + ', ' +
             ' "users": ' + confbridge.users + 

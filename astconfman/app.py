@@ -91,21 +91,27 @@ security = Security(app, user_datastore)
 sse_subscriptions = []
 
 class ServerSentEvent(object):
-    def __init__(self, data):
-        self.data = data
-        self.event = None
-        self.id = None
-        self.desc_map = {
-            self.data : "data",
-            self.event : "event",
-            self.id : "id"
-        }
+    def __init__(self, item):
+        self.data = item.get('data')
+        self.event = item.get('event')
+        self.room = item.get('room')
+#        self.desc_map = [
+#            { 'data': self.event, 'name': 'event' },
+#            { 'data': self.data,  'name': 'data'  },
+#            { 'data': self.room,  'name': 'room'  }
+#        ]
 
     def encode(self):
-        if not self.data:
+        if not self.data or not self.event or not self.room:
             return ""
-        lines = ["%s: %s" % (v, k)
-                 for k, v in self.desc_map.iteritems() if k]
+#        lines = ["%s: %s" % (v, k)
+#                 for k, v in self.desc_map.iteritems() if k]
+#        lines = ["{}: {}".format(i['name'], i['data'])
+#                                for i in self.desc_map if i['data'] ]
+        lines = [
+            'event: {}'.format(self.event),
+            'data: {}'.format(json.dumps({ 'data': self.data, 'room': self.room }))
+        ]
 
         return "%s\n\n" % "\n".join(lines)
 
@@ -116,17 +122,29 @@ def sse_debug():
     summary_subscriptions = 'Currently {} subscriptions'.format(len(sse_subscriptions))
     return '{}\n\n{}'.format(all_subscriptions, summary_subscriptions)
 
-
 def sse_notify(room, command, message=''):
-    msg = {"room": room, "command": command, "message": message}
+    msg = {"room": room, "event": command, "data": message}
     for sub in sse_subscriptions[:]:
-        sub.put(json.dumps(msg))
-
+#        sub.put(json.dumps(msg))
+        sub.put(msg)
 
 @app.route("/sse_publish")
 def sse_publish():
-    print('sse_publish.sse_notify: {}'.format(sse_notify))
-    gevent.spawn(sse_notify, '1', 'unmute_request', 'max')
+    print('test subscription: {}'.format(sse_notify))
+    from datetime import datetime
+#    gevent.spawn(sse_notify, '2', 'addLog', [{ 'date': datetime.now().strftime('%H:%M:%S %d:%m:%Y'), 'message': 'test log message'}])
+#
+    gevent.spawn(sse_notify, '2', 'addParticipant', { 'callerid': '5555', 'name': '', 'channel': 'sip/test/chan/1111', 'is_admin': True, 'is_marked': True, 'is_muted': True, 'unmute_request': False })
+#    gevent.spawn(sse_notify, '2', 'updateParticipantByCallerid', { 'callerid': '3001', 'unmute_request': True })
+#    gevent.spawn(sse_notify, '2', 'updateParticipantByChannel', { 'channel': 'Local/3001@confman-dialout-0000000c;1', 'unmute_request': True })
+#    gevent.spawn(sse_notify, '2', 'updateAllParticipants', { 'is_muted': False })
+#    gevent.spawn(sse_notify, '2', 'deleteAllParticipants', { 'callerid': '4444' })
+#    gevent.spawn(sse_notify, '2', 'deleteParticipantByCallerId', { 'callerid': '3001' })
+#    gevent.spawn(sse_notify, '2', 'deleteParticipantByChannel', { 'channel': 'Local/3001@confman-dialout-0000000c;1' })
+#
+#    gevent.spawn(sse_notify, '2', 'updateFlash', { 'severity': 'warning', 'text': 'Warning from server' })
+#
+    gevent.spawn(sse_notify, '2', 'updateConference', { 'locked': True })
     return "OK"
 
 @app.route("/sse_subscribe")
@@ -134,24 +152,20 @@ def subscribe():
     def gen():
         q = Queue()
         sse_subscriptions.append(q)
-        print('111')
+        print('append subscription {}'.format(q))
         try:
-            print('222')
             while True:
-                print('assasa')
                 result = q.get()
-                print('loop result={}'.format(result))
-                ev = ServerSentEvent(str(result))
+#                ev = ServerSentEvent(str(result))
+                ev = ServerSentEvent(result)
+                print('publish subscription for all {}'.format(result))
                 yield ev.encode()
         except GeneratorExit: # Or maybe use flask signals
-            print('333')
+            print('remove subscription {}'.format(q))
             sse_subscriptions.remove(q)
 
     res = gen()
-    print('sse_subscriptions.gen(): {}'.format(res))
     return Response(res, mimetype="text/event-stream")
-
-
 
 @app.route('/favicon.ico')
 def favicon():
@@ -162,7 +176,6 @@ def favicon():
 
 from views import asterisk
 app.register_blueprint(asterisk, url_prefix='/asterisk')
-
 
 from models import Contact, Conference, Participant, ParticipantProfile
 from models import ConferenceProfile

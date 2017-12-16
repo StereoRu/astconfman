@@ -4,6 +4,7 @@ import logs from './logs'
 import participants from './participants'
 import current_participant from './current_participant'
 import urls from './urls'
+import flash from './flash'
 import labels from './labels'
 
 export default combineReducers({
@@ -12,5 +13,6 @@ export default combineReducers({
   participants,
   current_participant,
   urls,
+  flash,
   labels
 })

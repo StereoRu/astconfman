@@ -133,6 +133,7 @@ def sse_publish():
     print('test subscription: {}'.format(sse_notify))
     from datetime import datetime
 #    gevent.spawn(sse_notify, '2', 'addLog', [{ 'date': datetime.now().strftime('%H:%M:%S %d:%m:%Y'), 'message': 'test log message'}])
+    gevent.spawn(sse_notify, '2', 'clearLog', { 'some': 'field' })
 #
     gevent.spawn(sse_notify, '2', 'addParticipant', { 'callerid': '5555', 'name': '', 'channel': 'sip/test/chan/1111', 'is_admin': True, 'is_marked': True, 'is_muted': True, 'unmute_request': False })
 #    gevent.spawn(sse_notify, '2', 'updateParticipantByCallerid', { 'callerid': '3001', 'unmute_request': True })
@@ -144,7 +145,7 @@ def sse_publish():
 #
 #    gevent.spawn(sse_notify, '2', 'updateFlash', { 'severity': 'warning', 'text': 'Warning from server' })
 #
-    gevent.spawn(sse_notify, '2', 'updateConference', { 'locked': True })
+#    gevent.spawn(sse_notify, '2', 'updateConference', { 'locked': True })
     return "OK"
 
 @app.route("/sse_subscribe")
@@ -152,13 +153,11 @@ def subscribe():
     def gen():
         q = Queue()
         sse_subscriptions.append(q)
-        print('append subscription {}'.format(q))
         try:
             while True:
                 result = q.get()
 #                ev = ServerSentEvent(str(result))
                 ev = ServerSentEvent(result)
-                print('publish subscription for all {}'.format(result))
                 yield ev.encode()
         except GeneratorExit: # Or maybe use flask signals
             print('remove subscription {}'.format(q))

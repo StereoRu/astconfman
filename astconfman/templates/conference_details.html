@@ -213,7 +213,7 @@
     </div>
 
     <div class="col-md-4">
-        <h3> {{_('Conference Log')}} <small><button><a href="{{url_for('.clear_log', conf_id=model.id)}}">{{ _('Clear Log') }}</a></button></small></h3>
+        <h3> {{_('Conference Log')}} <small><a class='btn btn-info btn-xs' href="{{url_for('.clear_log', conf_id=model.id)}}">{{ _('Clear Log') }}</a></small></h3>
         <div class='table-responsive'>
             <small><table id="logsTable" class="table">
                 {% for log in model.logs | sort(attribute='added', reverse=True) %}

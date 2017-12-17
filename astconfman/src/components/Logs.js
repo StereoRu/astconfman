@@ -38,7 +38,7 @@ export default class Logs extends React.Component {
   render() {
     return (
         <div className='row'>
-          <h3> {this.props.labels.conferenceLogLabel} <small><button><a href='{this.props.url.clearLogUrl}'>{this.props.labels.clearLogLabel}</a></button></small></h3>
+          <h3> {this.props.labels.conferenceLogLabel} <small><a className='btn btn-info btn-xs' href='{this.props.url.clearLogUrl}'>{this.props.labels.clearLogLabel}</a></small></h3>
           <div className='table-responsive'>
               <small><table id='logsTable' className='table'>
               <tbody>

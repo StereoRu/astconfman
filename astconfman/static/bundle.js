@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2f08342ee1da5bfff0da"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7dff305cc4c26e7caba9"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -2250,6 +2250,7 @@
 	var UPDATE_CONFERENCE = exports.UPDATE_CONFERENCE = 'UPDATE_CONFERENCE';
 	
 	var ADD_LOG = exports.ADD_LOG = 'ADD_LOG';
+	var CLEAR_LOG = exports.CLEAR_LOG = 'CLEAR_LOG';
 	
 	var ADD_PARTICIPANT = exports.ADD_PARTICIPANT = 'ADD_PARTICIPANT';
 	
@@ -14419,12 +14420,20 @@
 	  value: true
 	});
 	exports.addLog = addLog;
+	exports.clearLog = clearLog;
 	
 	var _Page = __webpack_require__(13);
 	
 	function addLog(payload) {
 	  return {
 	    type: _Page.ADD_LOG,
+	    payload: payload
+	  };
+	}
+	
+	function clearLog(payload) {
+	  return {
+	    type: _Page.CLEAR_LOG,
 	    payload: payload
 	  };
 	}
@@ -14896,6 +14905,13 @@
 	          logActions.addLog(data.data);
 	        }
 	      });
+	      this.eventListener.addEventListener('clearLog', function (e) {
+	        var data = JSON.parse(e.data);
+	        console.log('SSE common. Receive event clearLog ', e);
+	        if (data.room == room_id) {
+	          logActions.clearLog(data.data);
+	        }
+	      });
 	
 	      var conferenceActions = this.props.conferenceActions;
 	      this.eventListener.addEventListener('updateConference', function (e) {
@@ -15170,13 +15186,9 @@
 	            'small',
 	            null,
 	            _react2.default.createElement(
-	              'button',
-	              null,
-	              _react2.default.createElement(
-	                'a',
-	                { href: '{this.props.url.clearLogUrl}' },
-	                this.props.labels.clearLogLabel
-	              )
+	              'a',
+	              { className: 'btn btn-info btn-xs', href: '{this.props.url.clearLogUrl}' },
+	              this.props.labels.clearLogLabel
 	            )
 	          )
 	        ),
@@ -15895,6 +15907,10 @@
 	      state = action.payload.concat(state);
 	      return [].concat(_toConsumableArray(state));
 	
+	    case _Page.CLEAR_LOG:
+	      //      console.log('ADD_LOG reduser ', action)
+	      return [];
+	
 	    default:
 	      return state;
 	  }
@@ -15987,7 +16003,9 @@
 	      });
 	
 	      new_state = _extends({}, state);
-	      new_state[callerid] = updateble_participant;
+	      if (Object.keys(updateble_participant).length != 0) {
+	        new_state[callerid] = updateble_participant;
+	      }
 	
 	      return new_state;
 	
@@ -16001,7 +16019,9 @@
 	      });
 	
 	      new_state = _extends({}, state);
-	      new_state[action.payload.callerid] = updateble_participant;
+	      if (Object.keys(updateble_participant).length === 0) {
+	        new_state[action.payload.callerid] = updateble_participant;
+	      }
 	
 	      return new_state;
 	

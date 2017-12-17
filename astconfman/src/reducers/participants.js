@@ -71,7 +71,9 @@ export default function addParticipant(state = initialState, action) {
       })
 
       new_state = { ...state }
-      new_state[callerid] = updateble_participant
+      if (Object.keys(updateble_participant).length != 0) {
+        new_state[callerid] = updateble_participant
+      }
 
       return new_state
 
@@ -85,7 +87,9 @@ export default function addParticipant(state = initialState, action) {
       })
 
       new_state = { ...state }
-      new_state[action.payload.callerid] = updateble_participant
+      if (Object.keys(updateble_participant).length === 0) {
+        new_state[action.payload.callerid] = updateble_participant
+      }
 
       return new_state
 

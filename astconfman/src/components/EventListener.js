@@ -64,6 +64,13 @@ class EventsSSE extends React.Component {
         logActions.addLog(data.data)
       }
     });
+    this.eventListener.addEventListener('clearLog', function(e) {
+      let data = JSON.parse(e.data)
+      console.log( 'SSE common. Receive event clearLog ', e );
+      if (data.room==room_id) {
+        logActions.clearLog(data.data)
+      }
+    });
 
     const conferenceActions = this.props.conferenceActions
     this.eventListener.addEventListener('updateConference', function(e) {

@@ -1,6 +1,7 @@
 export const UPDATE_CONFERENCE = 'UPDATE_CONFERENCE'
 
 export const ADD_LOG = 'ADD_LOG'
+export const CLEAR_LOG = 'CLEAR_LOG'
 
 export const ADD_PARTICIPANT = 'ADD_PARTICIPANT'
 

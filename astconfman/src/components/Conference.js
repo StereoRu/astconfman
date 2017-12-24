@@ -5,6 +5,13 @@ export default class Conference extends React.Component {
       super(props);
     }
 
+    is_disabled() {
+      if (this.props.current_participant.profile != 'administrator') {
+        return 'disabled'
+      } else {
+        return ''
+      } 
+    }
 
     is_locked_icon() {
       if (this.props.conference.locked) {
@@ -37,9 +44,9 @@ export default class Conference extends React.Component {
     render() {
       return (
         <div className='btn-group'>
-          <button className='btn btn-default dropdown-toggle' type='button' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
+          <button disabled={this.is_disabled()} className='btn btn-default dropdown-toggle' type='button' id='dropdownMenu1' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
 
-          Conference { this.props.conference.name }. Users count { this.props.conference.users }  
+          Conference { this.props.conference.name }  
             <span className='caret'></span>
             { this.is_locked_icon() }
             { this.is_marked_icon() }

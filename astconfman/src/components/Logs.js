@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react'
 export default class Logs extends React.Component {
     constructor(props) {
       super(props);
-//      console.log('props.Logs=', this.props)
+      this.sendClearLogRequest = this.sendClearLogRequest.bind(this)
 
       this.style_td_logs = {
         whiteSpace: 'nowrap',
@@ -12,6 +12,11 @@ export default class Logs extends React.Component {
       this.style_tr_logs = {
         padding: 0
       };
+      this.style_table_logs = {
+        width: 500,
+        height: 500
+      };
+
     }
 
   componentDidMount() {
@@ -22,6 +27,13 @@ export default class Logs extends React.Component {
 //    });
   }
 
+  is_disabled() {
+    if (this.props.current_participant.profile != 'administrator') {
+      return 'disabled'
+    } else {
+      return ''
+    } 
+  }
 
   get_logs() { 
     return this.props.logs.map( (item, index) => {
@@ -35,11 +47,16 @@ export default class Logs extends React.Component {
     );
   }
 
+  sendClearLogRequest() {
+    this.props.flashActions.updateFlash({severity: 'info', text: 'Вы отправили запрос на очистку лога конференции'})
+    this.props.logActions.sendApiRequest({url: this.props.urls.clearLogUrl})
+  }
+
   render() {
     return (
         <div className='row'>
-          <h3> {this.props.labels.conferenceLogLabel} <small><a className='btn btn-info btn-xs' href='{this.props.url.clearLogUrl}'>{this.props.labels.clearLogLabel}</a></small></h3>
-          <div className='table-responsive'>
+          <h3> {this.props.labels.conferenceLogLabel} <small><button className={'btn btn-info btn-xs ' + this.is_disabled()} onClick={this.sendClearLogRequest}>{this.props.labels.clearLogLabel}</button></small></h3>
+          <div className='table-responsive' style={this.style_table_logs}>
               <small><table id='logsTable' className='table'>
               <tbody>
                 {this.get_logs()}

@@ -32,6 +32,8 @@ LISTEN_ADDRESS = '10.1.1.142'
 # LISTEN_PORT - Port to listen on.
 LISTEN_PORT = 5000
 
+#SERVER_NAME = 'http://10.1.1.142:5000/'
+
 # Always leave DEBUG=False in production. DEBUG=True is a security hole as it
 # allows the execution of arbitrary Python code. Be warned!
 DEBUG = True

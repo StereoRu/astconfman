@@ -20,6 +20,7 @@ export default class Participants extends React.Component {
                     key={index} 
                     urls={this.props.urls} 
                     labels={this.props.labels} 
+                    current_participant={this.props.current_participant}
                     participant={this.props.participants[key]} 
                     participantActions={this.props.participantsActions} />
             } )

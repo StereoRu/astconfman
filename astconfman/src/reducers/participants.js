@@ -87,7 +87,7 @@ export default function addParticipant(state = initialState, action) {
       })
 
       new_state = { ...state }
-      if (Object.keys(updateble_participant).length === 0) {
+      if (Object.keys(updateble_participant).length != 0) {
         new_state[action.payload.callerid] = updateble_participant
       }
 

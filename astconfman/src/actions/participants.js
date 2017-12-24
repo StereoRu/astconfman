@@ -1,3 +1,4 @@
+import { sendApiRequestMain } from './apiRerquests'
 import { 
   ADD_PARTICIPANT,
   DELETE_ALL_PARTICIPANTS,
@@ -55,4 +56,8 @@ export function updateAllParticipants(payload) {
         type: UPDATE_ALL_PARTICIPANTS,
         payload: payload
       };
+}
+
+export function sendApiRequest(payload) {
+  return sendApiRequestMain(payload)
 }

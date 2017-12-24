@@ -45,11 +45,11 @@ const App = (props) => {
 
         <div className='col-md-8'>
           <div className='row'>
-              <Conference conference={conference} urls={urls} labels={labels} conferenceActions={conferenceActions} />
+              <Conference conference={conference} urls={urls} labels={labels} current_participant={current_participant} conferenceActions={conferenceActions} />
           </div>            
           <br/>
           <div className='row'>
-                <Participants  participants={participants} urls={urls} labels={labels} participantsActions={participantsActions} />
+                <Participants  participants={participants} urls={urls} labels={labels} current_participant={current_participant} participantsActions={participantsActions} />
           </div>
         </div>
       
@@ -58,7 +58,7 @@ const App = (props) => {
               <Current_participant current_participant={current_participant} urls={urls} labels={labels} current_participantActions={current_participantActions} participantsActions={participantsActions} flashActions={flashActions} />
           </div>
 
-          <Logs  logs={logs} urls={urls} labels={labels} logActions={logActions} />
+          <Logs  logs={logs} urls={urls} labels={labels} current_participant={current_participant} logActions={logActions} flashActions={flashActions} />
         </div>
 
         <EventListener conference={conference} conferenceActions={conferenceActions} flashActions={flashActions} logActions={logActions} participantsActions={participantsActions} />

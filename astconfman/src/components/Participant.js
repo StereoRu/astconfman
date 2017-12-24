@@ -3,8 +3,11 @@ import React, { PropTypes } from 'react'
 export default class Participant extends React.Component {
   constructor(props) {
     super(props);
-//    console.log('participant. props=', this.props.participant)
-    this.state = { btn_classes: 'btn dropdown-toggle' };
+    this.sendMuteRequest = this.sendMuteRequest.bind(this)
+    this.sendUnmuteRequest = this.sendUnmuteRequest.bind(this)
+    this.sendKickRequest = this.sendKickRequest.bind(this)
+
+    this.state = { btn_classes: 'btn dropdown-toggle '+this.is_disabled() };
 
     this.style_participant_button = {
       margin: '5px'
@@ -18,6 +21,14 @@ export default class Participant extends React.Component {
   componentWillReceiveProps() {
 //    console.log('componentWillReceiveProps()')
     this.check_unmute()
+  }
+
+  is_disabled() {
+    if (this.props.current_participant.profile != 'administrator') {
+      return 'disabled'
+    } else {
+      return ''
+    } 
   }
 
   check_unmute() {
@@ -58,11 +69,11 @@ export default class Participant extends React.Component {
 
   buttonsAndSpans() {
     if (this.props.participant.is_muted) {
-        var mutedBtn = <li><a href={ this.props.urls.unmuteUrl + this.props.participant.channel }><span className='glyphicon glyphicon-volume-up'></span> {this.props.labels.unmuteLabel}</a></li>
+        var mutedBtn = <li><a onClick={this.sendUnmuteRequest} href='#'><span className='glyphicon glyphicon-volume-up'></span> {this.props.labels.unmuteLabel}</a></li>
         var mutedSpan = <span className='glyphicon glyphicon-volume-off'></span>
     }
     if (!this.props.participant.is_muted) {
-        var unmutedBtn = <li><a href={this.props.urls.muteUrl + this.props.participant.channel}><span className='glyphicon glyphicon-volume-off'></span> {this.props.labels.muteLabel}</a></li>
+        var unmutedBtn = <li><a onClick={this.sendMuteRequest} href='#'><span className='glyphicon glyphicon-volume-off'></span> {this.props.labels.muteLabel}</a></li>
     }                            
     if (this.props.participant.is_admin) {
         var adminSpan = <span className='glyphicon glyphicon-text-color'></span>
@@ -72,6 +83,16 @@ export default class Participant extends React.Component {
     }                                               
 
     return { 'mutedBtn': mutedBtn, 'mutedSpan': mutedSpan, 'unmutedBtn': unmutedBtn, 'adminSpan': adminSpan, 'markedSpan': markedSpan }
+  }
+
+  sendUnmuteRequest() {
+    this.props.participantActions.sendApiRequest({url: this.props.urls.unmuteUrl + '&channel=' + this.props.participant.channel})
+  }
+  sendMuteRequest() {
+    this.props.participantActions.sendApiRequest({url: this.props.urls.muteUrl + '&channel=' + this.props.participant.channel})
+  }
+  sendKickRequest() {
+    this.props.participantActions.sendApiRequest({url: this.props.urls.kickUrl + '&channel=' + this.props.participant.channel})
   }
     
   render() {
@@ -85,7 +106,7 @@ export default class Participant extends React.Component {
           <span className='caret'></span>
           </button>
           <ul className='dropdown-menu' aria-labelledby='dropdownMenu1'>
-              <li><a href={this.props.urls.kickUrl+this.props.participant.channel}><span className='glyphicon glyphicon-remove'></span> {this.props.labels.kickLabel} </a></li>
+              <li><a onClick={this.sendKickRequest} href='#'><span className='glyphicon glyphicon-remove'></span> {this.props.labels.kickLabel} </a></li>
               {this.buttonsAndSpans().mutedBtn} 
               {this.buttonsAndSpans().unmutedBtn}
           </ul>                            

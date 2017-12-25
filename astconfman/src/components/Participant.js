@@ -7,7 +7,10 @@ export default class Participant extends React.Component {
     this.sendUnmuteRequest = this.sendUnmuteRequest.bind(this)
     this.sendKickRequest = this.sendKickRequest.bind(this)
 
-    this.state = { btn_classes: 'btn dropdown-toggle '+this.is_disabled() };
+    this.state = { 
+      btn_classes: 'btn dropdown-toggle '+this.is_disabled(),
+      timeRun: false
+    };
 
     this.style_participant_button = {
       margin: '5px'
@@ -16,11 +19,15 @@ export default class Participant extends React.Component {
 
   componentWillMount() { 
 //    console.log('componentWillUpdate()')
-    this.check_unmute()
+    if (this.state.timeRun === false) {
+      this.check_unmute()
+    }
   }
   componentWillReceiveProps() {
 //    console.log('componentWillReceiveProps()')
-    this.check_unmute()
+    if (this.state.timeRun === false) {
+      this.check_unmute()
+    }
   }
 
   is_disabled() {
@@ -33,38 +40,28 @@ export default class Participant extends React.Component {
 
   check_unmute() {
     this.setState({ btn_classes: 'btn-default ' + this.state.btn_classes })
-    if (this.props.participant.unmute_request === true) {
+    if (this.props.participant.unmute_request === true && this.state.timeRun === false) {
 //      console.log('check_unmute() BLINK. unmute_request=', this.props.participant.unmute_request, 'callerid=', this.props.participant.callerid)
+//      console.log('timeRun', this.state.timeRun)
+      this.setState({timeRun: true});
 
-      let timeout = setInterval( () => {
-        this.btn_blink();
-      }, 700);
+      let btn_classes_arr = this.state.btn_classes.split(' ')
+      btn_classes_arr[0] = 'btn-info'
+      this.setState({ btn_classes: btn_classes_arr.join(' ') })
 
+      console.log('timeout', this.state.timer)
       setTimeout( () => {
-        clearInterval(timeout);
         let btn_classes_arr = this.state.btn_classes.split(' ')
         btn_classes_arr[0] = 'btn-default'
         this.setState({ btn_classes: btn_classes_arr.join(' ') })
 
-//        console.log('participant.check_unmute fire updateParticipantByCallerid callerid=', this.props.participant.callerid, 'unmute_request=', !this.props.participant.unmute_request)
         this.props.participantActions.updateParticipantByCallerid({
                       callerid: this.props.participant.callerid, 
                       unmute_request: !this.props.participant.unmute_request
                      })
-      }, 5000);
-
+        this.setState({timeRun: false});
+      }, 2000);
     } 
-  }
-
-  btn_blink() {
-    let btn_classes_arr = this.state.btn_classes.split(' ')
-    if (btn_classes_arr[0] == 'btn-default') {
-      btn_classes_arr[0] = 'btn-info'
-    } else {
-      btn_classes_arr[0] = 'btn-default'
-    }
-
-    this.setState({ btn_classes: btn_classes_arr.join(' ') })
   }
 
   buttonsAndSpans() {

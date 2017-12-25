@@ -13,7 +13,7 @@ def login_participant(func):
         conf_id = request.args.get('id', 0)
 
         participant = Participant.query.filter_by(conference_id=conf_id, token=token).first()
-        print('LOGIN via token. token={}, conf_id={}, participant={}'.format(token, conf_id, participant))
+#        print('LOGIN via token. token={}, conf_id={}, participant={}'.format(token, conf_id, participant))
 
         if participant is not None:
             g.current_participant_profile = participant.profile.name.lower()

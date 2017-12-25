@@ -130,7 +130,6 @@ def sse_notify(room, command, message=''):
 
 @app.route("/sse_publish")
 def sse_publish():
-    print('test subscription: {}'.format(sse_notify))
     from datetime import datetime
 #    gevent.spawn(sse_notify, '2', 'addLog', [{ 'date': datetime.now().strftime('%H:%M:%S %d:%m:%Y'), 'message': 'test log message'}])
     gevent.spawn(sse_notify, '2', 'clearLog', { 'some': 'field' })

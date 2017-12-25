@@ -3,7 +3,7 @@ import os
 from flask.ext.babelex import lazy_gettext as _
 
 # Default Language. Currenly only 'ru' and 'en' are supported.
-LANGUAGE = 'en'
+LANGUAGE = 'ru'
 
 # Put here some random string
 SECRET_KEY = 'change_me_here_to_random_key'
@@ -95,7 +95,7 @@ MAIL_PORT = 465
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True
 MAIL_USERNAME = 'demindima_88@mail.ru'
-MAIL_PASSWORD = '$%CasablanCa4459'
+MAIL_PASSWORD = ''
 MAIL_DEFAULT_SENDER = 'demindima_88@mail.ru'
 
 # variables $name, $phone, $url

@@ -1,3 +1,5 @@
+# *-* encoding: utf-8 *-*
+#
 import json
 import time
 import threading
@@ -32,7 +34,6 @@ from token_auth import login_participant, participant_is_autentificated
 
 class AuthBaseView(BaseView):
     def is_accessible(self):
-        print('AuthBaseView.is_accessible()')
         if not current_user.is_active  or not current_user.is_authenticated:
             return False
         return True
@@ -47,11 +48,8 @@ class AuthBaseView(BaseView):
 class TokenAuthBaseView(BaseView):
     @login_participant
     def is_accessible(self):
-        print('TokenAuthBaseView.is_accessible()')
         if g.get('current_participant', None) is None:
-            print('TokenAuthBaseView.is_accessible() False')
             return False
-        print('TokenAuthBaseView.is_accessible() True')
         return True
 
     def _handle_view(self, name, **kwargs):
@@ -68,7 +66,6 @@ class MyModelView(ModelView):
 
 class UserModelView(ModelView):
     def is_accessible(self):
-        print('UserModelView.is_accessible()')
         return super(AuthBaseView, self).is_accessible() and current_user.has_role('user') or False
 
     def get_query(self):
@@ -79,6 +76,13 @@ class UserModelView(ModelView):
 
     def get_one(self, id):
         return super(UserModelView, self).get_query().filter_by(user=current_user,id=id).first()
+
+    def _handle_view(self, name, **kwargs):
+        if not self.is_accessible():
+            if current_user.is_authenticated:
+                abort(403)
+            else:
+                return redirect(url_for('security.login', next=request.url))
 
 
 def legend_formatter(view, context, model, name):
@@ -287,7 +291,6 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
         db.session.commit()
 
     def is_accessible(self):
-        print('ConferenceAdmin.is_accessible()')
         return super(AuthBaseView, self).is_accessible() and current_user.has_role('admin') or False
 
 
@@ -324,7 +327,7 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
         self._template_args['current_participant_profile'] = g.get('current_participant_profile', 'administrator')
         self._template_args['logs'] = logs
 
-        print('self._template_args={}'.format(self._template_args))
+#        print('self._template_args={}'.format(self._template_args))
         return super(ModelView, self).details_view()
 
 
@@ -377,7 +380,7 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
 #            flash(msg)
             sse_notify(conf.id, 'updateFlash', { 'severity': 'info', 'text': msg })
         time.sleep(1)
-        return redirect(url_for('.details_view', id=conf_id))
+        return jsonify({'status': 'OK', 'text': ''})
 
 
     @expose('/<int:conf_id>/invite_participants')
@@ -388,7 +391,7 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
 #        flash(msg)
         sse_notify(conf.id, 'updateFlash', { 'severity': 'warning', 'text': msg })
         time.sleep(1)
-        return redirect(url_for('.details_view', id=conf.id))
+        return jsonify({'status': 'OK', 'text': ''})
 
 
 
@@ -485,7 +488,7 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
         sse_notify(conf.id, 'updateFlash', { 'severity': 'warning', 'text': msg })
 #        flash(msg)
         conf.log(msg)
-        return redirect(url_for('.details_view', id=conf_id))
+        return jsonify({'status': 'OK', 'text': ''})
 
 
     @expose('/<int:conf_id>/record_stop')
@@ -496,7 +499,7 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
         sse_notify(conf.id, 'updateFlash', { 'severity': 'warning', 'text': msg })
 #        flash(msg)
         conf.log(msg)
-        return redirect(url_for('.details_view', id=conf_id))
+        return jsonify({'status': 'OK', 'text': ''})
 
 
     @expose('/<int:conf_id>/lock')
@@ -509,7 +512,7 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
         sse_notify(conf.id, 'updateConference', { 'locked': True })
         sse_notify(conf.id, 'updateFlash', { 'severity': 'warning', 'text': msg })
         time.sleep(1)
-        return redirect(url_for('.details_view', id=conf_id))
+        return jsonify({'status': 'OK', 'text': ''})
 
 
     @expose('/<int:conf_id>/unlock')
@@ -522,7 +525,7 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
         sse_notify(conf.id, 'updateConference', { 'locked': False })
         sse_notify(conf.id, 'updateFlash', { 'severity': 'warning', 'text': msg })
         time.sleep(1)
-        return redirect(url_for('.details_view', id=conf_id))
+        return jsonify({'status': 'OK', 'text': ''})
 
 
     @expose('/<int:conf_id>/clear_log')
@@ -541,9 +544,12 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
         online_participants = [
             k['callerid'] for k in confbridge_list_participants(
                                                                 conf.number)]
+
+        print([(p.email, p.phone) for p in conf.participants])
         gen = (p for p in conf.participants if p.is_invited and p.phone and p.email \
-               not in online_participants)
+               not in online_participants and p.email is not None)
         for p in gen:
+            time.sleep(2)
             data = {
                 'name': p.name,
                 'phone': p.phone,
@@ -562,16 +568,24 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
             body = body.substitute(data)
 
             msg = Message(subject=subject, body=body, recipients=[p.email])
-            mail.send(msg)
+            try:
+                mail.send(msg)
+                log_msg = u'Email приглашение отправлено {}'.format(p.phone)
+                conf.log(log_msg)
+                sse_notify(conf.id, 'updateFlash', { 'severity': 'info', 'text': log_msg })
+            except Exception as e:
+                print('[ERROR]: error during send email to {}. Error={}'.format(p, e))
+                log_msg = u'Ошибка отправки Email приглашения {}. {}'.format(p.phone, e)
+                conf.log(log_msg)
+                sse_notify(conf.id, 'updateFlash', { 'severity': 'danger', 'text': log_msg })
 
-        return redirect(url_for('.details_view', id=conf.id))
+        return jsonify({'status': 'OK', 'text': ''})
 
     @expose('/unmute_request/<int:conf_id>')
     def unmute_request(self, conf_id):
         callerid = request.args.get('callerid', None)
         message = gettext('Unmute request from number %(num)s.', num=callerid)
         conference = Conference.query.filter_by(id=conf_id).first_or_404()
-        print('start unmute_request')
         conference.log(message)
         sse_notify(conference.id, 'updateParticipantByCallerid', { 'callerid': callerid, 'unmute_request': True })
         return jsonify({'status': 'OK', 'text': ''})
@@ -617,8 +631,36 @@ class ConferenceUser(UserModelView, ConferenceAdmin):
         conf = Conference.query.get_or_404(request.args.get('id', 0))
         self._template_args['confbridge_participants'] = \
             confbridge_list_participants(conf.number)
-        self._template_args['confbridge'] = confbridge_get(conf.number)
+
+        for participant in conf.participants:
+            for par in self._template_args['confbridge_participants']:
+                if participant.phone==par['callerid']:
+                    par['name'] = participant.name
+
+        confbridge = confbridge_get(conf.number)
+        confbridge.update({ 'recorded': conf.conference_profile.record_conference or False })
+        confbridge.update({ 'number': conf.number })
+
+        logs = [ {'date': i.added, 'message': i.message} for i in conf.logs]
+        logs.sort(key=lambda i: i['date'], reverse=True)
+        logs = [ {'date': i['date'].strftime('%Y-%m-%d %H:%M:%S'), 'message': i['message']} for i in logs]
+
+        self._template_args['confbridge'] = confbridge
+        self._template_args['current_participant'] = g.get('current_participant', {'id': -1, 'name': 'Name not found', 'phone': 'phone not found', 'email': 'email not found'})
+        self._template_args['current_participant_profile'] = g.get('current_participant_profile', 'administrator')
+        self._template_args['logs'] = logs
+
+#        print('self._template_args={}'.format(self._template_args))
         return super(ModelView, self).details_view()
+
+
+#    @expose('/details/')
+#    def details_view(self):
+#        conf = Conference.query.get_or_404(request.args.get('id', 0))
+#        self._template_args['confbridge_participants'] = \
+#            confbridge_list_participants(conf.number)
+#        self._template_args['confbridge'] = confbridge_get(conf.number)
+#        return super(ModelView, self).details_view()
 
 
 class ConferenceScheduleAdmin(MyModelView, AuthBaseView):
@@ -908,26 +950,26 @@ admin_views = {
         menu_icon_type='glyph',
         menu_icon_value='glyphicon-bullhorn'
         ),
-    'schedule_admin': ConferenceScheduleAdmin(
-        ConferenceSchedule,
-        db.session,
-        endpoint='conference_schedule_admin',
-        url='/admin/schedule',
-        category=_('Conferences'),
-        name=_('Plan'),
-        menu_icon_type='glyph',
-        menu_icon_value='glyphicon-calendar',
-        ),
-    'schedule_user': ConferenceScheduleUser(
-        ConferenceSchedule,
-        db.session,
-        endpoint='conference_schedule_user',
-        url='/user/schedule',
-        category=_('Conferences'),
-        name=_('Plan'),
-        menu_icon_type='glyph',
-        menu_icon_value='glyphicon-calendar',
-        ),
+#    'schedule_admin': ConferenceScheduleAdmin(
+#        ConferenceSchedule,
+#        db.session,
+#        endpoint='conference_schedule_admin',
+#        url='/admin/schedule',
+#        category=_('Conferences'),
+#        name=_('Plan'),
+#        menu_icon_type='glyph',
+#        menu_icon_value='glyphicon-calendar',
+#        ),
+#    'schedule_user': ConferenceScheduleUser(
+#        ConferenceSchedule,
+#        db.session,
+#        endpoint='conference_schedule_user',
+#        url='/user/schedule',
+#        category=_('Conferences'),
+#        name=_('Plan'),
+#        menu_icon_type='glyph',
+#        menu_icon_value='glyphicon-calendar',
+#        ),
     'participants_admin': ParticipantAdmin(
         Participant,
         db.session,
@@ -968,14 +1010,14 @@ admin_views = {
         menu_icon_type='glyph',
         menu_icon_value='glyphicon-book'
         ),
-    'recordings': RecordingAdmin(
-        app.config['ASTERISK_MONITOR_DIR'],
-        '/static/recording/',
-        endpoint='recording',
-        name=_('Recordings'),
-        menu_icon_type='glyph',
-        menu_icon_value='glyphicon-hdd'
-        ),
+#    'recordings': RecordingAdmin(
+#        app.config['ASTERISK_MONITOR_DIR'],
+#        '/static/recording/',
+#        endpoint='recording',
+#        name=_('Recordings'),
+#        menu_icon_type='glyph',
+#        menu_icon_value='glyphicon-hdd'
+#        ),
     'participant_profiles': ParticipantProfileAdmin(
         ParticipantProfile,
         db.session,
@@ -1131,6 +1173,13 @@ def enter_conference(conf_number, callerid):
         is_muted = participant.profile.startmuted
         is_marked = participant.profile.marked
         is_admin = participant.profile.admin
+
+    if is_muted is None:
+        is_muted = False
+    if is_marked is None:
+        is_marked = False
+    if is_admin is None:
+        is_admin = False
 
     message = gettext('Number %(num)s has entered the conference.', num=callerid)
     conference.log(message)

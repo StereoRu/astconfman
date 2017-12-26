@@ -161,8 +161,9 @@ class ContactAdmin(MyModelView, AuthBaseView):
                 for line in data:
                     line = line.split(',')
                     c = Contact()
-                    c.phone = line[0]
-                    c.name = line[1].decode('utf-8')
+                    c.phone = line[0].strip()
+                    c.name = line[1].decode('utf-8').strip()
+                    c.email = line[2].decode('utf-8').strip()
                     c.user = current_user
                     db.session.add(c)
                     imported += 1
@@ -376,7 +377,8 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
             originate(conf.number, phone,
                 bridge_options=conf.conference_profile.get_confbridge_options(),
                 user_options=conf.public_participant_profile.get_confbridge_options())
-            msg = gettext('Number %(phone)s is called for conference.', phone=phone)
+#            msg = gettext('Number %(phone)s is called for conference.', phone=phone)
+            msg = u'Номер {} был приглашен в конференцию'.format(phone)
 #            flash(msg)
             sse_notify(conf.id, 'updateFlash', { 'severity': 'info', 'text': msg })
         time.sleep(1)
@@ -387,7 +389,8 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
     def invite_participants(self, conf_id):
         conf = Conference.query.get_or_404(conf_id)
         conf.invite_participants()
-        msg = gettext('All the participants where invited to the conference')
+#        msg = gettext('All the participants where invited to the conference')
+        msg = u'Все участники были приглашены в конференцию'
 #        flash(msg)
         sse_notify(conf.id, 'updateFlash', { 'severity': 'warning', 'text': msg })
         time.sleep(1)
@@ -406,14 +409,16 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
                 callerid = channel.split('@')[0].split('/')[1]
             except Exception as e:
                 callerid = channel
-            msg = gettext('Participant {} is kicked.'.format(callerid))
+#            msg = gettext('Participant {} is kicked.'.format(callerid))
+            msg = u'Номер {} исключен из конференции'.format(callerid)
 #            flash(msg)
             conf.log(msg)
             sse_notify(conf.id, 'deleteParticipantByChannel', { 'channel': channel })
             sse_notify(conf.id, 'updateFlash', { 'severity': 'info', 'text': msg })
         else:
             confbridge_kick_all(conf.number)
-            msg = gettext('All participants have been kicked from the conference.')
+#            msg = gettext('All participants have been kicked from the conference.')
+            msg = u'Все участники были исключены из конференции'
             conf.log(msg)
 #            flash(msg)
             sse_notify(conf.id, 'deleteAllParticipants', {'channel': 'all'})
@@ -433,7 +438,8 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
                 callerid = channel.split('@')[0].split('/')[1]
             except Exception as e:
                 callerid = channel
-            msg = gettext('Participant {} muted.'.format(callerid))
+#            msg = gettext('Participant {} muted.'.format(callerid))
+            msg = u'Выключен микрофон у {}'.format(callerid)
             sse_notify(conf.id, 'updateParticipantByChannel', {'channel': channel, 'is_muted': True})
             sse_notify(conf.id, 'updateFlash', { 'severity': 'info', 'text': msg })
 #            flash(msg)
@@ -442,7 +448,8 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
             # Mute all
             for p in confbridge_list_participants(conf.number):
                 confbridge_mute(conf.number, p['channel'])
-            msg = gettext('Conference muted.')
+#            msg = gettext('Conference muted.')
+            msg = u'Выключен микрофон у всех участников конференции'
 #            flash(msg)
             conf.log(msg)
             sse_notify(conf.id, 'updateAllParticipants', { 'is_muted': True })
@@ -462,7 +469,8 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
                 callerid = channel.split('@')[0].split('/')[1]
             except Exception as e:
                 callerid = channel
-            msg = gettext('Participant {} unmuted.'.format(callerid))
+#            msg = gettext('Participant {} unmuted.'.format(callerid))
+            msg = u'Включен микрофон у {}'.format(callerid)
 #            flash(msg)
             conf.log(msg)
             sse_notify(conf.id, 'updateParticipantByChannel', {'channel': channel, 'is_muted': False})
@@ -471,7 +479,8 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
             # Mute all
             for p in confbridge_list_participants(conf.number):
                 confbridge_unmute(conf.number, p['channel'])
-            msg = gettext('Conference unmuted.')
+#            msg = gettext('Conference unmuted.')
+            msg = u'Включен микрофон у всех участников конференции'
             sse_notify(conf.id, 'updateAllParticipants', { 'is_muted': False })
             sse_notify(conf.id, 'updateFlash', { 'severity': 'warning', 'text': msg })
 #            flash(msg)
@@ -484,7 +493,8 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
     def record_start(self, conf_id):
         conf = Conference.query.get_or_404(conf_id)
         confbridge_record_start(conf.number)
-        msg = gettext('The conference recording has been started.')
+#        msg = gettext('The conference recording has been started.')
+        msg = u'Остановлена запись конференции'
         sse_notify(conf.id, 'updateFlash', { 'severity': 'warning', 'text': msg })
 #        flash(msg)
         conf.log(msg)
@@ -495,7 +505,8 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
     def record_stop(self, conf_id):
         conf = Conference.query.get_or_404(conf_id)
         confbridge_record_stop(conf.number)
-        msg = gettext('The conference recording has been stopped.')
+#        msg = gettext('The conference recording has been stopped.')
+        msg = u'Запущена запись конференции'
         sse_notify(conf.id, 'updateFlash', { 'severity': 'warning', 'text': msg })
 #        flash(msg)
         conf.log(msg)
@@ -506,7 +517,8 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
     def lock(self, conf_id):
         conf = Conference.query.get_or_404(conf_id)
         confbridge_lock(conf.number)
-        msg = gettext('The conference has been locked.')
+#        msg = gettext('The conference has been locked.')
+        msg = u'Конференция была заблокирована'
 #        flash(msg)
         conf.log(msg)
         sse_notify(conf.id, 'updateConference', { 'locked': True })
@@ -519,7 +531,8 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
     def unlock(self, conf_id):
         conf = Conference.query.get_or_404(conf_id)
         confbridge_unlock(conf.number)
-        msg = gettext('The conference has been unlocked.')
+#        msg = gettext('The conference has been unlocked.')
+        msg = u'Конференция была разблокирована'
 #        flash(msg)
         conf.log(msg)
         sse_notify(conf.id, 'updateConference', { 'locked': False })
@@ -556,7 +569,7 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
                 'url': 'http://{}:{}{}'.format(
                             app.config['LISTEN_URL'].decode('utf-8'),
                             app.config['LISTEN_PORT'],
-                            url_for('conference_user.details_view',
+                            url_for('conference_participant.details_view',
                                      id=conf.id,
                                      token=p.token).decode('utf-8')
                         )
@@ -569,12 +582,12 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
 
             msg = Message(subject=subject, body=body, recipients=[p.email])
             try:
-                mail.send(msg)
-                log_msg = u'Email приглашение отправлено {}'.format(p.phone)
-                conf.log(log_msg)
-                sse_notify(conf.id, 'updateFlash', { 'severity': 'info', 'text': log_msg })
+	        mail.send(msg)
+	        log_msg = u'Email приглашение отправлено {}'.format(p.phone)
+	        conf.log(log_msg)
+	        sse_notify(conf.id, 'updateFlash', { 'severity': 'info', 'text': log_msg })
             except Exception as e:
-                print('[ERROR]: error during send email to {}. Error={}'.format(p, e))
+                print(u'[ERROR]: error during send email to {}. Error={}'.format(p, e))
                 log_msg = u'Ошибка отправки Email приглашения {}. {}'.format(p.phone, e)
                 conf.log(log_msg)
                 sse_notify(conf.id, 'updateFlash', { 'severity': 'danger', 'text': log_msg })
@@ -584,7 +597,8 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
     @expose('/unmute_request/<int:conf_id>')
     def unmute_request(self, conf_id):
         callerid = request.args.get('callerid', None)
-        message = gettext('Unmute request from number %(num)s.', num=callerid)
+#        message = gettext('Unmute request from number %(num)s.', num=callerid)
+        message = u'Запрос слова от номера {}'.format(callerid)
         conference = Conference.query.filter_by(id=conf_id).first_or_404()
         conference.log(message)
         sse_notify(conference.id, 'updateParticipantByCallerid', { 'callerid': callerid, 'unmute_request': True })
@@ -1046,14 +1060,14 @@ admin_views = {
         menu_icon_type='glyph',
         menu_icon_value='glyphicon-user'
     ),
-    'roles': RoleAdmin(
-        Role, db.session, category=_('Users'),
-        endpoint='roles',
-        url='/role',
-        name=_('Roles'),
-        menu_icon_type='glyph',
-        menu_icon_value='glyphicon-queen'
-    ),
+#    'roles': RoleAdmin(
+#        Role, db.session, category=_('Users'),
+#        endpoint='roles',
+#        url='/role',
+#        name=_('Roles'),
+#        menu_icon_type='glyph',
+#        menu_icon_value='glyphicon-queen'
+#    ),
 
 }
 
@@ -1146,8 +1160,9 @@ def user_profile(conf_number, callerid):
 def dial_status(conf_number, callerid, status):
     if not asterisk_is_authenticated():
         return 'NOTAUTH'
-    message = gettext('Could not invite number %(num)s: %(status)s', num=callerid,
-                status=status.capitalize())
+#    message = gettext('Could not invite number %(num)s: %(status)s', num=callerid,
+#                status=status.capitalize())
+    message = u'Неудалось вызвать номер {}. {}'.format(callerid, status.capitalize())
     conference = Conference.query.filter_by(number=conf_number).first_or_404()
     conference.log(message)
     return 'OK'
@@ -1181,7 +1196,8 @@ def enter_conference(conf_number, callerid):
     if is_admin is None:
         is_admin = False
 
-    message = gettext('Number %(num)s has entered the conference.', num=callerid)
+#    message = gettext('Number %(num)s has entered the conference.', num=callerid)
+    message = u'Номер {} присоединился к конференции'.format(callerid)
     conference.log(message)
 
     participant_dic = {
@@ -1200,7 +1216,8 @@ def enter_conference(conf_number, callerid):
 def leave_conference(conf_number, callerid):
     if not asterisk_is_authenticated():
         return 'NOTAUTH'
-    message = gettext('Number %(num)s has left the conference.', num=callerid)
+#    message = gettext('Number %(num)s has left the conference.', num=callerid)
+    message = u'Номер {} покинул конференцию'.format(callerid)
     conference = Conference.query.filter_by(number=conf_number).first_or_404()
     conference.log(message)
     sse_notify(conference.id, 'deleteParticipantByCallerId', {'callerid': callerid})

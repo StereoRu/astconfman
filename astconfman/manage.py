@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.7
 
 import urllib
 from flask import Flask, url_for
@@ -48,10 +48,8 @@ def init():
     user_datastore.add_role_to_user(user, 'user')
 
     contacts = [
-        ('1010', gettext('John Smith'), 'johnsmith@johnsmith.ru'),
-        ('1020', gettext('Sam Brown'), 'sambrown@sambrown.ru'),
-        ('3001', u'linphone', 'lin@linphone.ru'),
-        ('3011', u'xiaomi', 'mi@mi.ru'),
+        ('3001', u'linphone', 'user1@mail.ru'),
+        ('3011', u'xiaomi', 'user2@mail.ru'),
     ]
     for c in contacts:
         rec = Contact(phone=c[0], name=c[1], user=admin, email=c[2])
@@ -76,15 +74,12 @@ def init():
                       )
     db.session.add(conf)
 
-    p1 = Participant(conference=conf, profile=admin_user_profile, phone='1001',
+    p1 = Participant(conference=conf, profile=admin_user_profile, phone='3001',
                      user=admin)
-    p2 = Participant(conference=conf, profile=guest_user_profile, phone='1002',
-                     user=admin)
-    p3 = Participant(conference=conf, profile=marked_user_profile, phone='1003',
+    p2 = Participant(conference=conf, profile=guest_user_profile, phone='3011',
                      user=admin)
     db.session.add(p1)
     db.session.add(p2)
-    db.session.add(p3)
 
     db.session.commit()
 

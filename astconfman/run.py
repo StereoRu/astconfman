@@ -1,4 +1,4 @@
-#!/usr/bin/env python   
+#!/usr/bin/env python2.7
 import sys
 from gevent.wsgi import WSGIServer
 from app import app

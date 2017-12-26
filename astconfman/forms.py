@@ -16,7 +16,7 @@ class ContactImportForm(Form):
         data = field.data.readlines()
         linenum = 1
         for line in data:
-            if not len(line.split(',')) == 2:
+            if not len(line.split(',')) == 3:
                 msg = _('CSV file is broken, line %(linenum)s',
                         linenum=linenum)
                 raise ValidationError(msg)

@@ -2,7 +2,7 @@ import { updateFlash } from './flash'
 
 export function sendApiRequestMain(payload) {
       return function(dispatch) {
-        console.log('sendApiRequest. payload=', payload)
+//        console.log('sendApiRequest. payload=', payload)
         return fetch(payload.url, {
                 credentials: 'same-origin'
               })
@@ -15,7 +15,6 @@ export function sendApiRequestMain(payload) {
               .catch(e => {
                 dispatch(updateFlash({severity: 'danger', text: 'Ошибка отправки запроса к API '+e }))
                 console.log(e)
-                  
                   })
       };
 }

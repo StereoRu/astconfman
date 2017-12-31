@@ -50,7 +50,7 @@ class EventsSSE extends React.Component {
     const flashActions = this.props.flashActions
     this.eventListener.addEventListener('updateFlash', function(e) {
       let data = JSON.parse(e.data)
-      console.log( 'SSE. Receive event updateFlash ', e );
+//      console.log( 'SSE. Receive event updateFlash ', e );
       if (data.room==room_id) {
         flashActions.updateFlash(data.data)
       }
@@ -59,14 +59,14 @@ class EventsSSE extends React.Component {
     const logActions = this.props.logActions
     this.eventListener.addEventListener('addLog', function(e) {
       let data = JSON.parse(e.data)
-      console.log( 'SSE common. Receive event addLog ', e );
+//      console.log( 'SSE common. Receive event addLog ', e );
       if (data.room==room_id) {
         logActions.addLog(data.data)
       }
     });
     this.eventListener.addEventListener('clearLog', function(e) {
       let data = JSON.parse(e.data)
-      console.log( 'SSE common. Receive event clearLog ', e );
+//      console.log( 'SSE common. Receive event clearLog ', e );
       if (data.room==room_id) {
         logActions.clearLog(data.data)
       }
@@ -75,7 +75,7 @@ class EventsSSE extends React.Component {
     const conferenceActions = this.props.conferenceActions
     this.eventListener.addEventListener('updateConference', function(e) {
       let data = JSON.parse(e.data)
-      console.log( 'SSE common. Receive event updateConference ', e );
+//      console.log( 'SSE common. Receive event updateConference ', e );
       if (data.room==room_id) {
         conferenceActions.updateConference(data.data)
       }
@@ -84,49 +84,49 @@ class EventsSSE extends React.Component {
     const participantActions = this.props.participantsActions
     this.eventListener.addEventListener('updateParticipantByChannel', function(e) {
       let data = JSON.parse(e.data)
-      console.log( 'SSE. Receive event updateParticipantByChannel ', e );
+//      console.log( 'SSE. Receive event updateParticipantByChannel ', e );
       if (data.room==room_id) {
         participantActions.updateParticipantByChannel(data.data)
       }
     });
     this.eventListener.addEventListener('updateParticipantByCallerid', function(e) {
       let data = JSON.parse(e.data)
-      console.log( 'SSE. Receive event updateParticipantByCallerid ', e );
+//      console.log( 'SSE. Receive event updateParticipantByCallerid ', e );
       if (data.room==room_id) {
         participantActions.updateParticipantByCallerid(data.data)
       }
     });
     this.eventListener.addEventListener('updateAllParticipants', function(e) {
       let data = JSON.parse(e.data)
-      console.log( 'SSE. Receive event updateAllParticipants ', e );
+//      console.log( 'SSE. Receive event updateAllParticipants ', e );
       if (data.room==room_id) {
         participantActions.updateAllParticipants(data.data)
       }
     });
     this.eventListener.addEventListener('addParticipant', function(e) {
       let data = JSON.parse(e.data)
-      console.log( 'SSE. Receive event addParticipant ', e );
+//      console.log( 'SSE. Receive event addParticipant ', e );
       if (data.room==room_id) {
         participantActions.addParticipant(data.data)
       }
     });
     this.eventListener.addEventListener('deleteAllParticipants', function(e) {
       let data = JSON.parse(e.data)
-      console.log( 'SSE. Receive event deleteAllParticipants ', e );
+//      console.log( 'SSE. Receive event deleteAllParticipants ', e );
       if (data.room==room_id) {
         participantActions.deleteAllParticipants(data.data)
       }
     });
     this.eventListener.addEventListener('deleteParticipantByCallerId', function(e) {
       let data = JSON.parse(e.data)
-      console.log( 'SSE. Receive event deleteParticipantByCallerId ', e );
+//      console.log( 'SSE. Receive event deleteParticipantByCallerId ', e );
       if (data.room==room_id) {
         participantActions.deleteParticipantByCallerId(data.data)
       }
     });
     this.eventListener.addEventListener('deleteParticipantByChannel', function(e) {
       let data = JSON.parse(e.data)
-      console.log( 'SSE. Receive event deleteParticipantByChannel ', e );
+//      console.log( 'SSE. Receive event deleteParticipantByChannel ', e );
       if (data.room==room_id) {
         participantActions.deleteParticipantByChannel(data.data)
       }

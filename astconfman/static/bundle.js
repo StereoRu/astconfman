@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "47df055586c86e5919b1"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "332d1ec1147aaef8cfdb"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -4479,7 +4479,7 @@
 	
 	function sendApiRequestMain(payload) {
 	  return function (dispatch) {
-	    console.log('sendApiRequest. payload=', payload);
+	    //        console.log('sendApiRequest. payload=', payload)
 	    return fetch(payload.url, {
 	      credentials: 'same-origin'
 	    }).then(function (response) {
@@ -15033,7 +15033,7 @@
 	      var flashActions = this.props.flashActions;
 	      this.eventListener.addEventListener('updateFlash', function (e) {
 	        var data = JSON.parse(e.data);
-	        console.log('SSE. Receive event updateFlash ', e);
+	        //      console.log( 'SSE. Receive event updateFlash ', e );
 	        if (data.room == room_id) {
 	          flashActions.updateFlash(data.data);
 	        }
@@ -15042,14 +15042,14 @@
 	      var logActions = this.props.logActions;
 	      this.eventListener.addEventListener('addLog', function (e) {
 	        var data = JSON.parse(e.data);
-	        console.log('SSE common. Receive event addLog ', e);
+	        //      console.log( 'SSE common. Receive event addLog ', e );
 	        if (data.room == room_id) {
 	          logActions.addLog(data.data);
 	        }
 	      });
 	      this.eventListener.addEventListener('clearLog', function (e) {
 	        var data = JSON.parse(e.data);
-	        console.log('SSE common. Receive event clearLog ', e);
+	        //      console.log( 'SSE common. Receive event clearLog ', e );
 	        if (data.room == room_id) {
 	          logActions.clearLog(data.data);
 	        }
@@ -15058,7 +15058,7 @@
 	      var conferenceActions = this.props.conferenceActions;
 	      this.eventListener.addEventListener('updateConference', function (e) {
 	        var data = JSON.parse(e.data);
-	        console.log('SSE common. Receive event updateConference ', e);
+	        //      console.log( 'SSE common. Receive event updateConference ', e );
 	        if (data.room == room_id) {
 	          conferenceActions.updateConference(data.data);
 	        }
@@ -15067,49 +15067,49 @@
 	      var participantActions = this.props.participantsActions;
 	      this.eventListener.addEventListener('updateParticipantByChannel', function (e) {
 	        var data = JSON.parse(e.data);
-	        console.log('SSE. Receive event updateParticipantByChannel ', e);
+	        //      console.log( 'SSE. Receive event updateParticipantByChannel ', e );
 	        if (data.room == room_id) {
 	          participantActions.updateParticipantByChannel(data.data);
 	        }
 	      });
 	      this.eventListener.addEventListener('updateParticipantByCallerid', function (e) {
 	        var data = JSON.parse(e.data);
-	        console.log('SSE. Receive event updateParticipantByCallerid ', e);
+	        //      console.log( 'SSE. Receive event updateParticipantByCallerid ', e );
 	        if (data.room == room_id) {
 	          participantActions.updateParticipantByCallerid(data.data);
 	        }
 	      });
 	      this.eventListener.addEventListener('updateAllParticipants', function (e) {
 	        var data = JSON.parse(e.data);
-	        console.log('SSE. Receive event updateAllParticipants ', e);
+	        //      console.log( 'SSE. Receive event updateAllParticipants ', e );
 	        if (data.room == room_id) {
 	          participantActions.updateAllParticipants(data.data);
 	        }
 	      });
 	      this.eventListener.addEventListener('addParticipant', function (e) {
 	        var data = JSON.parse(e.data);
-	        console.log('SSE. Receive event addParticipant ', e);
+	        //      console.log( 'SSE. Receive event addParticipant ', e );
 	        if (data.room == room_id) {
 	          participantActions.addParticipant(data.data);
 	        }
 	      });
 	      this.eventListener.addEventListener('deleteAllParticipants', function (e) {
 	        var data = JSON.parse(e.data);
-	        console.log('SSE. Receive event deleteAllParticipants ', e);
+	        //      console.log( 'SSE. Receive event deleteAllParticipants ', e );
 	        if (data.room == room_id) {
 	          participantActions.deleteAllParticipants(data.data);
 	        }
 	      });
 	      this.eventListener.addEventListener('deleteParticipantByCallerId', function (e) {
 	        var data = JSON.parse(e.data);
-	        console.log('SSE. Receive event deleteParticipantByCallerId ', e);
+	        //      console.log( 'SSE. Receive event deleteParticipantByCallerId ', e );
 	        if (data.room == room_id) {
 	          participantActions.deleteParticipantByCallerId(data.data);
 	        }
 	      });
 	      this.eventListener.addEventListener('deleteParticipantByChannel', function (e) {
 	        var data = JSON.parse(e.data);
-	        console.log('SSE. Receive event deleteParticipantByChannel ', e);
+	        //      console.log( 'SSE. Receive event deleteParticipantByChannel ', e );
 	        if (data.room == room_id) {
 	          participantActions.deleteParticipantByChannel(data.data);
 	        }
@@ -15329,8 +15329,10 @@
 	  }, {
 	    key: 'sendClearLogRequest',
 	    value: function sendClearLogRequest() {
-	      this.props.flashActions.updateFlash({ severity: 'info', text: 'Вы отправили запрос на очистку лога конференции' });
-	      this.props.logActions.sendApiRequest({ url: this.props.urls.clearLogUrl });
+	      if (this.props.current_participant.profile === 'administrator') {
+	        this.props.flashActions.updateFlash({ severity: 'info', text: 'Вы отправили запрос на очистку лога конференции' });
+	        this.props.logActions.sendApiRequest({ url: this.props.urls.clearLogUrl });
+	      }
 	    }
 	  }, {
 	    key: 'render',
@@ -15434,8 +15436,11 @@
 	      timeRun: false
 	    };
 	
-	    _this.style_participant_button = {
+	    _this.style_participant_button_div = {
 	      margin: '5px'
+	    };
+	    _this.style_participant_button = {
+	      textAlign: 'center'
 	    };
 	    return _this;
 	  }
@@ -15480,7 +15485,7 @@
 	        btn_classes_arr[0] = 'btn-info';
 	        this.setState({ btn_classes: btn_classes_arr.join(' ') });
 	
-	        console.log('timeout', this.state.timer);
+	        //      console.log('timeout', this.state.timer)
 	        setTimeout(function () {
 	          var btn_classes_arr = _this2.state.btn_classes.split(' ');
 	          btn_classes_arr[0] = 'btn-default';
@@ -15553,7 +15558,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'btn-group', style: this.style_participant_button },
+	        { className: 'btn-group', style: this.style_participant_button_div },
 	        _react2.default.createElement(
 	          'button',
 	          { className: this.state.btn_classes, type: 'button', 'data-toggle': 'dropdown', 'aria-haspopup': 'true', 'aria-expanded': 'true' },
@@ -15561,6 +15566,8 @@
 	          this.buttonsAndSpans().adminSpan,
 	          this.buttonsAndSpans().markedSpan,
 	          ' ' + this.props.participant.callerid + ' ',
+	          _react2.default.createElement('br', null),
+	          ' ' + this.props.participant.name + ' ',
 	          _react2.default.createElement('span', { className: 'caret' })
 	        ),
 	        _react2.default.createElement(
@@ -15873,7 +15880,7 @@
 	var preloadedState = JSON.parse(window.__PRELOADED_STATE__);
 	delete window.__PRELOADED_STATE__;
 	
-	console.log('preloadedState=', preloadedState);
+	//console.log('preloadedState=', preloadedState);
 	var store = (0, _configureStore2.default)(preloadedState);
 	
 	//const eventListenerObj = eventListener();
@@ -15964,12 +15971,7 @@
 	
 	  switch (action.type) {
 	    case _Page.UPDATE_CURRENT_PARTICIPANT:
-	      console.log('updateCurrentParticipant old state=' + state);
-	
 	      var new_state = Object.assign({}, state, action.payload);
-	
-	      console.log('updateCurrentParticipant new state=' + new_state);
-	
 	      return new_state;
 	
 	    default:
@@ -16048,12 +16050,7 @@
 	
 	  switch (action.type) {
 	    case _Page.UPDATE_LABELS:
-	      console.log('updateLabels old state=' + state);
-	
 	      var new_state = Object.assign({}, state, action.payload);
-	
-	      console.log('updateLabels new state=' + new_state);
-	
 	      return new_state;
 	
 	    default:
@@ -16254,12 +16251,7 @@
 	
 	  switch (action.type) {
 	    case _Page.UPDATE_URLS:
-	      console.log('updateUrls old state=' + state);
-	
 	      var new_state = Object.assign({}, state, action.payload);
-	
-	      console.log('updateUrls new state=' + new_state);
-	
 	      return new_state;
 	
 	    default:

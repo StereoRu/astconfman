@@ -9,7 +9,7 @@ import configureStore from './store/configureStore'
 const preloadedState = JSON.parse(window.__PRELOADED_STATE__);
 delete window.__PRELOADED_STATE__;
 
-console.log('preloadedState=', preloadedState);
+//console.log('preloadedState=', preloadedState);
 const store = configureStore(preloadedState);
 
 //const eventListenerObj = eventListener();

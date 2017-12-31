@@ -494,7 +494,7 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
         conf = Conference.query.get_or_404(conf_id)
         confbridge_record_start(conf.number)
 #        msg = gettext('The conference recording has been started.')
-        msg = u'Остановлена запись конференции'
+        msg = u'Запущена запись конференции'
         sse_notify(conf.id, 'updateFlash', { 'severity': 'warning', 'text': msg })
 #        flash(msg)
         conf.log(msg)
@@ -506,7 +506,7 @@ class ConferenceAdmin(MyModelView, AuthBaseView):
         conf = Conference.query.get_or_404(conf_id)
         confbridge_record_stop(conf.number)
 #        msg = gettext('The conference recording has been stopped.')
-        msg = u'Запущена запись конференции'
+        msg = u'Остановлена запись конференции'
         sse_notify(conf.id, 'updateFlash', { 'severity': 'warning', 'text': msg })
 #        flash(msg)
         conf.log(msg)

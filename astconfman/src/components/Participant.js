@@ -12,8 +12,11 @@ export default class Participant extends React.Component {
       timeRun: false
     };
 
-    this.style_participant_button = {
+    this.style_participant_button_div = {
       margin: '5px'
+    };
+    this.style_participant_button = {
+      textAlign: 'center'
     };
   }
 
@@ -49,7 +52,7 @@ export default class Participant extends React.Component {
       btn_classes_arr[0] = 'btn-info'
       this.setState({ btn_classes: btn_classes_arr.join(' ') })
 
-      console.log('timeout', this.state.timer)
+//      console.log('timeout', this.state.timer)
       setTimeout( () => {
         let btn_classes_arr = this.state.btn_classes.split(' ')
         btn_classes_arr[0] = 'btn-default'
@@ -94,12 +97,14 @@ export default class Participant extends React.Component {
     
   render() {
     return (
-      <div className='btn-group' style={this.style_participant_button}>
+      <div className='btn-group' style={this.style_participant_button_div}>
           <button className={this.state.btn_classes} type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
           {this.buttonsAndSpans().mutedSpan}
           {this.buttonsAndSpans().adminSpan}
           {this.buttonsAndSpans().markedSpan}
           {' ' + this.props.participant.callerid + ' '} 
+          <br/>
+          {' ' + this.props.participant.name + ' '} 
           <span className='caret'></span>
           </button>
           <ul className='dropdown-menu' aria-labelledby='dropdownMenu1'>

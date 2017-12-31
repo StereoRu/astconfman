@@ -48,8 +48,10 @@ export default class Logs extends React.Component {
   }
 
   sendClearLogRequest() {
-    this.props.flashActions.updateFlash({severity: 'info', text: 'Вы отправили запрос на очистку лога конференции'})
-    this.props.logActions.sendApiRequest({url: this.props.urls.clearLogUrl})
+    if (this.props.current_participant.profile === 'administrator') {
+      this.props.flashActions.updateFlash({severity: 'info', text: 'Вы отправили запрос на очистку лога конференции'})
+      this.props.logActions.sendApiRequest({url: this.props.urls.clearLogUrl})
+    }
   }
 
   render() {
